@@ -10,9 +10,10 @@ namespace dominio
     public class Producto
     {
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public int MinutosPreparacion { get; set; }
-        public string Sector { get; set; }
+        public string Nombre { get; set; }        
+        public int MinutosPreparacion { get; set; }        
         public bool Activo { get; set; }
+        public Sector Sector { get; set; }
+        //opciones de modificacion o lo hacemos en combo
     }
 }

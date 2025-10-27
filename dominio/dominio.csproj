@@ -41,7 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comanda.cs" />
     <Compile Include="Combo.cs" />
+    <Compile Include="EstadoComanda.cs" />
+    <Compile Include="RolUsuario.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Sector.cs" />
     <Compile Include="Producto.cs" />

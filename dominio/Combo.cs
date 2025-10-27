@@ -10,8 +10,10 @@ namespace dominio
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        public bool Activo { get; set; }
+
         //public List<ItemCombo> Items { get; set; } = new List<ItemCombo>();
         public List<Producto> ProductosPermitidos { get; set; } = new List<Producto>();
-        public bool Activo { get; set; }
     }
 }
