@@ -13,7 +13,9 @@ namespace dominio
         public string Descripcion { get; set; }
         public bool Activo { get; set; }
 
-        //public List<ItemCombo> Items { get; set; } = new List<ItemCombo>();
+        //crearia la clase ComboDetalle/ComboItem para ver como esta compuesto el combo
+
+        //public List<ComboItem> Items { get; set; } = new List<ComboItem>(); 
         public List<Producto> ProductosPermitidos { get; set; } = new List<Producto>();
     }
 }

@@ -14,6 +14,7 @@ namespace dominio
         public int MinutosPreparacion { get; set; }        
         public bool Activo { get; set; }
         public Sector Sector { get; set; }
-        //opciones de modificacion o lo hacemos en combo
+
+        //opciones de modificacion 
     }
 }

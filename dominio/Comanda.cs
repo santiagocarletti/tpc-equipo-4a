@@ -12,9 +12,10 @@ namespace dominio
         public string NumeroComanda { get; set; }
         public DateTime FechaCreacion { get; set; }
         public Usuario Cajero { get; set; }
-        public EstadoComanda Estado { get; set; }
+        public EstadoComanda Estado { get; set; }        
+        public List<ComandaItem> Items { get; set; } = new List<ComandaItem>();
 
-        //items de la comanda -> podemos crear una clase comandaItems
+        
 
     }
 }
