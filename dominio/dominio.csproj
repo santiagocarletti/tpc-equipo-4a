@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProductoModificador.cs" />
+    <Compile Include="ComandaItemModificador.cs" />
+    <Compile Include="ComboDetalle.cs" />
     <Compile Include="ComandaItem.cs" />
     <Compile Include="Comanda.cs" />
     <Compile Include="Combo.cs" />
