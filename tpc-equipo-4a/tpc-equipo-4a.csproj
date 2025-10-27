@@ -67,16 +67,71 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Armado.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="Despacho.aspx" />
+    <Content Include="Encargado.aspx" />
+    <Content Include="Freidora.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Plancha.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Armado.aspx.cs">
+      <DependentUpon>Armado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Armado.aspx.designer.cs">
+      <DependentUpon>Armado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Despacho.aspx.cs">
+      <DependentUpon>Despacho.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Despacho.aspx.designer.cs">
+      <DependentUpon>Despacho.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Encargado.aspx.cs">
+      <DependentUpon>Encargado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Encargado.aspx.designer.cs">
+      <DependentUpon>Encargado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Freidora.aspx.cs">
+      <DependentUpon>Freidora.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Freidora.aspx.designer.cs">
+      <DependentUpon>Freidora.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPage.Master.cs">
+      <DependentUpon>MasterPage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPage.Master.designer.cs">
+      <DependentUpon>MasterPage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Plancha.aspx.cs">
+      <DependentUpon>Plancha.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Plancha.aspx.designer.cs">
+      <DependentUpon>Plancha.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MasterPage.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
