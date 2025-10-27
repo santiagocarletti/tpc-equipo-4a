@@ -7,12 +7,11 @@ using System.Web.UI.WebControls;
 
 namespace tpc_equipo_4a
 {
-    public partial class Default : System.Web.UI.Page
+    public partial class Cajero : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
-            
+
         }
     }
 }

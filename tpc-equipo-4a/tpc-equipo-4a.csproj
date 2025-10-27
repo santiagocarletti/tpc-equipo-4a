@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Armado.aspx" />
+    <Content Include="Cajero.aspx" />
     <Content Include="Cliente.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Despacho.aspx" />
@@ -84,6 +85,13 @@
     </Compile>
     <Compile Include="Armado.aspx.designer.cs">
       <DependentUpon>Armado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Cajero.aspx.cs">
+      <DependentUpon>Cajero.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cajero.aspx.designer.cs">
+      <DependentUpon>Cajero.aspx</DependentUpon>
     </Compile>
     <Compile Include="Cliente.aspx.cs">
       <DependentUpon>Cliente.aspx</DependentUpon>
