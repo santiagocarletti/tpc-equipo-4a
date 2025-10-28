@@ -41,7 +41,7 @@
         
             <div class="card mb-4">
                 <div class="card-body">
-                    <!-- Caja de Búsqueda -->
+                    
                     <div class="input-group mb-3">
                         <span class="input-group-text">
                             <span class="material-symbols-outlined">search</span>
@@ -51,7 +51,7 @@
                                      placeholder="Buscar productos"></asp:TextBox>
                     </div>
                     
-                    <!-- Pestañas de Categorías -->
+                    
                     <div class="d-flex flex-wrap gap-2">
                         <asp:Button ID="btnCatCombos" runat="server" 
                                     Text="Combos" 
@@ -69,15 +69,15 @@
                 </div>
             </div>
             
-            <!-- Grid de Productos -->
+            
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3">
                 
-                <!-- Producto 1 -->
+                
                 <div class="col">
                     <div class="card h-100 product-card">
                         <div class="card-body text-center">
                             <h5 class="card-title mb-3">Classic Burger</h5>
-                            <p class="text-muted mb-3">$9.99</p>
+                            
                             <asp:Button ID="btnAgregar1" runat="server" 
                                         Text="Añadir" 
                                         CssClass="btn btn-primary btn-sm w-100" />
@@ -85,12 +85,12 @@
                     </div>
                 </div>
 
-                <!-- Producto 2 -->
+                
                 <div class="col">
                     <div class="card h-100 product-card">
                         <div class="card-body text-center">
                             <h5 class="card-title mb-3">Cheeseburger</h5>
-                            <p class="text-muted mb-3">$10.99</p>
+                            
                             <asp:Button ID="btnAgregar2" runat="server" 
                                         Text="Añadir" 
                                         CssClass="btn btn-primary btn-sm w-100" />
@@ -98,12 +98,12 @@
                     </div>
                 </div>
 
-                <!-- Producto 3 -->
+                
                 <div class="col">
                     <div class="card h-100 product-card">
                         <div class="card-body text-center">
                             <h5 class="card-title mb-3">Bacon Burger</h5>
-                            <p class="text-muted mb-3">$11.99</p>
+                            
                             <asp:Button ID="btnAgregar3" runat="server" 
                                         Text="Añadir" 
                                         CssClass="btn btn-primary btn-sm w-100" />
@@ -115,27 +115,27 @@
             
         </div>
         
-        <!-- Columna Derecha: Pedido Actual -->
+        
         <div class="col-lg-5">
             <div class="card sticky-top" style="top: 100px;">
                 
-                <!-- Header del Pedido -->
+                
                 <div class="card-header bg-white">
                     <h4 class="mb-0">Pedido Actual</h4>
                 </div>
                 
-                <!-- Body: Items del Pedido -->
+               
                 <div class="card-body" style="max-height: 500px; overflow-y: auto;">
                     
-                    <!-- Item 1 del Pedido -->
+                    <!-- Pedido 1 -->
                     <div class="order-item p-3 mb-3">
-                        <!-- Info del Producto -->
+                        
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="mb-0 fw-semibold">Classic Burger</h6>                             
                             <span class="fw-semibold">#A103</span>
                         </div>
                                                 
-                        <!-- Controles de Cantidad -->
+                        
                         <div class="d-flex align-items-center mt-2 gap-2">
                             <div class="btn-group btn-group-sm">
                                 <asp:Button ID="btnRestar1" runat="server" 
@@ -155,7 +155,7 @@
                                 <span class="material-symbols-outlined">delete</span>
                         </div>
                         
-                        <!-- Modificaciones -->
+                        
                         <div class="mt-3">
                             <p class="small fw-semibold mb-2">Modificaciones</p>
                             <div class="d-flex flex-wrap gap-2">
@@ -171,7 +171,7 @@
                             </div>
                         </div>
                         
-                        <!-- Extras -->
+                        
                         <div class="mt-3">
                             <p class="small fw-semibold mb-2">Extras</p>
                             <div class="d-flex flex-wrap gap-2">
@@ -187,7 +187,7 @@
                             </div>
                         </div>
                         
-                        <!-- Comentarios -->
+                      
                         <div class="mt-3">
                             <asp:TextBox ID="txtComentarios1" runat="server" 
                                          TextMode="MultiLine" 
@@ -197,16 +197,16 @@
                         </div>
                     </div>
 
-                    <!-- Item 2 del Pedido -->
+                    <!--Pedido 2-->
                     <div class="order-item p-3 mb-3">
-                        <!-- Info del Producto -->
+                        
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="mb-0 fw-semibold">Bacon Burger</h6>
                             <span class="fw-semibold">#A110</span>
                         </div>
                         
                         
-                        <!-- Controles de Cantidad -->
+                        
                         <div class="d-flex align-items-center mt-2 gap-2">
                             <div class="btn-group btn-group-sm">
                                 <asp:Button ID="btnRestar2" runat="server" 
@@ -226,7 +226,7 @@
                                 <span class="material-symbols-outlined">delete</span>
                         </div>
                         
-                        <!-- Modificaciones -->
+                        
                         <div class="mt-3">
                             <p class="small fw-semibold mb-2">Modificaciones</p>
                             <div class="d-flex flex-wrap gap-2">
