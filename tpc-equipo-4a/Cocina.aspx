@@ -2,9 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <header class="bg-dark py-3 mb-4">
-        <h3 class="text-light m-0">Cocina</h3>
-    </header>
+    <h2>Soy el panel de Cocina</h2>
     <div class="container text-center py-5">
         <p class="text-secondary mb-4">Selecciona el sector a visualizar.</p>
         <div class="d-grid gap-3 col-12 col-md-4 mx-auto">
