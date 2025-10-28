@@ -12,7 +12,6 @@ namespace dominio
         public int ProductoId { get; set; }
         public Producto Producto { get; set; }
         public string Descripcion { get; set; }
-        public decimal PrecioExtra { get; set; }
         public bool Activo { get; set; } = true;
     }
 }

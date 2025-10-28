@@ -13,7 +13,6 @@ namespace dominio
         public ComandaItem ComandaItem { get; set; }
         public int ProductoModificadorId { get; set; }
         public ProductoModificador ProductoModificador { get; set; }
-        public string Descripcion { get; set; } 
-        public decimal PrecioExtra { get; set; } 
+        public string Descripcion { get; set; }
     }
 }

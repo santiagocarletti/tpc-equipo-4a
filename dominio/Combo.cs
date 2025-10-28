@@ -14,8 +14,7 @@ namespace dominio
         public bool Activo { get; set; }
 
         //crearia la clase ComboDetalle/ComboItem para ver como esta compuesto el combo
-
-        //public List<ComboItem> Items { get; set; } = new List<ComboItem>(); 
+        public List<ComboDetalle> Detalles { get; set; } = new List<ComboDetalle>();
         public List<Producto> ProductosPermitidos { get; set; } = new List<Producto>();
     }
 }
