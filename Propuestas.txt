@@ -1,0 +1,25 @@
+En clase Combo, cambiar: 
+public List<Producto> ProductosPermitidos { get; set; } = new List<Producto>();
+..por: 
+public List<Producto> OpcionesPermitidas { get; set; } = new List<Producto>();
+..para mayor claridad
+
+Clase Comanda: Quitar Usuario Cajero
+
+Clase EstadoComanda: Nombre de tipo String en vez de int
+
+Clase ComandaItem
+Agregar: public List<ComandaItemModificador> Modificadores { get; set; } = new List<ComandaItemModificador>();
+
+Clase ComandaItemModificadores: 
+Dejar solo int Id, string Descripcion, cambiar ComandaItemId a IdComandaItem (nombrado así en BD) 
+
+Eliminar Clase: ProductoModificador
+
+Clase: EstadoComanda: Nombre tipo String en lugar de int.
+
+Clase Sector: 
+Quitar Productos
+
+Clase Comanda:
+List<ComandaItem> podría ser innecesario: la relación 1:n con ComandaItems ya se maneja vía IdComanda en ComandaItems
