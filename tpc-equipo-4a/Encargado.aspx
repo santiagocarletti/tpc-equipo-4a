@@ -62,7 +62,7 @@
                     <div class="col-md-4">
                         <asp:Button ID="btnGestionCombos" runat="server" 
                                     CssClass="btn btn-light w-100 admin-btn"
-                                    Text="Gestionar Combo"
+                                    Text="Gestionar Combos"
                                     PostBackUrl="~/Combo.aspx" />
                     </div>
                     <div class="col-md-4">
