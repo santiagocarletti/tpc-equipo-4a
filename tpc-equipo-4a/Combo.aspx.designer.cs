@@ -11,7 +11,7 @@ namespace tpc_equipo_4a
 {
 
 
-    public partial class WebForm3
+    public partial class Combo
     {
     }
 }

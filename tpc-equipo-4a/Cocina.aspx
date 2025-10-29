@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Cocina" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Cocina.aspx.cs" Inherits="tpc_equipo_4a.WebForm1" %>
+﻿<%@ Page Title="Cocina" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Cocina.aspx.cs" Inherits="tpc_equipo_4a.Cocina" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
