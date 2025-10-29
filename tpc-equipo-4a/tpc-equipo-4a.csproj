@@ -79,6 +79,9 @@
     <Content Include="Plancha.aspx" />
     <Content Include="Web.config" />
     <Content Include="Cocina.aspx" />
+    <Content Include="Producto.aspx" />
+    <Content Include="Combo.aspx" />
+    <Content Include="Usuario.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Armado.aspx.cs">
@@ -161,6 +164,27 @@
     </Compile>
     <Compile Include="Cocina.aspx.designer.cs">
       <DependentUpon>Cocina.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Producto.aspx.cs">
+      <DependentUpon>Producto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Producto.aspx.designer.cs">
+      <DependentUpon>Producto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Combo.aspx.cs">
+      <DependentUpon>Combo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Combo.aspx.designer.cs">
+      <DependentUpon>Combo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Usuario.aspx.cs">
+      <DependentUpon>Usuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Usuario.aspx.designer.cs">
+      <DependentUpon>Usuario.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

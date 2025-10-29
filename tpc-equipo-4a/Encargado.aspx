@@ -56,17 +56,20 @@
                     <div class="col-md-4">
                         <asp:Button ID="btnGestionProductos" runat="server" 
                                     CssClass="btn btn-light w-100 admin-btn"
-                                    Text="Gestionar Productos" />
+                                    Text="Gestionar Productos" 
+                                    PostBackUrl="~/Producto.aspx" />
                     </div>
                     <div class="col-md-4">
                         <asp:Button ID="btnGestionCombos" runat="server" 
                                     CssClass="btn btn-light w-100 admin-btn"
-                                    Text="Gestionar Combos" />
+                                    Text="Gestionar Combo"
+                                    PostBackUrl="~/Combo.aspx" />
                     </div>
                     <div class="col-md-4">
                         <asp:Button ID="btnGestionUsuarios" runat="server" 
                                     CssClass="btn btn-light w-100 admin-btn"
-                                    Text="Gestionar Usuarios" />
+                                    Text="Gestionar Usuarios" 
+                                    PostBackUrl="~/Usuario.aspx" />
                     </div>
                 </div>
             </div>
