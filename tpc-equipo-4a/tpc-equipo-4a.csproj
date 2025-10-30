@@ -72,6 +72,7 @@
     <Content Include="Cliente.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Despacho.aspx" />
+    <Content Include="DespachoHistorial.aspx" />
     <Content Include="Encargado.aspx" />
     <Content Include="Freidora.aspx" />
     <Content Include="Global.asax" />
@@ -118,6 +119,13 @@
     </Compile>
     <Compile Include="Despacho.aspx.designer.cs">
       <DependentUpon>Despacho.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DespachoHistorial.aspx.cs">
+      <DependentUpon>DespachoHistorial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DespachoHistorial.aspx.designer.cs">
+      <DependentUpon>DespachoHistorial.aspx</DependentUpon>
     </Compile>
     <Compile Include="Encargado.aspx.cs">
       <DependentUpon>Encargado.aspx</DependentUpon>
