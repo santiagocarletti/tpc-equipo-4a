@@ -12,7 +12,7 @@ namespace dominio
         public int ComandaItemId { get; set; }
         public ComandaItem ComandaItem { get; set; }
         public int ProductoModificadorId { get; set; }
-        public ProductoModificador ProductoModificador { get; set; }
-        public string Descripcion { get; set; }
+        public ProductoModificador Modificador { get; set; }
+        
     }
 }

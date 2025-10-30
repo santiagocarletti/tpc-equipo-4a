@@ -9,11 +9,20 @@ namespace dominio
     public class ComandaItem
     {
         public int Id { get; set; }
+        public int ComandaId { get; set; }
+        public Comanda Comanda { get; set; }
+
+        public int ProductoId { get; set; }
         public Producto Producto { get; set; }
+
+        public int ComboId { get; set; }
         public Combo Combo { get; set; }
+
         public int Cantidad { get; set; }
         public string Comentario { get; set; } //bien cocido, sal aparte,etc.
 
         //modificaciones
+        public List<ComandaItemModificador> Modificadores { get; set; } = new List<ComandaItemModificador>();
+
     }
 }

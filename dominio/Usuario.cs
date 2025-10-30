@@ -12,9 +12,10 @@ namespace dominio
         public int Id { get; set; }
         public string NombreUsuario { get; set; }        
         public string Contraseña { get; set; }
-        public RolUsuario Rol { get; set; }
+        public int RolUsuarioId { get; set; }
         public bool Activo { get; set; }
        
+        public RolUsuario Rol { get; set; }
     }
     
 }

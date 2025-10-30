@@ -10,7 +10,6 @@ namespace dominio
     {
         public int Id { get; set; }
         public string Nombre { get; set; }  //plancha, freidora, etc.
-        public string Descripcion { get; set; }
-        public List<Producto> Productos { get; set; }
+        public string Descripcion { get; set; }        
     }
 }
