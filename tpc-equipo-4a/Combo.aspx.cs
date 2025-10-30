@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using dominio;
-using negocio;
 
 namespace tpc_equipo_4a
 {
