@@ -13,5 +13,14 @@ namespace tpc_equipo_4a
 
     public partial class Combo
     {
+
+        /// <summary>
+        /// Control repCombos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater repCombos;
     }
 }

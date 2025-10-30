@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="Gestionar Productos" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Producto.aspx.cs" Inherits="tpc_equipo_4a.Producto" %>
+
 <asp:Content ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container py-4">
         <h2 class="mb-3">Gestionar Productos</h2>
@@ -30,27 +31,27 @@
                 </thead>
                 <tbody>
                     <%--  --%>
-            <asp:Repeater ID="repProductos" runat="server">
-                <ItemTemplate>
-                    <tr>
-                        <td><%# Eval("Nombre") %></td>
-                        <td><%# Eval("Sector.Nombre") %></td>
-                        <td><%# Eval("MinutosPreparacion") %></td>
-                        <td>
-                            <span class='badge <%# (bool)Eval("Activo") ? "text-bg-success" : "text-bg-secondary" %>'>
-                                <%# (bool)Eval("Activo") ? "Activo" : "Inactivo" %>
-                            </span>
-                        </td>
-                        <td class="text-end">
-                            <button class="btn btn-outline-secondary btn-sm">Editar</button>
-                            <button class='btn btn-outline-<%# (bool)Eval("Activo") ? "danger" : "success" %> btn-sm'>
-                                <%# (bool)Eval("Activo") ? "Desactivar" : "Activar" %>
-                            </button>
-                        </td>
-                    </tr>
-                </ItemTemplate>
-            </asp:Repeater>
-<%--                    <tr>
+                    <asp:Repeater ID="repProductos" runat="server">
+                        <ItemTemplate>
+                            <tr>
+                                <td><%# Eval("Nombre") %></td>
+                                <td><%# Eval("Sector.Nombre") %></td>
+                                <td><%# Eval("MinutosPreparacion") %></td>
+                                <td>
+                                    <span class='badge <%# (bool)Eval("Activo") ? "text-bg-success" : "text-bg-secondary" %>'>
+                                        <%# (bool)Eval("Activo") ? "Activo" : "Inactivo" %>
+                                    </span>
+                                </td>
+                                <td class="text-end">
+                                    <button class="btn btn-outline-secondary btn-sm">Editar</button>
+                                    <button class='btn btn-outline-<%# (bool)Eval("Activo") ? "danger" : "success" %> btn-sm'>
+                                        <%# (bool)Eval("Activo") ? "Desactivar" : "Activar" %>
+                                    </button>
+                                </td>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                    <%--                    <tr>
                         <td>Hamburguesa clasica</td>
                         <td>Plancha</td>
                         <td>8</td>
