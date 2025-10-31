@@ -37,10 +37,8 @@
         .module-card:hover {
             text-decoration: none;
         }
-
-
-        
     </style>
+
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -110,11 +108,11 @@
 
 
         <div class="col">
-            <a href="Cliente.aspx" class="module-card" runat="server">
+            <a href="Orden.aspx" class="module-card" runat="server">
                 <div class="card text-center p-4">
                     <div class="card-body d-flex flex-column align-items-center justify-content-center">
                         <span class="material-symbols-outlined card-icon mb-3">receipt_long</span>
-                        <h5 class="card-title fw-bold mb-3">Cliente</h5>
+                        <h5 class="card-title fw-bold mb-3">Orden</h5>
                         <p class="card-text text-muted">Visualiza el estado de la orden en pantalla</p>
                     </div>
                 </div>

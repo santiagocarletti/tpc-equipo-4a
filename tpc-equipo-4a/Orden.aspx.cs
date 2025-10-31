@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace tpc_equipo_4a
 {
-    public partial class Cliente : System.Web.UI.Page
+    public partial class Orden : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

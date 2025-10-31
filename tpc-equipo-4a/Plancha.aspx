@@ -12,9 +12,9 @@
             justify-content: space-between;
         }
 
-            .sidebar i {
-                font-size: 1.2rem;
-            }
+        .sidebar i {
+            font-size: 1.2rem;
+        }
 
         .sidebar-footer {
             margin-top: auto;
@@ -35,13 +35,17 @@
 
 
         .pedido-card {
-            border: 1px solid #dee2e6;
+            background: rgba(255,255,255,0.92);
+            border: 1px solid rgba(0,0,0,0.08);
             border-radius: 0.75rem;
-            transition: all 0.2s ease-in-out;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            transition: transform .15s ease, box-shadow .15s ease;
+            backdrop-filter: saturate(120%) blur(1px);
         }
 
-            .pedido-card:hover {
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        .pedido-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.10);
             }
 
         .pedido-header {
@@ -56,7 +60,7 @@
             }
 
         .pedido-body p {
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.35rem;
         }
     </style>
 </asp:Content>

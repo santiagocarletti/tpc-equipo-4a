@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Estado de la Orden" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Cliente.aspx.cs" Inherits="tpc_equipo_4a.Cliente" %>
+﻿<%@ Page Title="Estado de la Orden" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Orden.aspx.cs" Inherits="tpc_equipo_4a.Orden" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Estado de la Orden - Proyecto Equipo 4A
