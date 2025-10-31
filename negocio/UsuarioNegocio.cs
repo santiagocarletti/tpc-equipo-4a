@@ -16,18 +16,21 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT U.Id, U.NombreUsuario, R.Id AS IdRol, R.Nombre AS Rol, U.Activo FROM Usuarios U LEFT JOIN RolUsuarios R ON U.IdRol = R.Id");
+                datos.setearConsulta("SELECT U.Id AS IdUsuario, U.NombreUsuario, R.Id AS IdRol, R.Nombre AS Rol, U.Activo FROM Usuarios U LEFT JOIN RolUsuarios R ON R.IdUsuario = U.Id;");
 
                 datos.ejecutarLectura();
 
                 while (datos.Lectorbd.Read())
                 {
-                    int idArtBD = Convert.ToInt32(datos.Lectorbd["Id"]);
+                    int idArtBD = Convert.ToInt32(datos.Lectorbd["IdUsuario"]);
 
                     Usuario aux = new Usuario();
                     aux.NombreUsuario = Convert.ToString(datos.Lectorbd["NombreUsuario"]);
-                    //Evaluar cómo menejar relación entre usuario(s) y Rol(es)
-                    aux.RolUsuarioId = Convert.ToInt32(datos.Lectorbd["IdRol"]);
+                    //Usuario y Rol(es)
+                    aux.Rol = new RolUsuario
+                    {
+                        Descripcion = Convert.ToString(datos.Lectorbd["Rol"])
+                    };
                     aux.Activo = Convert.ToBoolean(datos.Lectorbd["Activo"]);
 
                     lista.Add(aux);

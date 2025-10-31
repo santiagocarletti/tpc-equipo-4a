@@ -75,3 +75,22 @@ VALUES
 ('Sonia', 'sonia123', 3, 1), 
 ('Patricio', 'patricio123', 4, 1); 
 GO
+----------------------------------------------------------------
+--31/10/'25: Llenado de Usuarios y RolUsuarios después del cambio
+INSERT INTO Usuarios (NombreUsuario, Contraseña, Activo) 
+VALUES 
+('Juan', 'juan123', 1), 
+('Carlos', 'carlos123', 1), 
+('Ricardo', 'ricardo123', 1), 
+('Sonia', 'sonia123', 1), 
+('Patricio', 'patricio123', 1); 
+GO
+
+INSERT INTO RolUsuarios (Nombre, IdUsuario)
+VALUES 
+('Encargado', 6),
+('Cajero', 7),
+('Despachante', 8),
+('Cocinero', 9),
+('Cocinero', 9);
+GO

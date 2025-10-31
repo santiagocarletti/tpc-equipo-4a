@@ -130,3 +130,22 @@ CREATE TABLE [dbo].[ComandaItemModificadores](
 );
 GO
 --Relación: 1 ComandaItem --> muchos ComandaItemModificadores (1:n)
+
+----------------------------------------------------------------------
+--31/10/2025: Cambio la relación entre Usuarios y RolUsuarios, quitando IdRol de la primera, y agregando IdUsuario a la segunda
+
+DELETE FROM RolUsuarios;
+DELETE FROM Usuarios;
+GO
+
+ALTER TABLE Usuarios
+DROP CONSTRAINT FK_Usuarios_RolUsuarios;
+
+ALTER TABLE Usuarios
+DROP COLUMN IdRol;
+
+ALTER TABLE RolUsuarios
+ADD IdUsuario INT NOT NULL
+    CONSTRAINT FK_RolUsuarios_Usuarios FOREIGN KEY (IdUsuario) REFERENCES Usuarios(Id);
+
+--Datos nuevos en QueryLlenadoDb.sql

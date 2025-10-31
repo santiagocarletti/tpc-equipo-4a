@@ -23,7 +23,9 @@
                         <ItemTemplate>
                             <tr>
                                 <td><%# Eval("NombreUsuario") %></td>
-                                <td><%# Eval("RolUsuarioId") %></td>
+                                <%-- Siguiente línea para Rol del Usuario --%>
+                                <td><%# Eval("Rol") %></td>
+                                
                                 <!-- provisional: mostrar el nombre del rol en vez del ID -->
                                 <td>
                                     <span class='badge <%# (bool)Eval("Activo") ? "text-bg-success" : "text-bg-secondary" %>'>

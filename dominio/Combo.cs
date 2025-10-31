@@ -13,7 +13,6 @@ namespace dominio
         public string Descripcion { get; set; }
         public bool Activo { get; set; }                
         public List<ComboDetalle> Detalles { get; set; } = new List<ComboDetalle>();
-
-        //public List<Producto> OpcionesPermitidas { get; set; } = new List<Producto>();
+        public List<Producto> OpcionesPermitidas { get; set; } = new List<Producto>();
     }
 }

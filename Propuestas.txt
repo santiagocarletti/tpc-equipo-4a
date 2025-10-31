@@ -1,3 +1,4 @@
+[HECHO]
 En clase Combo, cambiar: 
 public List<Producto> ProductosPermitidos { get; set; } = new List<Producto>();
 ..por: 
@@ -6,18 +7,24 @@ public List<Producto> OpcionesPermitidas { get; set; } = new List<Producto>();
 
 Clase Comanda: Quitar Usuario Cajero
 
+[HECHO]
 Clase EstadoComanda: Nombre de tipo String en vez de int
 
+[HECHO]
 Clase ComandaItem
 Agregar: public List<ComandaItemModificador> Modificadores { get; set; } = new List<ComandaItemModificador>();
 
+[HECHO]
 Clase ComandaItemModificadores: 
-Dejar solo int Id, string Descripcion, cambiar ComandaItemId a IdComandaItem (nombrado así en BD) 
+Dejar solo int Id, [string Descripcion NO], cambiar ComandaItemId a IdComandaItem (nombrado así en BD) 
 
+[HECHO]
 Eliminar Clase: ProductoModificador
 
+[HECHO]
 Clase: EstadoComanda: Nombre tipo String en lugar de int.
 
+[HECHO]
 Clase Sector: 
 Quitar Productos
 

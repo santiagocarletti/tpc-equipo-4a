@@ -17,6 +17,7 @@ namespace dominio
         public Sector Sector { get; set; }
 
         //opciones de modificacion 
-        public List<ProductoModificador> Modificadores { get; set; } = new List<ProductoModificador>();
+        //public List<ProductoModificador> Modificadores { get; set; } = new List<ProductoModificador>();
+        //Santiago: Eliminé la clase ProductoModificador para manejarlo con ComandaItems y ComandaItemModificadores
     }
 }
