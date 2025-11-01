@@ -23,5 +23,17 @@ namespace tpc_equipo_4a
                 repProductos.DataBind();
             }
         }
+
+        protected void btnCambiarEstadoProducto_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idProducto = Convert.ToInt32(btn.CommandArgument);
+
+            ProductoNegocio negocio = new ProductoNegocio();
+            negocio.cambiarEstadoProducto(idProducto);
+
+            repProductos.DataSource = negocio.listar();
+            repProductos.DataBind();
+        }
     }
 }

@@ -25,6 +25,7 @@ namespace negocio
                     int idArtBD = Convert.ToInt32(datos.Lectorbd["Id"]);
 
                     Producto aux = new Producto();
+                    aux.Id = Convert.ToInt32(datos.Lectorbd["Id"]);
                     aux.Nombre = Convert.ToString(datos.Lectorbd["Nombre"]);
                     aux.MinutosPreparacion = Convert.ToInt32(datos.Lectorbd["MinutosPreparacion"]);
                     aux.Activo = Convert.ToBoolean(datos.Lectorbd["Activo"]);
@@ -45,5 +46,24 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        public void cambiarEstadoProducto(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("UPDATE Productos SET Activo = CASE WHEN Activo = 1 THEN 0 ELSE 1 END WHERE Id = @Id");
+                datos.setearParametro("@Id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }

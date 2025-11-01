@@ -43,15 +43,34 @@
                                     </span>
                                 </td>
                                 <td class="text-end">
+
                                     <button class="btn btn-outline-secondary btn-sm">Editar</button>
-                                    <button class='btn btn-outline-<%# (bool)Eval("Activo") ? "danger" : "success" %> btn-sm'>
+<%--                                    <button class='btn btn-outline-<%# (bool)Eval("Activo") ? "danger" : "success" %> btn-sm'>
                                         <%# (bool)Eval("Activo") ? "Desactivar" : "Activar" %>
-                                    </button>
+                                    </button>--%>
+
+                                    <asp:Button
+                                        ID="btnCambiarEstadoProducto"
+                                        runat="server"
+                                        CssClass='<%# "btn btn-outline-" + ((bool)Eval("Activo") ? "danger" : "success") + " btn-sm" %>'
+                                        Text='<%# (bool)Eval("Activo") ? "Desactivar" : "Activar" %>'
+                                        CommandArgument='<%# Eval("Id") %>'
+                                        OnClick="btnCambiarEstadoProducto_Click" />
+
                                 </td>
                             </tr>
                         </ItemTemplate>
                     </asp:Repeater>
-                    <%--                    <tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-3">
+            <a href="Encargado.aspx" class="btn btn-outline-secondary">Volver</a>
+        </div>
+    </div>
+</asp:Content>
+<%--                    <tr>
                         <td>Hamburguesa clasica</td>
                         <td>Plancha</td>
                         <td>8</td>
@@ -81,11 +100,4 @@
                             <button class="btn btn-outline-success btn-sm">Activar</button>
                         </td>
                     </tr>--%>
-                </tbody>
-            </table>
-        </div>
-        <div class="mt-3">
-            <a href="Encargado.aspx" class="btn btn-outline-secondary">Volver</a>
-        </div>
-    </div>
-</asp:Content>
+
