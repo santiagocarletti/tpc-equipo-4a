@@ -44,8 +44,16 @@
                                 </td>
                                 <td class="text-end">
 
-                                    <button class="btn btn-outline-secondary btn-sm">Editar</button>
-<%--                                    <button class='btn btn-outline-<%# (bool)Eval("Activo") ? "danger" : "success" %> btn-sm'>
+                                    <%--<button class="btn btn-outline-secondary btn-sm">Editar</button>--%>
+                                    <asp:Button
+                                        ID="btnEditar"
+                                        runat="server"
+                                        CssClass="btn btn-outline-secondary btn-sm"
+                                        Text="Editar"
+                                        CommandArgument='<%# Eval("Id") %>'
+                                        OnClick="btnEditar_Click"/>
+
+                                    <%--<button class='btn btn-outline-<%# (bool)Eval("Activo") ? "danger" : "success" %> btn-sm'>
                                         <%# (bool)Eval("Activo") ? "Desactivar" : "Activar" %>
                                     </button>--%>
 

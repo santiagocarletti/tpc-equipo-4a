@@ -13,7 +13,8 @@ namespace dominio
         public string Nombre { get; set; }        
         public int MinutosPreparacion { get; set; }        
         public bool Activo { get; set; }
-        public int SectorId { get; set; }
+        //Santiago: Quitado el domingo
+        //public int SectorId { get; set; }
         public Sector Sector { get; set; }
 
         //opciones de modificacion 

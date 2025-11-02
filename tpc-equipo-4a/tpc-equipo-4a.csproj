@@ -78,6 +78,7 @@
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="Plancha.aspx" />
+    <Content Include="ProductoEdicion.aspx" />
     <Content Include="Web.config" />
     <Content Include="Cocina.aspx" />
     <Content Include="Producto.aspx" />
@@ -164,6 +165,13 @@
     </Compile>
     <Compile Include="Plancha.aspx.designer.cs">
       <DependentUpon>Plancha.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProductoEdicion.aspx.cs">
+      <DependentUpon>ProductoEdicion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProductoEdicion.aspx.designer.cs">
+      <DependentUpon>ProductoEdicion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Cocina.aspx.cs">
