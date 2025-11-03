@@ -46,5 +46,10 @@ namespace tpc_equipo_4a
             Response.Redirect("ProductoEdicion.aspx");
         }
 
+        protected void btnNuevoProducto_Click(object sender, EventArgs e)
+        {
+            Session.Remove("ProductoId");
+            Response.Redirect("ProductoEdicion.aspx");
+        }
     }
 }

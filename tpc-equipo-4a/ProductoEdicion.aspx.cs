@@ -15,6 +15,16 @@ namespace tpc_equipo_4a
         {
             if (!IsPostBack)
             {
+                SectorNegocio secNegocio = new SectorNegocio();
+                List<Sector> sectores = secNegocio.listar();
+
+                sectores.Insert(0, new Sector { Id = -1, Nombre = ""});
+
+                ddlSector.DataSource = sectores;
+                ddlSector.DataTextField = "Nombre";
+                ddlSector.DataValueField = "Id";
+                ddlSector.DataBind();
+
                 if (Session["ProductoId"] != null)
                 {
                     ProductoNegocio negocio = new ProductoNegocio();
@@ -24,13 +34,6 @@ namespace tpc_equipo_4a
                     txtNombre.Text = prod.Nombre;
                     txtMinutos.Text = prod.MinutosPreparacion.ToString();
 
-                    SectorNegocio secNegocio = new SectorNegocio();
-                    List<Sector> sectores = secNegocio.listar();
-                    ddlSector.DataSource = sectores;
-                    ddlSector.DataTextField = "Nombre";
-                    ddlSector.DataValueField = "Id";
-                    ddlSector.DataBind();
-
                     ddlSector.SelectedValue = prod.Sector.Id.ToString();
                 }
             }
@@ -38,6 +41,20 @@ namespace tpc_equipo_4a
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
+            ProductoNegocio negocio = new ProductoNegocio();
+            dominio.Producto prod = new dominio.Producto();
+
+            //MODIFICACION
+            if (Session["ProductoId"] != null)
+                prod.Id = (int)Session["ProductoId"];
+
+            prod.Nombre = txtNombre.Text;
+            prod.MinutosPreparacion = int.Parse(txtMinutos.Text);
+            prod.Sector = new dominio.Sector();
+            prod.Sector.Id = int.Parse(ddlSector.SelectedValue);
+
+            negocio.guardar(prod);
+
             Session.Remove("ProductoId");
             Response.Redirect("Producto.aspx");
         }

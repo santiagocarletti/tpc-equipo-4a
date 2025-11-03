@@ -12,10 +12,18 @@
             </div>
             <div class="col-12 col-md-7 d-flex flex-wrap gap-2">
                 <button class="btn btn-outline-secondary btn-sm">Todos</button>
-                <button class="btn btn-outline-secondary btn-sm">Hamburguesas</button>
-                <button class="btn btn-outline-secondary btn-sm">Papas</button>
-                <button class="btn btn-outline-secondary btn-sm">Bebidas</button>
-                <button class="btn btn-primary btn-sm ms-auto">+ Nuevo producto</button>
+                <button class="btn btn-outline-secondary btn-sm">Sector plancha</button>
+                <button class="btn btn-outline-secondary btn-sm">Sector freidora</button>
+                <button class="btn btn-outline-secondary btn-sm">Sector armado</button>
+                <button class="btn btn-outline-secondary btn-sm">Sector despacho</button>
+
+                <asp:Button
+                    ID="btnNuevoProducto"
+                    runat="server"
+                    CssClass="btn btn-primary btn-sm ms-auto"
+                    Text="+ Nuevo producto"
+                    OnClick="btnNuevoProducto_Click" />
+
             </div>
         </div>
         <div class="table-responsive">
@@ -51,7 +59,7 @@
                                         CssClass="btn btn-outline-secondary btn-sm"
                                         Text="Editar"
                                         CommandArgument='<%# Eval("Id") %>'
-                                        OnClick="btnEditar_Click"/>
+                                        OnClick="btnEditar_Click" />
 
                                     <%--<button class='btn btn-outline-<%# (bool)Eval("Activo") ? "danger" : "success" %> btn-sm'>
                                         <%# (bool)Eval("Activo") ? "Desactivar" : "Activar" %>

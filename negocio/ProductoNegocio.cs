@@ -83,18 +83,46 @@ namespace negocio
                     prod.MinutosPreparacion = Convert.ToInt32(datos.Lectorbd["MinutosPreparacion"]);
                     prod.Activo = Convert.ToBoolean(datos.Lectorbd["Activo"]);
 
-                    //prod.Sector = new Sector
-                    //{
-                    //    Id = Convert.ToInt32(datos.Lectorbd["IdSector"]),
-                    //    Nombre = Convert.ToString(datos.Lectorbd["Sector"])
-                    //};
-
                     prod.Sector = new Sector();
                     prod.Sector.Id = Convert.ToInt32(datos.Lectorbd["IdSector"]);
                     prod.Sector.Nombre = Convert.ToString(datos.Lectorbd["Sector"]);
                 }
 
                 return prod;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public void guardar(Producto producto)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                if (producto.Id == 0)
+                {
+                    //Agregar nuevo
+                    datos.setearConsulta("INSERT INTO Productos(Nombre, MinutosPreparacion, Activo, IdSector) VALUES(@nombre, @minutos, 1, @idSector)");
+                    datos.setearParametro("@id", producto.Id);
+                }
+                else
+                {
+                    //Modificar
+                    datos.setearConsulta("UPDATE Productos SET Nombre = @nombre, MinutosPreparacion = @minutos, IdSector = @idSector WHERE Id = @id");
+                    datos.setearParametro("@id", producto.Id);
+                }
+
+                datos.setearParametro("@nombre", producto.Nombre);
+                datos.setearParametro("@minutos", producto.MinutosPreparacion);
+                datos.setearParametro("@activo", producto.Activo);
+                datos.setearParametro("@idSector", producto.Sector.Id);
+
+                datos.ejecutarAccion();
             }
             catch (Exception ex)
             {
