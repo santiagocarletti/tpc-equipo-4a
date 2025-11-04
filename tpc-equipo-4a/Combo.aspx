@@ -5,7 +5,12 @@
         <h2 class="mb-3">Gestionar Combos</h2>
 
         <div class="d-flex gap-2 mb-3">
-            <button class="btn btn-primary btn-sm">+ Nuevo combo</button>
+            <asp:Button
+                ID="btnNuevoCombo"
+                runat="server"
+                CssClass="btn btn-primary btn-sm"
+                Text="+ Nuevo combo"
+                OnClick="btnNuevoCombo_Click" />
             <button class="btn btn-outline-secondary btn-sm">Duplicar</button>
         </div>
 

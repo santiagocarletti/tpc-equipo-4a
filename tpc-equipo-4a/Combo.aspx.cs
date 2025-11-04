@@ -45,5 +45,11 @@ namespace tpc_equipo_4a
             Response.Redirect("ComboEdicion.aspx");
         }
 
+        protected void btnNuevoCombo_Click(object sender, EventArgs e)
+        {
+            Session.Remove("ComboId");
+            Response.Redirect("ComboEdicion.aspx");
+        }
+
     }
 }

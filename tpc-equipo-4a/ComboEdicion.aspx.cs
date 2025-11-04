@@ -27,8 +27,13 @@ namespace tpc_equipo_4a
                         return;
                     }
 
+                    lblTitulo.Text = "Editar Combo";
                     txtNombre.Text = combo.Nombre;
                     txtDescripcion.Text = combo.Descripcion;
+                }
+                else
+                {
+                    lblTitulo.Text = "Nuevo Combo";
                 }
             }
         }
