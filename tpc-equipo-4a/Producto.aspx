@@ -11,11 +11,29 @@
                 </div>
             </div>
             <div class="col-12 col-md-7 d-flex flex-wrap gap-2">
-                <button class="btn btn-outline-secondary btn-sm">Todos</button>
+                <%--                <button class="btn btn-outline-secondary btn-sm">Todos</button>
                 <button class="btn btn-outline-secondary btn-sm">Sector plancha</button>
                 <button class="btn btn-outline-secondary btn-sm">Sector freidora</button>
                 <button class="btn btn-outline-secondary btn-sm">Sector armado</button>
-                <button class="btn btn-outline-secondary btn-sm">Sector despacho</button>
+                <button class="btn btn-outline-secondary btn-sm">Sector despacho</button>--%>
+
+                <asp:Repeater ID="repSectores" runat="server">
+                    <ItemTemplate>
+                            <asp:Button ID="btnFiltrarSector" runat="server" 
+                            Text='<%# ((int)Eval("Id") == -1 ? Eval("Nombre") : "Sector " + Eval("Nombre")) %>'
+                            CssClass="btn btn-outline-secondary btn-sm"
+                            CommandArgument='<%# Eval("Id") %>'
+                            OnClick="btnFiltrarSector_Click" />
+                    </ItemTemplate>
+                </asp:Repeater>
+
+<%--                <asp:Button
+                    ID="btnListarTodos"
+                    runat="server"
+                    CssClass="btn btn-outline-secondary btn-sm"
+                    Text="Todos"
+                    CommandArgument='<%# Eval("Id") %>'
+                    OnClick="btnListarTodos_Click" />--%>
 
                 <asp:Button
                     ID="btnNuevoProducto"

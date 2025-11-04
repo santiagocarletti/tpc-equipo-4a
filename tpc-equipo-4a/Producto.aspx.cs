@@ -21,6 +21,14 @@ namespace tpc_equipo_4a
             {
                 repProductos.DataSource = ListaProductos;
                 repProductos.DataBind();
+
+                SectorNegocio secNegocio = new SectorNegocio();
+                List<Sector> sectores = secNegocio.listar();
+                sectores = sectores.Skip(1).Take(sectores.Count - 2).ToList();
+                sectores.Insert(0, new Sector { Id = -1, Nombre = "Todos" });
+
+                repSectores.DataSource = sectores;
+                repSectores.DataBind();
             }
         }
 
@@ -50,6 +58,15 @@ namespace tpc_equipo_4a
         {
             Session.Remove("ProductoId");
             Response.Redirect("ProductoEdicion.aspx");
+        }
+        protected void btnFiltrarSector_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idSector = Convert.ToInt32(btn.CommandArgument);
+
+            ProductoNegocio negocio = new ProductoNegocio();
+            repProductos.DataSource = negocio.listar(idSector);
+            repProductos.DataBind();
         }
     }
 }
