@@ -36,5 +36,14 @@ namespace tpc_equipo_4a
             repCombos.DataBind();
         }
 
+        protected void btnEditar_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idCombo = Convert.ToInt32(btn.CommandArgument);
+
+            Session["ComboId"] = idCombo;
+            Response.Redirect("ComboEdicion.aspx");
+        }
+
     }
 }

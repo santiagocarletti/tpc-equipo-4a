@@ -84,6 +84,7 @@
     <Content Include="Producto.aspx" />
     <Content Include="Combo.aspx" />
     <Content Include="Usuario.aspx" />
+    <Content Include="ComboEdicion.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Armado.aspx.cs">
@@ -201,6 +202,13 @@
     </Compile>
     <Compile Include="Usuario.aspx.designer.cs">
       <DependentUpon>Usuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ComboEdicion.aspx.cs">
+      <DependentUpon>ComboEdicion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ComboEdicion.aspx.designer.cs">
+      <DependentUpon>ComboEdicion.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

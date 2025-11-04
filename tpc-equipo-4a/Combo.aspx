@@ -25,8 +25,14 @@
                                     </li>
                                 </ul>
                                 <div class="mt-auto d-flex gap-2">
-                                    <button class="btn btn-outline-secondary btn-sm">Editar</button>
-                                   <asp:Button
+                                    <asp:Button
+                                        ID="btnEditar"
+                                        runat="server"
+                                        CssClass="btn btn-outline-secondary btn-sm"
+                                        Text="Editar"
+                                        CommandArgument='<%# Eval("Id") %>'
+                                        OnClick="btnEditar_Click" />
+                                    <asp:Button
                                         ID="btnCambiarEstadoCombo"
                                         runat="server"
                                         CssClass='<%# "btn btn-outline-" + ((bool)Eval("Activo") ? "danger" : "success") + " btn-sm" %>'

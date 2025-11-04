@@ -65,5 +65,67 @@ namespace negocio
                 datos.cerrarConexion(); 
             }
         }
+
+        public Combo obtenerPorId(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Combo combo = new Combo();
+
+            try
+            {
+                datos.setearConsulta("SELECT Id, Nombre, Descripcion, Activo FROM Combos WHERE Id = @id");
+                datos.setearParametro("@id", id);
+                datos.ejecutarLectura();
+
+                if (datos.Lectorbd.Read())
+                {
+                    combo.Id = Convert.ToInt32(datos.Lectorbd["Id"]);
+                    combo.Nombre = Convert.ToString(datos.Lectorbd["Nombre"]);
+                    combo.Descripcion = Convert.ToString(datos.Lectorbd["Descripcion"]);
+                    combo.Activo = Convert.ToBoolean(datos.Lectorbd["Activo"]);
+                }
+                return combo;
+            }
+            catch (Exception ex) 
+            { 
+
+                throw ex; 
+            }
+            finally 
+            { 
+                datos.cerrarConexion(); 
+            }
+        }
+
+        public void guardar(Combo combo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                if (combo.Id == 0)
+                {
+                    datos.setearConsulta("INSERT INTO Combos (Nombre, Descripcion, Activo) VALUES (@nombre, @desc, 1)");
+                }
+                else
+                {
+                    datos.setearConsulta("UPDATE Combos SET Nombre = @nombre, Descripcion = @desc WHERE Id = @id");
+                    datos.setearParametro("@id", combo.Id);
+                }
+
+                datos.setearParametro("@nombre", combo.Nombre);
+                datos.setearParametro("@desc", combo.Descripcion);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex) 
+            { 
+
+                throw ex; 
+            }
+            finally 
+            { 
+                datos.cerrarConexion(); 
+            }
+        }
+
     }
 }
