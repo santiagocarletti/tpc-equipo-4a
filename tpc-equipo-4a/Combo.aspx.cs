@@ -23,5 +23,18 @@ namespace tpc_equipo_4a
                 repCombos.DataBind();
             }
         }
+
+        protected void btnCambiarEstadoCombo_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idCombo = Convert.ToInt32(btn.CommandArgument);
+
+            ComboNegocio negocio = new ComboNegocio();
+            negocio.cambiarEstadoCombo(idCombo);
+
+            repCombos.DataSource = negocio.listar();
+            repCombos.DataBind();
+        }
+
     }
 }
