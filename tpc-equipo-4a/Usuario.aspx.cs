@@ -19,6 +19,7 @@ namespace tpc_equipo_4a
                 UsuarioNegocio negocio = new UsuarioNegocio();
                 ListaUsuarios = negocio.listar();
 
+
                 repUsuarios.DataSource = ListaUsuarios;
                 repUsuarios.DataBind();
             }
@@ -26,7 +27,7 @@ namespace tpc_equipo_4a
 
         protected void btnCambiarEstadoUsuario_Click(object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
+            LinkButton btn = (LinkButton)sender;
             int idUsuario = Convert.ToInt32(btn.CommandArgument);
 
             UsuarioNegocio negocio = new UsuarioNegocio();
@@ -37,7 +38,7 @@ namespace tpc_equipo_4a
         }
         protected void btnEditar_Click(object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
+            LinkButton btn = (LinkButton)sender;
             int idUsuario = Convert.ToInt32(btn.CommandArgument);
 
             Session["UsuarioId"] = idUsuario;
