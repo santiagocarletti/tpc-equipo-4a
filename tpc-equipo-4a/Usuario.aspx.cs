@@ -35,6 +35,19 @@ namespace tpc_equipo_4a
             repUsuarios.DataSource = negocio.listar();
             repUsuarios.DataBind();
         }
-                
+        protected void btnEditar_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idUsuario = Convert.ToInt32(btn.CommandArgument);
+
+            Session["UsuarioId"] = idUsuario;
+
+            Response.Redirect("UsuarioEdicion.aspx");
+        }
+        protected void btnNuevoUsuario_Click(object sender, EventArgs e)
+        {
+            Session.Remove("UsuarioId");
+            Response.Redirect("UsuarioEdicion.aspx");
+        }
     }
 }

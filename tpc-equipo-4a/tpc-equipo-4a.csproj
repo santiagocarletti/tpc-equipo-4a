@@ -79,6 +79,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Plancha.aspx" />
     <Content Include="ProductoEdicion.aspx" />
+    <Content Include="UsuarioEdicion.aspx" />
     <Content Include="Web.config" />
     <Content Include="Cocina.aspx" />
     <Content Include="Producto.aspx" />
@@ -209,6 +210,13 @@
     </Compile>
     <Compile Include="ComboEdicion.aspx.designer.cs">
       <DependentUpon>ComboEdicion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UsuarioEdicion.aspx.cs">
+      <DependentUpon>UsuarioEdicion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UsuarioEdicion.aspx.designer.cs">
+      <DependentUpon>UsuarioEdicion.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

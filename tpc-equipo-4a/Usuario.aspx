@@ -5,7 +5,13 @@
         <h2 class="mb-3">Gestionar Usuarios</h2>
 
         <div class="d-flex gap-2 mb-3">
-            <button class="btn btn-primary btn-sm">+ Nuevo usuario</button>
+            <asp:Button
+                ID="NuevoUsuario"
+                runat="server"
+                CssClass="btn btn-primary btn-sm ms-auto"
+                Text="+ Nuevo Usuario"
+                OnClick="btnNuevoUsuario_Click" />
+
             <button class="btn btn-outline-secondary btn-sm">Roles</button>
         </div>
 
@@ -25,23 +31,20 @@
                         <ItemTemplate>
                             <tr>
                                 <td><%# Eval("NombreUsuario") %></td>
-                                <%-- Siguiente línea para Rol del Usuario --%>
                                 <td><%# Eval("Rol") %></td>
-
-                                <!-- provisional: mostrar el nombre del rol en vez del ID -->
                                 <td>
                                     <span class='badge <%# (bool)Eval("Activo") ? "text-bg-success" : "text-bg-secondary" %>'>
                                         <%# (bool)Eval("Activo") ? "Activo" : "Inactivo" %>
                                     </span>
                                 </td>
                                 <td class="text-end">
-                                    <%--<asp:Button
+                                    <asp:Button
                                         ID="btnEditar"
                                         runat="server"
                                         CssClass="btn btn-outline-secondary btn-sm"
                                         Text="Editar"
                                         CommandArgument='<%# Eval("Id") %>'
-                                        OnClick="btnEditar_Click" />--%>
+                                        OnClick="btnEditar_Click" />
 
                                     <asp:Button
                                         ID="btnCambiarEstadoUsuario"
