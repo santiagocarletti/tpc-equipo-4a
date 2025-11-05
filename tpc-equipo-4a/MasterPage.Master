@@ -61,7 +61,7 @@
             color: var(--bs-primary) !important;
         }
 
-        body {
+        /*body {
         background: url('https://www.chowhound.com/img/gallery/its-a-huge-mistake-to-order-restaurant-burgers-medium-rare/how-to-reduce-the-risk-of-food-poisoning-when-eating-out-1708454572.jpg') no-repeat center center fixed;
         background-size: cover;
         position: relative;
@@ -77,7 +77,7 @@
         background: rgba(255, 255, 255, 0.15);
         backdrop-filter: blur(2px);
         z-index: -1;
-    }
+    }*/
     </style>
 
 

@@ -23,5 +23,18 @@ namespace tpc_equipo_4a
                 repUsuarios.DataBind();
             }
         }
+
+        protected void btnCambiarEstadoUsuario_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idUsuario = Convert.ToInt32(btn.CommandArgument);
+
+            UsuarioNegocio negocio = new UsuarioNegocio();
+            negocio.cambiarEstadoUsuario(idUsuario);
+
+            repUsuarios.DataSource = negocio.listar();
+            repUsuarios.DataBind();
+        }
+                
     }
 }
