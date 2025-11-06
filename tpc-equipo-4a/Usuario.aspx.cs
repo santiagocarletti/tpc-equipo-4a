@@ -17,14 +17,23 @@ namespace tpc_equipo_4a
             if (!IsPostBack)
             {
                 UsuarioNegocio negocio = new UsuarioNegocio();
+
                 ListaUsuarios = negocio.listar();
+                Session.Add("listaUsuarios", ListaUsuarios);
 
-
-                repUsuarios.DataSource = ListaUsuarios;
+                repUsuarios.DataSource = Session["listaUsuarios"];
                 repUsuarios.DataBind();
             }
         }
+        protected void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            List<dominio.Usuario> lista = (List<dominio.Usuario>)Session["listaUsuarios"];
+            List<dominio.Usuario> listaFiltrada = lista.FindAll(x => x.NombreUsuario.ToUpper().Contains(txtBuscar.Text.ToUpper()));
 
+            repUsuarios.DataSource = listaFiltrada;
+            repUsuarios.DataBind();
+
+        }
         protected void btnCambiarEstadoUsuario_Click(object sender, EventArgs e)
         {
             LinkButton btn = (LinkButton)sender;

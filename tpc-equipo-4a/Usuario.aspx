@@ -183,7 +183,14 @@
                         <span class="input-group-text bg-white border-end-0">
                             <span class="material-symbols-outlined text-muted" style="font-size: 1.25rem;">search</span>
                         </span>
-                        <input class="form-control border-start-0" placeholder="Buscar usuario..." type="text" />
+                        <asp:TextBox
+                            ID="txtBuscar"
+                            runat="server"
+                            CssClass="form-control border-start-0"
+                            Placeholder="Buscar usuario..."
+                            AutoPostBack="true"
+                            OnTextChanged="txtBuscar_TextChanged" />
+                        
                     </div>
                 </div>
             </div>
