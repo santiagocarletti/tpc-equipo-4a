@@ -51,5 +51,18 @@ namespace tpc_equipo_4a
             Response.Redirect("ComboEdicion.aspx");
         }
 
+        protected void btnDuplicar_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idCombo = Convert.ToInt32(btn.CommandArgument);
+
+            ComboNegocio negocio = new ComboNegocio();
+            negocio.duplicarCombo(idCombo);
+
+            repCombos.DataSource = negocio.listar();
+            repCombos.DataBind();
+        }
+
+
     }
 }

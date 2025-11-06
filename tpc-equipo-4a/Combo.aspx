@@ -11,7 +11,6 @@
                 CssClass="btn btn-primary btn-sm"
                 Text="+ Nuevo combo"
                 OnClick="btnNuevoCombo_Click" />
-            <button class="btn btn-outline-secondary btn-sm">Duplicar</button>
         </div>
 
         <div class="row g-4">
@@ -37,6 +36,11 @@
                                         Text="Editar"
                                         CommandArgument='<%# Eval("Id") %>'
                                         OnClick="btnEditar_Click" />
+                                    <asp:Button ID="btnDuplicar" runat="server"
+                                        CssClass="btn btn-outline-primary btn-sm"
+                                        Text="Duplicar"
+                                        CommandArgument='<%# Eval("Id") %>'
+                                        OnClick="btnDuplicar_Click" />
                                     <asp:Button
                                         ID="btnCambiarEstadoCombo"
                                         runat="server"

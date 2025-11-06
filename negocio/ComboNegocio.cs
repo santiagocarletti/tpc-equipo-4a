@@ -127,5 +127,31 @@ namespace negocio
             }
         }
 
+        public void duplicarCombo(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                Combo original = obtenerPorId(id);
+
+                if (original == null || original.Id == 0)
+                    throw new Exception("No se encontró el combo a duplicar.");
+
+                datos.setearConsulta("INSERT INTO Combos (Nombre, Descripcion, Activo) VALUES (@nombre, @desc, 1)");
+                datos.setearParametro("@nombre", original.Nombre);
+                datos.setearParametro("@desc", original.Descripcion);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
     }
 }
