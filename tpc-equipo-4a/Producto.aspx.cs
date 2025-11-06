@@ -19,11 +19,13 @@ namespace tpc_equipo_4a
 
             if (!IsPostBack)
             {
-                repProductos.DataSource = ListaProductos;
+                Session.Add("listaProductos", ListaProductos);
+                repProductos.DataSource = Session["listaProductos"];
                 repProductos.DataBind();
 
                 SectorNegocio secNegocio = new SectorNegocio();
                 List<Sector> sectores = secNegocio.listar();
+
                 sectores = sectores.Skip(1).Take(sectores.Count - 2).ToList();
                 sectores.Insert(0, new Sector { Id = -1, Nombre = "Todos" });
 
@@ -31,7 +33,15 @@ namespace tpc_equipo_4a
                 repSectores.DataBind();
             }
         }
+        protected void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            List<dominio.Producto> lista = (List<dominio.Producto>)Session["listaProductos"];
+            List<dominio.Producto> listaFiltrada = lista.FindAll(x => x.Nombre.ToUpper().Contains(txtBuscar.Text.ToUpper()));
 
+            repProductos.DataSource = listaFiltrada;
+            repProductos.DataBind();
+
+        }
         protected void btnCambiarEstadoProducto_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;

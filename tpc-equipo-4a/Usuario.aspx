@@ -2,7 +2,6 @@
 
 <asp:Content ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -171,13 +170,12 @@
                 ID="NuevoUsuario"
                 runat="server"
                 CssClass="btn btn-success d-flex align-items-center"
-                Text="Nuevo Usuario"
+                Text="+ Nuevo Usuario"
                 OnClick="btnNuevoUsuario_Click" />
         </div>
 
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
-
                 <div class="w-100 w-sm-auto" style="max-width: 300px;">
                     <div class="input-group input-group-sm">
                         <span class="input-group-text bg-white border-end-0">

@@ -14,13 +14,11 @@ namespace tpc_equipo_4a
         public List<dominio.Usuario> ListaUsuarios { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            UsuarioNegocio negocio = new UsuarioNegocio();
+            ListaUsuarios = negocio.listar();
             if (!IsPostBack)
             {
-                UsuarioNegocio negocio = new UsuarioNegocio();
-
-                ListaUsuarios = negocio.listar();
                 Session.Add("listaUsuarios", ListaUsuarios);
-
                 repUsuarios.DataSource = Session["listaUsuarios"];
                 repUsuarios.DataBind();
             }

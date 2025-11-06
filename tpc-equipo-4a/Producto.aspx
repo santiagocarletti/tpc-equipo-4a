@@ -7,19 +7,20 @@
             <div class="col-12 col-md-5">
                 <div class="input-group">
                     <span class="input-group-text">🔎</span>
-                    <input type="text" class="form-control" placeholder="Buscar productos..." />
+                    <asp:TextBox
+                        ID="txtBuscar"
+                        runat="server"
+                        CssClass="form-control border-start-0"
+                        Placeholder="Buscar producto"
+                        AutoPostBack="true"
+                        OnTextChanged="txtBuscar_TextChanged" />
                 </div>
             </div>
             <div class="col-12 col-md-7 d-flex flex-wrap gap-2">
-                <%--                <button class="btn btn-outline-secondary btn-sm">Todos</button>
-                <button class="btn btn-outline-secondary btn-sm">Sector plancha</button>
-                <button class="btn btn-outline-secondary btn-sm">Sector freidora</button>
-                <button class="btn btn-outline-secondary btn-sm">Sector armado</button>
-                <button class="btn btn-outline-secondary btn-sm">Sector despacho</button>--%>
 
                 <asp:Repeater ID="repSectores" runat="server">
                     <ItemTemplate>
-                            <asp:Button ID="btnFiltrarSector" runat="server" 
+                        <asp:Button ID="btnFiltrarSector" runat="server"
                             Text='<%# ((int)Eval("Id") == -1 ? Eval("Nombre") : "Sector " + Eval("Nombre")) %>'
                             CssClass="btn btn-outline-secondary btn-sm"
                             CommandArgument='<%# Eval("Id") %>'
@@ -27,7 +28,7 @@
                     </ItemTemplate>
                 </asp:Repeater>
 
-<%--                <asp:Button
+                <%--                <asp:Button
                     ID="btnListarTodos"
                     runat="server"
                     CssClass="btn btn-outline-secondary btn-sm"
@@ -70,7 +71,6 @@
                                 </td>
                                 <td class="text-end">
 
-                                    <%--<button class="btn btn-outline-secondary btn-sm">Editar</button>--%>
                                     <asp:Button
                                         ID="btnEditar"
                                         runat="server"
@@ -78,10 +78,6 @@
                                         Text="Editar"
                                         CommandArgument='<%# Eval("Id") %>'
                                         OnClick="btnEditar_Click" />
-
-                                    <%--<button class='btn btn-outline-<%# (bool)Eval("Activo") ? "danger" : "success" %> btn-sm'>
-                                        <%# (bool)Eval("Activo") ? "Desactivar" : "Activar" %>
-                                    </button>--%>
 
                                     <asp:Button
                                         ID="btnCambiarEstadoProducto"
@@ -104,34 +100,5 @@
         </div>
     </div>
 </asp:Content>
-<%--                    <tr>
-                        <td>Hamburguesa clasica</td>
-                        <td>Plancha</td>
-                        <td>8</td>
-                        <td><span class="badge text-bg-success">Activo</span></td>
-                        <td class="text-end">
-                            <button class="btn btn-outline-secondary btn-sm">Editar</button>
-                            <button class="btn btn-outline-danger btn-sm">Desactivar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Papas Fritas</td>
-                        <td>Freidora</td>
-                        <td>5</td>
-                        <td><span class="badge text-bg-success">Activo</span></td>
-                        <td class="text-end">
-                            <button class="btn btn-outline-secondary btn-sm">Editar</button>
-                            <button class="btn btn-outline-danger btn-sm">Desactivar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Gaseosa</td>
-                        <td>Despacho</td>
-                        <td>0</td>
-                        <td><span class="badge text-bg-secondary">Inactivo</span></td>
-                        <td class="text-end">
-                            <button class="btn btn-outline-secondary btn-sm">Editar</button>
-                            <button class="btn btn-outline-success btn-sm">Activar</button>
-                        </td>
-                    </tr>--%>
+
 
