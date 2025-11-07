@@ -14,14 +14,24 @@ namespace tpc_equipo_4a
         public List<dominio.Combo> ListaCombos { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            ComboNegocio negocio = new ComboNegocio();
+            ListaCombos = negocio.listar();
+
             if (!IsPostBack)
             {
-                ComboNegocio negocio = new ComboNegocio();
-                ListaCombos = negocio.listar();
-
-                repCombos.DataSource = ListaCombos;
+                Session.Add("listaCombos", ListaCombos);
+                repCombos.DataSource = Session["listaCombos"];
                 repCombos.DataBind();
             }
+        }
+
+        protected void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            List<dominio.Combo> lista = (List<dominio.Combo>)Session["listaCombos"];
+            List<dominio.Combo> listaFiltrada = lista.FindAll(x => (x.Nombre ?? string.Empty).ToUpper().Contains((txtBuscar.Text ?? "").ToUpper()));
+
+            repCombos.DataSource = listaFiltrada;
+            repCombos.DataBind();
         }
 
         protected void btnCambiarEstadoCombo_Click(object sender, EventArgs e)

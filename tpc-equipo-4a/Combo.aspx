@@ -4,13 +4,25 @@
     <div class="container py-4">
         <h2 class="mb-3">Gestionar Combos</h2>
 
-        <div class="d-flex gap-2 mb-3">
-            <asp:Button
-                ID="btnNuevoCombo"
-                runat="server"
-                CssClass="btn btn-primary btn-sm"
-                Text="+ Nuevo combo"
-                OnClick="btnNuevoCombo_Click" />
+        <div class="row g-3 align-items-center mb-3">
+            <div class="col-12 col-md-5">
+                <div class="input-group">
+                    <span class="input-group-text">🔎</span>
+                    <asp:TextBox ID="txtBuscar" runat="server"
+                        CssClass="form-control border-start-0"
+                        Placeholder="Buscar combo"
+                        AutoPostBack="true"
+                        OnTextChanged="txtBuscar_TextChanged" />
+                </div>
+            </div>
+            <div class="col-12 col-md-7 d-flex flex-wrap gap-2">
+                <asp:Button
+                    ID="Button1"
+                    runat="server"
+                    CssClass="btn btn-primary btn-sm"
+                    Text="+ Nuevo combo"
+                    OnClick="btnNuevoCombo_Click" />
+            </div>
         </div>
 
         <div class="row g-4">
