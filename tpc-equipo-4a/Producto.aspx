@@ -57,7 +57,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <%--  --%>
+                    
                     <asp:Repeater ID="repProductos" runat="server">
                         <ItemTemplate>
                             <tr>

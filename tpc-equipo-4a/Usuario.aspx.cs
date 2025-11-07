@@ -21,6 +21,16 @@ namespace tpc_equipo_4a
                 Session.Add("listaUsuarios", ListaUsuarios);
                 repUsuarios.DataSource = Session["listaUsuarios"];
                 repUsuarios.DataBind();
+
+                var filtros = new List<dynamic>
+                {
+                    new { Id = -1, Nombre = "Todos" },
+                    new { Id = 1, Nombre = "Activos" },
+                    new { Id = 0, Nombre = "Inactivos" }
+                };
+
+                repSectores.DataSource = filtros;
+                repSectores.DataBind();
             }
         }
         protected void txtBuscar_TextChanged(object sender, EventArgs e)
@@ -56,6 +66,21 @@ namespace tpc_equipo_4a
         {
             Session.Remove("UsuarioId");
             Response.Redirect("UsuarioEdicion.aspx");
+        }
+        protected void btnFiltrarSector_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idFiltro = Convert.ToInt32(btn.CommandArgument);
+            
+            List<dominio.Usuario> filtrada;
+
+            if (idFiltro == -1)
+                filtrada = ListaUsuarios;
+            else
+                filtrada = ListaUsuarios.Where(u => u.Activo == (idFiltro == 1)).ToList();
+
+            repUsuarios.DataSource = filtrada;
+            repUsuarios.DataBind();
         }
     }
 }
