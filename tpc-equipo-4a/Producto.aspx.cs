@@ -44,7 +44,7 @@ namespace tpc_equipo_4a
         }
         protected void btnCambiarEstadoProducto_Click(object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
+            LinkButton btn = (LinkButton)sender;
             int idProducto = Convert.ToInt32(btn.CommandArgument);
 
             ProductoNegocio negocio = new ProductoNegocio();
@@ -56,7 +56,7 @@ namespace tpc_equipo_4a
 
         protected void btnEditar_Click(object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
+            LinkButton btn = (LinkButton)sender;
             int idProducto = Convert.ToInt32(btn.CommandArgument);
 
             Session["ProductoId"] = idProducto;

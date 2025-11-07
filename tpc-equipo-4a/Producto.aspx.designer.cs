@@ -15,6 +15,15 @@ namespace tpc_equipo_4a
     {
 
         /// <summary>
+        /// btnNuevoProducto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNuevoProducto;
+
+        /// <summary>
         /// txtBuscar control.
         /// </summary>
         /// <remarks>
@@ -31,15 +40,6 @@ namespace tpc_equipo_4a
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater repSectores;
-
-        /// <summary>
-        /// btnNuevoProducto control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNuevoProducto;
 
         /// <summary>
         /// repProductos control.
