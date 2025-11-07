@@ -20,7 +20,7 @@
 
         h1.h2 {
             font-weight: 700;
-            color: #424242;
+            color: #1565c0;
         }
 
         .card {
@@ -44,15 +44,15 @@
 
         .table thead th {
             font-weight: 600;
-            color: #ffffff;
-            background-color: #1976D2;
+            color: #1976d2;
+            background-color: #e3f2fd;
             text-transform: uppercase;
             font-size: 0.85rem;
             letter-spacing: 0.03rem;
         }
 
         .table-hover tbody tr:hover {
-            background-color: #E3F2FD;
+            background-color: #e3f2fd;
         }
 
         .table td, .table th {
@@ -136,13 +136,13 @@
         .input-group-text {
             background-color: #caf0ff;
             border: none;
-            color: #424242;
+            color: #CFD8DC;
         }
 
         .form-control {
-            background-color: #caf0ff;
+            background-color: #ECEFF1;
             border: none;
-            color: #757575;
+            color: #ECEFF1;
         }
 
             .form-control::placeholder {
@@ -193,13 +193,13 @@
             <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-3">
                 <div class="w-100 w-sm-auto" style="max-width: 350px;">
                     <div class="input-group input-group-sm">
-                        <span class="input-group-text">
-                            <span class="material-symbols-outlined">search</span>
+                        <span class="input-group-text bg-white border-end-0">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 1.25rem;">search</span>
                         </span>
                         <asp:TextBox
                             ID="txtBuscar"
                             runat="server"
-                            CssClass="form-control"
+                            CssClass="form-control border-start-0"
                             Placeholder="Buscar usuario"
                             AutoPostBack="true"
                             OnTextChanged="txtBuscar_TextChanged" />

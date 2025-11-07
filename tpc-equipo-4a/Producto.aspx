@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Gestión de Productos - Equipo 4A" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Producto.aspx.cs" Inherits="tpc_equipo_4a.Producto" %>
+﻿<%@ Page Title="Gestión de Productos - Grupo 4A" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Producto.aspx.cs" Inherits="tpc_equipo_4a.Producto" %>
 
 <asp:Content ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -9,7 +9,12 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f8f9fa;
+            background-color: #f5f8ff;
+        }
+
+        h1.h2 {
+            color: #1565c0;
+            font-weight: 700;
         }
 
         .main-content {
@@ -17,60 +22,54 @@
             padding-bottom: 2rem;
         }
 
-        h1.h2 {
-            color: #212529;
-            font-weight: 700;
-        }
-
         .card {
             border: none;
             border-radius: 1rem;
-            box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.06);
+            box-shadow: 0 0.75rem 1.5rem rgba(33, 150, 243, 0.08);
             overflow: hidden;
         }
 
         .card-header {
-            background-color: #fff;
-            border-bottom: 1px solid #dee2e6;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e3f2fd;
             padding: 1rem 1.5rem;
         }
 
         .table thead th {
             font-weight: 600;
-            color: #6c757d;
+            color: #1976d2;
             text-transform: uppercase;
             font-size: 0.85rem;
-            background-color: #fafafa;
-            letter-spacing: 0.02rem;
+            background-color: #e3f2fd;
         }
 
         .table-hover tbody tr:hover {
-            background-color: #f1fdf9;
+            background-color: #eaf3ff;
         }
 
-        .btn-success {
-            background-color: #004d40;
-            border-color: #004d40;
-            color: #fff;
+        .btn-primary {
+            background-color: #2196f3;
+            border-color: #2196f3;
             font-weight: 500;
             border-radius: 0.5rem;
             transition: all 0.2s ease-in-out;
         }
 
-            .btn-success:hover {
-                background-color: #00382e;
-                transform: translateY(-1px);
-            }
+        .btn-primary:hover {
+            background-color: #1976d2;
+            border-color: #1976d2;
+            transform: translateY(-1px);
+        }
 
         .btn-outline-secondary {
             border-radius: 0.5rem;
             font-weight: 500;
         }
 
-            .btn-outline-secondary:hover {
-                background-color: #6c757d;
-                color: #fff;
-            }
+        .btn-outline-secondary:hover {
+            background-color: #bbdefb;
+            color: #0d47a1;
+        }
 
         .btn-action {
             display: inline-flex;
@@ -79,45 +78,31 @@
             width: 38px;
             height: 38px;
             border-radius: 50%;
-            border: 1px solid transparent;
             transition: all 0.2s ease-in-out;
         }
 
         .btn-action-edit {
-            background-color: #e0f2f1;
-            color: #004d40;
+            background-color: #e3f2fd;
+            color: #1565c0;
         }
 
-            .btn-action-edit:hover {
-                background-color: #b2dfdb;
-                color: #00382e;
-                transform: scale(1.05);
-            }
+        .btn-action-edit:hover {
+            background-color: #bbdefb;
+            transform: scale(1.05);
+        }
 
         .btn-action-delete {
             background-color: #ffebee;
             color: #c62828;
         }
 
-            .btn-action-delete:hover {
-                background-color: #ffcdd2;
-                color: #b71c1c;
-                transform: scale(1.05);
-            }
-
-        .btn-action .material-symbols-outlined {
-            font-size: 1.25rem;
-            line-height: 1;
+        .btn-action-delete:hover {
+            background-color: #ffcdd2;
+            transform: scale(1.05);
         }
 
         .badge.bg-success {
-            background-color: #004d40 !important;
-        }
-
-        .badge {
-            font-weight: 500;
-            padding: 0.45em 0.7em;
-            font-size: 0.85rem;
+            background-color: #2196f3 !important;
         }
 
         .fade-in {
@@ -125,18 +110,10 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
-
 
     <main class="main-content container fade-in">
         <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
@@ -148,7 +125,7 @@
             <asp:Button
                 ID="btnNuevoProducto"
                 runat="server"
-                CssClass="btn btn-success d-flex align-items-center"
+                CssClass="btn btn-primary d-flex align-items-center"
                 Text="+ Nuevo Producto"
                 OnClick="btnNuevoProducto_Click" />
         </div>
@@ -157,13 +134,13 @@
             <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
                 <div class="input-group input-group-sm" style="max-width: 300px;">
                     <span class="input-group-text bg-white border-end-0">
-                        <span class="material-symbols-outlined text-muted" style="font-size: 1.25rem;">search</span>
+                        <span class="material-symbols-outlined text-primary" style="font-size: 1.25rem;">search</span>
                     </span>
                     <asp:TextBox
                         ID="txtBuscar"
                         runat="server"
                         CssClass="form-control border-start-0"
-                        Placeholder="Buscar producto..."
+                        Placeholder="Buscar producto."
                         AutoPostBack="true"
                         OnTextChanged="txtBuscar_TextChanged" />
                 </div>
@@ -247,3 +224,4 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </asp:Content>
+
