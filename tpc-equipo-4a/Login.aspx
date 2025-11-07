@@ -3,97 +3,72 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
     <style>
         body {
             font-family: 'Space Grotesk', sans-serif;
+            background-color: #f8f6f6;
         }
 
-        .login-container {
-            min-height: 70vh;
+        .login-wrapper {
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
         }
 
         .login-card {
-            max-width: 450px;
+            max-width: 950px;
             width: 100%;
             border: none;
-            border-radius: 0.5rem;
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.15);
             background-color: #fff;
-        }              
+        }
 
-        .login-logo {
-            width: 250px;
-            height: 250px;
-            object-fit: cover;
-            margin-bottom: 0.5rem;
+        .login-left {
+            padding: 3rem;
         }
 
         .login-title {
-            font-weight: 700;
-            color: #212529;
-            margin-bottom: 0.5rem;
+            font-weight: 900;
+            font-size: 2rem;
+            color: #1b0e0e;
         }
 
         .login-subtitle {
-            color: #6c757d;
+            color: rgba(234, 42, 51, 0.8);
+            font-size: 1rem;
             margin-bottom: 2rem;
         }
 
-        .input-group-text {
-            background-color: #e9ecef;
-            border-right: 0;
-            color: #6c757d;
+        .form-label {
+            font-weight: 500;
+            color: #1b0e0e;
         }
 
-        .input-group .form-control {
-            border-left: 0;
+        .form-control {
+            height: 3.25rem;
+            border-radius: 0.5rem;
+            padding-left: 2.5rem;
         }
 
         .form-control:focus {
-            box-shadow: 0 0 0 0.25rem rgba(242, 127, 13, 0.25);
-            border-color: #f27f0d;
-        }
-
-        .input-group:focus-within .input-group-text {
-            border-color: #f27f0d;
+            border-color: #ea2a33;
+            box-shadow: 0 0 0 0.25rem rgba(234, 42, 51, 0.25);
         }
 
         .btn-primary {
-            background-color: #f27f0d;
-            border-color: #f27f0d;
+            background-color: #ea2a33;
+            border-color: #ea2a33;
             font-weight: 600;
-            padding: 0.625rem;
         }
 
-            .btn-primary:hover,
-            .btn-primary:focus {
-                background-color: #d9700b;
-                border-color: #d9700b;
-            }
-
-        .btn-toggle-password {
-            border-left: 0;
-            border-color: #ced4da;
-            background-color: transparent;
+        .btn-primary:hover {
+            background-color: #c9232b;
+            border-color: #c9232b;
         }
-
-            .btn-toggle-password:hover {
-                background-color: #e9ecef;
-            }
-
-        .forgot-password {
-            color: #f27f0d;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-
-            .forgot-password:hover {
-                color: #d9700b;
-                text-decoration: underline;
-            }
 
         .error-message {
             color: #dc3545;
@@ -101,36 +76,41 @@
             margin-top: 1rem;
         }
 
-        .footer-text {
-            color: #6c757d;
-            font-size: 0.8rem;
-            margin-top: 2rem;
-            margin-bottom: 0;
+        .login-right {
+            background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBfTTqpbfiKHuxxHeIyCcL9A4HXut_rRD4QolocOejLbbgryJpzWMR9rgAKfZ1RO2YnKTlZlo0zL4SP5eKVMJwXxStdA6Op24-7VIxp28oth-uXAC-SH8SLzZStP67Zq2S-UI3wB3BwkDpF_HmCaAqB_QiVXnXpmVcLZ48DxI7pYY_FD4gWE85ve6-QERY3duV2K0KlAYz891MAvtx8YggsYvP1oqtz4GPQthOAlPEPvFczHeENi7wCTplC02E2gGG7v9Jhczz0oCM');
+            background-size: cover;
+            background-position: center;
+            display: none;
         }
 
-        .material-icons {
-            font-size: 20px;
-            vertical-align: middle;
+        @media (min-width: 768px) {
+            .login-right {
+                display: block;
+            }
+        }
+
+        .brand-icon {
+            font-size: 3.5rem;
+            color: #ea2a33;
         }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="login-container">
-        <div class="login-card card">
-            <div class="card-body">
+    <div class="login-wrapper">
+        <div class="login-card row g-0">
 
+            
+            <div class="col-md-6 login-left d-flex flex-column justify-content-center">
                 <div class="text-center mb-4">
-                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAm0zAeVp81AvXkJ3yISDanc9DlBHF46toimPfkZq2xJh1lwDxkVd_iOSqdIH9Es-w1X4kaw_1JW4rpdV6eFR6PATQleq22HStxpGmpvpk8uAKDawzjtudL1qUDFoFlRoJvJIonW_TB07YVdriGHIlU5uHM8L4obj5lEQ7RB1uVCtgTkiEyQeiS9BKA8Ej-sUd0wqvSGYqMuOwN1v-oqLRqm6d3VZGb4UlP5BK-ZuqG0FJfd69JaTqSnc_SaM9MFJdacXkDfFG_9jU"
-                        alt="Logo"
-                        class="login-logo" />
+                    <span class="material-icons brand-icon">fastfood</span>
+                    <h2 class="mt-2 fw-bold">Equipo 4A</h2>
                 </div>
 
-                <div class="text-center">
-                    <h1 class="h3 login-title">Sistema de Gestión de Comandas</h1>
-                    <p class="login-subtitle">Inicio de Sesión</p>
+                <div class="mb-4 text-center">
+                    <h3 class="login-title">Acceso Interno</h3>
+                    <p class="login-subtitle">Bienvenido de vuelta</p>
                 </div>
-
 
                 <div class="mb-3">
                     <label for="txtUsuario" class="form-label">Usuario</label>
@@ -156,48 +136,26 @@
                             TextMode="Password"
                             placeholder="Ingresa tu contraseña">
                         </asp:TextBox>
-                        <button class="btn btn-outline-secondary btn-toggle-password"
-                            type="button"
-                            id="togglePassword">
-                            <i class="material-icons">visibility</i>
-                        </button>
                     </div>
                 </div>
 
-
                 <div class="d-grid mt-4">
-                    <asp:Button ID="btnLogin" runat="server"
-                        CssClass="btn btn-primary"
-                        Text="Ingresar" />
+                    <%--<asp:Button ID="btnLogin" runat="server" 
+                        CssClass="btn btn-primary btn-lg" 
+                        Text="Ingresar" 
+                        OnClick="btnLogin_Click" />--%>
                 </div>
 
-                <div class="text-center mt-3">
-                    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
-                </div>
+                <asp:Label ID="lblError" runat="server" CssClass="error-message d-block text-center" Visible="false"></asp:Label>
 
-
-                <p class="text-center footer-text">
-                    © 2025 Equipo 4A - Todos los derechos reservados.
+                <p class="text-center mt-5 mb-0 text-muted small">
+                    © 2025 Equipo 4A sistema de gestión.
                 </p>
             </div>
+
+            
+            <div class="col-md-6 login-right"></div>
         </div>
     </div>
-
-    <!-- Script contraseña -->
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function () {
-            const togglePassword = document.querySelector('#togglePassword');
-            const password = document.querySelector('#<%= txtPassword.ClientID %>');
-            const toggleIcon = togglePassword.querySelector('i');
-
-            if (togglePassword && password) {
-                togglePassword.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-                    password.setAttribute('type', type);
-                    toggleIcon.textContent = type === 'password' ? 'visibility' : 'visibility_off';
-                });
-            }
-        });
-    </script>
 </asp:Content>
+

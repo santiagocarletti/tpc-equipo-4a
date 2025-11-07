@@ -12,9 +12,9 @@
             justify-content: space-between;
         }
 
-        .sidebar i {
-            font-size: 1.2rem;
-        }
+            .sidebar i {
+                font-size: 1.2rem;
+            }
 
         .sidebar-footer {
             margin-top: auto;
@@ -43,9 +43,9 @@
             backdrop-filter: saturate(120%) blur(1px);
         }
 
-        .pedido-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 24px rgba(0,0,0,0.10);
+            .pedido-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 24px rgba(0,0,0,0.10);
             }
 
         .pedido-header {
@@ -149,8 +149,8 @@
                     </div>
                 </div>
             </div>
+            <a href="Cocina.aspx" class="btn btn-outline-secondary mt-4">Volver a Cocina</a>
         </div>
     </div>
-
 </asp:Content>
 
