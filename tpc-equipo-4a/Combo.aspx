@@ -33,13 +33,38 @@
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title"><%# Eval("Nombre") %></h5>
                                 <p class="text-secondary mb-2"><%# Eval("Descripcion") %></p>
-                                <ul class="small mb-4">
-                                    <li>Estado:
+                                <%-- DETALLES POR COMBO --%>
+                                <%--                                <ul class="small mb-3">
+                                    <%# string.Join("", ((List<dominio.ComboDetalle>)Eval("Detalles")).Select(d => 
+                                    $"<li>{(d.Producto != null ? d.Producto.Nombre : d.IdProducto.ToString())} x {d.Cantidad}</li>")) %>
+                                </ul>--%>
+                                <table class="table table-sm mb-3">
+                                    <thead>
+                                        <tr>
+                                            <th>Producto</th>
+                                            <th>Cantidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%# string.Join("", ((List<dominio.ComboDetalle>)Eval("Detalles"))
+                                                .Select(d => 
+                                                    $"<tr>" +
+                                                        $"<td>{(d.Producto != null ? d.Producto.Nombre : d.IdProducto.ToString())}</td>" +
+                                                        $"<td>{d.Cantidad}</td>" +
+                                                    $"</tr>"
+                                                )
+                                        ) %>
+                                    </tbody>
+                                </table>
+                                <%--  --%>
+
+                                <div class="mb-3">
+                                    Estado:
                                         <span class='badge <%# (bool)Eval("Activo") ? "text-bg-success" : "text-bg-secondary" %>'>
                                             <%# (bool)Eval("Activo") ? "Activo" : "Inactivo" %>
                                         </span>
-                                    </li>
-                                </ul>
+                                </div>
+
                                 <div class="mt-auto d-flex gap-2">
                                     <asp:Button
                                         ID="btnEditar"
@@ -72,54 +97,3 @@
         </div>
     </div>
 </asp:Content>
-
-<%--         <div class="row g-4">
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card h-100">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Combo Clasico</h5>
-                        <p class="text-secondary mb-2">Hamburguesa simple + Papas + Gaseosa</p>
-                        <ul class="small mb-4">
-                            <li>Precio: $</li>
-                            <li>Estado: <span class="badge text-bg-success">Activo</span></li>
-                        </ul>
-                        <div class="mt-auto d-flex gap-2">
-                            <button class="btn btn-outline-secondary btn-sm">Editar</button>
-                            <button class="btn btn-outline-danger btn-sm">Desactivar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card h-100">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Combo Doble</h5>
-                        <p class="text-secondary mb-2">Doble Bacon + Papas + Gaseosa</p>
-                        <ul class="small mb-4">
-                            <li>Precio: $</li>
-                            <li>Estado: <span class="badge text-bg-success">Activo</span></li>
-                        </ul>
-                        <div class="mt-auto d-flex gap-2">
-                            <button class="btn btn-outline-secondary btn-sm">Editar</button>
-                            <button class="btn btn-outline-danger btn-sm">Desactivar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card h-100">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Combo Clasico</h5>
-                        <p class="text-secondary mb-2">Hamburguesa simple + Papas + Gaseosa</p>
-                        <ul class="small mb-4">
-                            <li>Precio: $</li>
-                            <li>Estado: <span class="badge text-bg-secondary">Inactivo</span></li>
-                        </ul>
-                        <div class="mt-auto d-flex gap-2">
-                            <button class="btn btn-outline-secondary btn-sm">Editar</button>
-                            <button class="btn btn-outline-success btn-sm">Activar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>--%>

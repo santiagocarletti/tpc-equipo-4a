@@ -22,7 +22,7 @@ namespace negocio
 
                 while (datos.Lectorbd.Read())
                 {
-                    int idArtBD = Convert.ToInt32(datos.Lectorbd["Id"]);
+                    //int idArtBD = Convert.ToInt32(datos.Lectorbd["Id"]);
 
                     Combo aux = new Combo();
                     aux.Id = Convert.ToInt32(datos.Lectorbd["Id"]);
@@ -32,6 +32,13 @@ namespace negocio
                     
                     lista.Add(aux);
                 }
+
+                ComboDetalleNegocio detalleNegocio = new ComboDetalleNegocio();
+                foreach (var combo in lista)
+                {
+                    combo.Detalles = detalleNegocio.DetallesPorCombo(combo.Id);
+                }
+
                 return lista;
             }
             catch (Exception ex)

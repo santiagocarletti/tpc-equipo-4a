@@ -15,10 +15,16 @@ namespace tpc_equipo_4a
         protected void Page_Load(object sender, EventArgs e)
         {
             ComboNegocio negocio = new ComboNegocio();
+            ComboDetalleNegocio detalleNegocio = new ComboDetalleNegocio();
             ListaCombos = negocio.listar();
 
             if (!IsPostBack)
             {
+                foreach (var combo in ListaCombos)
+                {
+                    combo.Detalles = detalleNegocio.DetallesPorCombo(combo.Id);
+                }
+
                 Session.Add("listaCombos", ListaCombos);
                 repCombos.DataSource = Session["listaCombos"];
                 repCombos.DataBind();

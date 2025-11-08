@@ -149,3 +149,40 @@ ADD IdUsuario INT NOT NULL
     CONSTRAINT FK_RolUsuarios_Usuarios FOREIGN KEY (IdUsuario) REFERENCES Usuarios(Id);
 
 --Datos nuevos en QueryLlenadoDb.sql
+----------------------------------------------------------------------
+--06/11/2025: Volvemos a la versión previa de la tabla Usuarios
+ALTER TABLE Usuarios
+ADD IdRol INT NULL;
+GO
+
+--Asignar rol por defecto
+UPDATE Usuarios
+SET IdRol = 9
+WHERE IdRol IS NULL;
+GO
+
+--NOT NULL
+ALTER TABLE Usuarios
+ALTER COLUMN IdRol INT NOT NULL;
+GO
+
+--FK: Usuarios --> RolUsuarios
+ALTER TABLE Usuarios
+ADD CONSTRAINT FK_Usuarios_RolUsuarios
+FOREIGN KEY (IdRol) REFERENCES RolUsuarios(Id);
+GO
+
+---------------------------------------
+--BLOQUE PENDIENTE
+
+--Eliminar FK de RolUsuarios
+--ALTER TABLE RolUsuarios
+--DROP CONSTRAINT FK_RolUsuarios_Usuarios;
+--GO
+
+--Eliminación de columna
+--ALTER TABLE RolUsuarios
+--DROP COLUMN IdUsuario;
+--GO
+
+----------------------------------------
