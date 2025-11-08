@@ -15,45 +15,86 @@ namespace tpc_equipo_4a
         {
             if (!IsPostBack)
             {
+                ProductoNegocio prodNegocio = new ProductoNegocio();
+                ComboDetalleNegocio detNegocio = new ComboDetalleNegocio();
+                ComboNegocio comboNeg = new ComboNegocio();
+
+                List<dominio.Producto> productos = prodNegocio.listar();
+
+                List<ComboDetalle> detalles = new List<ComboDetalle>();
+
                 if (Session["ComboId"] != null)
                 {
-                    int id = (int)Session["ComboId"];
-                    ComboNegocio negocio = new ComboNegocio();
-                    dominio.Combo combo = negocio.obtenerPorId(id);
+                    int idCombo = (int)Session["ComboId"];
 
-                    if (combo == null || combo.Id == 0)
-                    {
-                        Response.Redirect("Combo.aspx");
-                        return;
-                    }
+                    dominio.Combo combo = comboNeg.obtenerPorId(idCombo);
 
-                    lblTitulo.Text = "Editar Combo";
                     txtNombre.Text = combo.Nombre;
                     txtDescripcion.Text = combo.Descripcion;
+
+                    detalles = detNegocio.DetallesPorCombo(idCombo);
                 }
-                else
-                {
-                    lblTitulo.Text = "Nuevo Combo";
-                }
+                //
+                //Asociación temporal para vistas
+                foreach (var p in productos)
+                    p.DetallesCombo = detalles;
+
+                repProductosCombo.DataSource = productos;
+                repProductosCombo.DataBind();
             }
         }
-
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            ComboNegocio negocio = new ComboNegocio();
-            dominio.Combo combo = new dominio.Combo();
+            if (Session["ComboId"] == null)
+            {
+                Response.Redirect("Combo.aspx");
+                return;
+            }
 
-            if (Session["ComboId"] != null)
-                combo.Id = (int)Session["ComboId"];
-            else
-                combo.Id = 0;
+            int idCombo = (int)Session["ComboId"];
 
-            combo.Nombre = txtNombre.Text.Trim();
-            combo.Descripcion = txtDescripcion.Text.Trim();
+            ComboDetalleNegocio detNegocio = new ComboDetalleNegocio();
 
-            negocio.guardar(combo);
+            foreach (RepeaterItem item in repProductosCombo.Items)
+            {
+                HiddenField hfIdProducto = (HiddenField)item.FindControl("hfIdProducto");
+                HiddenField hfIdDetalle = (HiddenField)item.FindControl("hfIdDetalle");
+                CheckBox chk = (CheckBox)item.FindControl("chkSeleccionado");
+                TextBox txtCant = (TextBox)item.FindControl("txtCantidad");
 
-            Session.Remove("ComboId");
+                int idProducto = int.Parse(hfIdProducto.Value);
+                int idDetalle = int.Parse(hfIdDetalle.Value);
+
+                bool seleccionado = chk.Checked;
+                int cantidad = 0;
+
+                int.TryParse(txtCant.Text, out cantidad);
+
+                if (seleccionado && idDetalle == 0)
+                {
+                    detNegocio.Agregar(new ComboDetalle
+                    {
+                        IdCombo = idCombo,
+                        IdProducto = idProducto,
+                        Cantidad = cantidad
+                    });
+                }
+                else if (seleccionado && idDetalle > 0)
+                {
+                    detNegocio.Modificar(new ComboDetalle
+                    {
+                        Id = idDetalle,
+                        IdCombo = idCombo,
+                        IdProducto = idProducto,
+                        Cantidad = cantidad
+                    });
+                }
+                else if (!seleccionado && idDetalle > 0)
+                {
+                    detNegocio.Eliminar(idDetalle);
+                }
+            }
+
             Response.Redirect("Combo.aspx");
         }
 

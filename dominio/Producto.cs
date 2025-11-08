@@ -17,6 +17,9 @@ namespace dominio
         //public int SectorId { get; set; }
         public Sector Sector { get; set; }
 
+        //Para uso en ComboEdicion
+        public List<ComboDetalle> DetallesCombo { get; set; } = new List<ComboDetalle>();
+
         //opciones de modificacion 
         //public List<ProductoModificador> Modificadores { get; set; } = new List<ProductoModificador>();
         //Santiago: Eliminé la clase ProductoModificador para manejarlo con ComandaItems y ComandaItemModificadores

@@ -42,6 +42,15 @@ namespace tpc_equipo_4a
         protected global::System.Web.UI.WebControls.TextBox txtDescripcion;
 
         /// <summary>
+        /// Control repProductosCombo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater repProductosCombo;
+
+        /// <summary>
         /// Control btnGuardar.
         /// </summary>
         /// <remarks>

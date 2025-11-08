@@ -52,5 +52,67 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        public void Agregar(ComboDetalle detalle)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("INSERT INTO ComboDetalles (IdCombo, IdProducto, Cantidad) VALUES (@IdCombo, @IdProducto, @Cantidad)");
+                datos.setearParametro("@IdCombo", detalle.IdCombo);
+                datos.setearParametro("@IdProducto", detalle.IdProducto);
+                datos.setearParametro("@Cantidad", detalle.Cantidad);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public void Modificar(ComboDetalle detalle)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta(
+                    "UPDATE ComboDetalles SET IdProducto = @idProducto, Cantidad = @cantidad WHERE Id = @id");
+
+                datos.setearParametro("@id", detalle.Id);
+                datos.setearParametro("@idProducto", detalle.IdProducto);
+                datos.setearParametro("@cantidad", detalle.Cantidad);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public void Eliminar(int idDetalle)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("DELETE FROM ComboDetalles WHERE Id = @Id");
+                datos.setearParametro("@Id", idDetalle);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }
