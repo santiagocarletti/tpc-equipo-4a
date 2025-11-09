@@ -45,15 +45,33 @@ namespace tpc_equipo_4a
         }
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
+            ComboNegocio comboNeg = new ComboNegocio();
+            ComboDetalleNegocio detNegocio = new ComboDetalleNegocio();
+
+            int idCombo;
+
             if (Session["ComboId"] == null)
             {
-                Response.Redirect("Combo.aspx");
-                return;
+                dominio.Combo nuevoCombo = new dominio.Combo();
+                nuevoCombo.Nombre = txtNombre.Text.Trim();
+                nuevoCombo.Descripcion = txtDescripcion.Text.Trim();
+                nuevoCombo.Activo = true;
+
+                idCombo = comboNeg.AgregarYDevolverId(nuevoCombo);
+                Session["ComboId"] = idCombo;
             }
+            else
+            {
+                idCombo = (int)Session["ComboId"];
 
-            int idCombo = (int)Session["ComboId"];
+                dominio.Combo comboEditado = new dominio.Combo();
+                comboEditado.Id = idCombo;
+                comboEditado.Nombre = txtNombre.Text.Trim();
+                comboEditado.Descripcion = txtDescripcion.Text.Trim();
+                comboEditado.Activo = true;
 
-            ComboDetalleNegocio detNegocio = new ComboDetalleNegocio();
+                comboNeg.guardar(comboEditado);
+            }
 
             foreach (RepeaterItem item in repProductosCombo.Items)
             {
@@ -95,6 +113,7 @@ namespace tpc_equipo_4a
                 }
             }
 
+            Session.Remove("ComboId");
             Response.Redirect("Combo.aspx");
         }
 

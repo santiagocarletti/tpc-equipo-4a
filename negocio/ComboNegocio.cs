@@ -159,6 +159,35 @@ namespace negocio
             }
         }
 
+        public int AgregarYDevolverId(Combo combo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("INSERT INTO Combos (Nombre, Descripcion, Activo) OUTPUT INSERTED.Id VALUES (@nombre, @desc, @activo)");
+
+                datos.setearParametro("@nombre", combo.Nombre);
+                datos.setearParametro("@desc", combo.Descripcion);
+                datos.setearParametro("@activo", combo.Activo);
+
+                datos.ejecutarLectura();
+
+                int nuevoId = 0;
+                if (datos.Lectorbd.Read())
+                    nuevoId = Convert.ToInt32(datos.Lectorbd[0]);
+
+                return nuevoId;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
 
     }
 }
