@@ -29,7 +29,7 @@ namespace negocio
                     aux.Nombre = Convert.ToString(datos.Lectorbd["Nombre"]);
                     aux.Descripcion = Convert.ToString(datos.Lectorbd["Descripcion"]);
                     aux.Activo = Convert.ToBoolean(datos.Lectorbd["Activo"]);
-                    
+
                     lista.Add(aux);
                 }
 
@@ -62,14 +62,14 @@ namespace negocio
                 datos.setearParametro("@Id", id);
                 datos.ejecutarAccion();
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
 
-                throw ex; 
+                throw ex;
             }
-            finally 
-            { 
-                datos.cerrarConexion(); 
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
 
@@ -93,14 +93,14 @@ namespace negocio
                 }
                 return combo;
             }
-            catch (Exception ex) 
-            { 
+            catch (Exception ex)
+            {
 
-                throw ex; 
+                throw ex;
             }
-            finally 
-            { 
-                datos.cerrarConexion(); 
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
 
@@ -123,34 +123,9 @@ namespace negocio
                 datos.setearParametro("@desc", combo.Descripcion);
                 datos.ejecutarAccion();
             }
-            catch (Exception ex) 
-            { 
-
-                throw ex; 
-            }
-            finally 
-            { 
-                datos.cerrarConexion(); 
-            }
-        }
-
-        public void duplicarCombo(int id)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            try
-            {
-                Combo original = obtenerPorId(id);
-
-                if (original == null || original.Id == 0)
-                    throw new Exception("No se encontró el combo a duplicar.");
-
-                datos.setearConsulta("INSERT INTO Combos (Nombre, Descripcion, Activo) VALUES (@nombre, @desc, 1)");
-                datos.setearParametro("@nombre", original.Nombre);
-                datos.setearParametro("@desc", original.Descripcion);
-                datos.ejecutarAccion();
-            }
             catch (Exception ex)
             {
+
                 throw ex;
             }
             finally
@@ -158,13 +133,41 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        //BOTON DESACTIVADO HASTA COMPLETAR FUNCIONALIDAD O QUITARLA
+        //
+        //public void duplicarCombo(int id)
+        //{
+        //    AccesoDatos datos = new AccesoDatos();
+        //    try
+        //    {
+        //        Combo original = obtenerPorId(id);
+
+        //        if (original == null || original.Id == 0)
+        //            throw new Exception("No se encontró el combo a duplicar.");
+
+        //        datos.setearConsulta("INSERT INTO Combos (Nombre, Descripcion, Activo) VALUES (@nombre, @desc, @act)");
+        //        datos.setearParametro("@nombre", original.Nombre);
+        //        datos.setearParametro("@desc", original.Descripcion);
+        //        datos.setearParametro("@act", original.Activo);
+        //        datos.ejecutarAccion();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        datos.cerrarConexion();
+        //    }
+        //}
 
         public int AgregarYDevolverId(Combo combo)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("INSERT INTO Combos (Nombre, Descripcion, Activo) OUTPUT INSERTED.Id VALUES (@nombre, @desc, @activo)");
+                //datos.setearConsulta("INSERT INTO Combos (Nombre, Descripcion, Activo) OUTPUT INSERTED.Id VALUES (@nombre, @desc, @activo)");
+                datos.setearConsulta("INSERT INTO Combos (Nombre, Descripcion, Activo) OUTPUT INSERTED.Id VALUES (@nombre, @desc, 0)");
 
                 datos.setearParametro("@nombre", combo.Nombre);
                 datos.setearParametro("@desc", combo.Descripcion);

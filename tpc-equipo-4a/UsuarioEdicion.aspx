@@ -142,7 +142,8 @@
 
                 <div class="mb-3">
                     <label for="txtContraseña" class="form-label">Contraseña</label>
-                    <asp:TextBox ID="txtContraseña" runat="server" CssClass="form-control" TextMode="Password" placeholder="Ingrese la nueva contraseña"></asp:TextBox>
+                    <%--<asp:TextBox ID="txtContraseña" runat="server" CssClass="form-control" TextMode="Password" placeholder="Ingrese la nueva contraseña"></asp:TextBox>--%>
+                    <asp:TextBox ID="txtContraseña" runat="server" CssClass="form-control" placeholder="Ingrese la nueva contraseña"></asp:TextBox>
                 </div>
 
                 <div class="mb-3">

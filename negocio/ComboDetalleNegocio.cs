@@ -113,6 +113,26 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        public bool TieneProductosInactivos(int idCombo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta(@"SELECT COUNT(*) FROM ComboDetalles CD INNER JOIN Productos P ON P.Id = CD.IdProducto WHERE CD.IdCombo = @idCombo AND P.Activo = 0");
+                datos.setearParametro("@idCombo", idCombo);
+
+                int cantidad = (int)datos.ejecutarAccionConReturn();
+                return cantidad > 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
     }
 }

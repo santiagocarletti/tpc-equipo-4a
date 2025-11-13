@@ -59,12 +59,20 @@ namespace negocio
         }
         public void cambiarEstadoProducto(int id)
         {
-            AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("UPDATE Productos SET Activo = CASE WHEN Activo = 1 THEN 0 ELSE 1 END WHERE Id = @Id");
-                datos.setearParametro("@Id", id);
-                datos.ejecutarAccion();
+                AccesoDatos datosProd = new AccesoDatos();
+                datosProd.setearConsulta("UPDATE Productos SET Activo = CASE WHEN Activo = 1 THEN 0 ELSE 1 END WHERE Id = @Id");
+                datosProd.setearParametro("@Id", id);
+                datosProd.ejecutarAccion();
+                datosProd.cerrarConexion();
+
+                //DESACTIVA COMBOS QUE CONTENGAN EL PRODUCTO
+                AccesoDatos datosCombos = new AccesoDatos();
+                datosCombos.setearConsulta(@"UPDATE Combos SET Activo = 0 WHERE Id IN (SELECT DISTINCT IdCombo FROM ComboDetalles WHERE IdProducto = @IdProducto)");
+                datosCombos.setearParametro("@IdProducto", id);
+                datosCombos.ejecutarAccion();
+                datosCombos.cerrarConexion();
             }
             catch (Exception ex)
             {
@@ -72,7 +80,7 @@ namespace negocio
             }
             finally
             {
-                datos.cerrarConexion();
+                //datos.cerrarConexion();
             }
         }
         public Producto obtenerPorId(int idProducto)

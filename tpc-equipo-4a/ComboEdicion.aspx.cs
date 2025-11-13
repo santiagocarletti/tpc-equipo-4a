@@ -88,6 +88,17 @@ namespace tpc_equipo_4a
 
                 int.TryParse(txtCant.Text, out cantidad);
 
+                //Falta implementarlo para eliminaciones
+                //Para no guardar seleccionados sin cantidad
+                if (chk.Checked && cantidad <= 0)
+                    continue;
+                //Para guardar cantidad aunque esté seleccionado
+                if (!chk.Checked && cantidad > 0)
+                {
+                    chk.Checked = true;
+                    seleccionado = true;
+                }
+
                 if (seleccionado && idDetalle == 0)
                 {
                     detNegocio.Agregar(new ComboDetalle

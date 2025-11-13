@@ -45,10 +45,21 @@ namespace tpc_equipo_4a
             Button btn = (Button)sender;
             int idCombo = Convert.ToInt32(btn.CommandArgument);
 
-            ComboNegocio negocio = new ComboNegocio();
-            negocio.cambiarEstadoCombo(idCombo);
+            ComboNegocio comboNeg = new ComboNegocio();
+            ComboDetalleNegocio detNeg = new ComboDetalleNegocio();
 
-            repCombos.DataSource = negocio.listar();
+            // Validaciones Productos inactivos
+            bool tieneInactivos = detNeg.TieneProductosInactivos(idCombo);
+
+            dominio.Combo comboActual = comboNeg.obtenerPorId(idCombo);
+
+            if (tieneInactivos && !comboActual.Activo)
+            {
+                return;
+            }
+            comboNeg.cambiarEstadoCombo(idCombo);
+
+            repCombos.DataSource = comboNeg.listar();
             repCombos.DataBind();
         }
 
@@ -66,18 +77,18 @@ namespace tpc_equipo_4a
             Session.Remove("ComboId");
             Response.Redirect("ComboEdicion.aspx");
         }
+        //BOTON Y FUNCIONALIDAD DESACTIVADOS HASTA COMPLETAR O ELIMINAR
+        //protected void btnDuplicar_Click(object sender, EventArgs e)
+        //{
+        //    Button btn = (Button)sender;
+        //    int idCombo = Convert.ToInt32(btn.CommandArgument);
 
-        protected void btnDuplicar_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            int idCombo = Convert.ToInt32(btn.CommandArgument);
+        //    ComboNegocio negocio = new ComboNegocio();
+        //    negocio.duplicarCombo(idCombo);
 
-            ComboNegocio negocio = new ComboNegocio();
-            negocio.duplicarCombo(idCombo);
-
-            repCombos.DataSource = negocio.listar();
-            repCombos.DataBind();
-        }
+        //    repCombos.DataSource = negocio.listar();
+        //    repCombos.DataBind();
+        //}
 
 
     }

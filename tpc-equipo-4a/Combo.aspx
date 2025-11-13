@@ -73,11 +73,11 @@
                                         Text="Editar"
                                         CommandArgument='<%# Eval("Id") %>'
                                         OnClick="btnEditar_Click" />
-                                    <asp:Button ID="btnDuplicar" runat="server"
+<%--                                    <asp:Button ID="btnDuplicar" runat="server"
                                         CssClass="btn btn-outline-primary btn-sm"
                                         Text="Duplicar"
                                         CommandArgument='<%# Eval("Id") %>'
-                                        OnClick="btnDuplicar_Click" />
+                                        OnClick="btnDuplicar_Click" />--%>
                                     <asp:Button
                                         ID="btnCambiarEstadoCombo"
                                         runat="server"
