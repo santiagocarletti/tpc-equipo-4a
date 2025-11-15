@@ -83,44 +83,47 @@ namespace tpc_equipo_4a
                 int idProducto = int.Parse(hfIdProducto.Value);
                 int idDetalle = int.Parse(hfIdDetalle.Value);
 
-                bool seleccionado = chk.Checked;
+                //bool seleccionado = chk.Checked;
                 int cantidad = 0;
 
                 int.TryParse(txtCant.Text, out cantidad);
 
-                //Falta implementarlo para eliminaciones
+                //FUNCIONA PERO TEMPORALMENTE INACTIVO
                 //Para no guardar seleccionados sin cantidad
-                if (chk.Checked && cantidad <= 0)
-                    continue;
-                //Para guardar cantidad aunque esté seleccionado
-                if (!chk.Checked && cantidad > 0)
-                {
-                    chk.Checked = true;
-                    seleccionado = true;
-                }
+                //if (chk.Checked && cantidad <= 0)
+                //Para guardar cantidad aunque no esté seleccionado
+                //if (!chk.Checked && cantidad > 0)
+                //{
+                //    chk.Checked = true;
+                //    seleccionado = true;
+                //}
 
-                if (seleccionado && idDetalle == 0)
+                //if (!seleccionado && idDetalle > 0)
+                //{
+                //    detNegocio.Eliminar(idDetalle);
+                //}
+                //else 
+                if (cantidad > 0)
                 {
-                    detNegocio.Agregar(new ComboDetalle
+                    if (idDetalle == 0)
                     {
-                        IdCombo = idCombo,
-                        IdProducto = idProducto,
-                        Cantidad = cantidad
-                    });
-                }
-                else if (seleccionado && idDetalle > 0)
-                {
-                    detNegocio.Modificar(new ComboDetalle
+                        detNegocio.Agregar(new ComboDetalle
+                        {
+                            IdCombo = idCombo,
+                            IdProducto = idProducto,
+                            Cantidad = cantidad
+                        });
+                    }
+                    else
                     {
-                        Id = idDetalle,
-                        IdCombo = idCombo,
-                        IdProducto = idProducto,
-                        Cantidad = cantidad
-                    });
-                }
-                else if (!seleccionado && idDetalle > 0)
-                {
-                    detNegocio.Eliminar(idDetalle);
+                        detNegocio.Modificar(new ComboDetalle
+                        {
+                            Id = idDetalle,
+                            IdCombo = idCombo,
+                            IdProducto = idProducto,
+                            Cantidad = cantidad
+                        });
+                    }
                 }
             }
 

@@ -111,11 +111,11 @@ namespace negocio
             {
                 if (combo.Id == 0)
                 {
-                    datos.setearConsulta("INSERT INTO Combos (Nombre, Descripcion, Activo) VALUES (@nombre, @desc, 1)");
+                    datos.setearConsulta("INSERT INTO Combos (Nombre, Descripcion, Activo) VALUES (@nombre, @desc, 0)");
                 }
                 else
                 {
-                    datos.setearConsulta("UPDATE Combos SET Nombre = @nombre, Descripcion = @desc WHERE Id = @id");
+                    datos.setearConsulta("UPDATE Combos SET Nombre = @nombre, Descripcion = @desc, Activo = 0 WHERE Id = @id");
                     datos.setearParametro("@id", combo.Id);
                 }
 

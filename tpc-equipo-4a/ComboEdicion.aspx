@@ -23,63 +23,83 @@
                 </div>
                 <%--  --%>
 
-                <asp:Repeater ID="repProductosCombo" runat="server">
-                    <ItemTemplate>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <%--<th>Checked</th>--%>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th>Sector</th>
+                            <th>Minutos prep.</th>
+                        </tr>
+                    </thead>
 
-                        <asp:HiddenField ID="HiddenField1" runat="server" Value='<%# Eval("Id") %>' />
-                        <asp:HiddenField ID="hfIdDetalle" runat="server"
-                            Value='<%# ((List<dominio.ComboDetalle>)Eval("DetallesCombo"))
-                .FirstOrDefault(d => d.IdProducto == (int)Eval("Id"))?.Id ?? 0 %>' />
+                    <tbody>
+                        <asp:Repeater ID="repProductosCombo" runat="server">
+                            <ItemTemplate>
+
+                                <asp:HiddenField ID="hfIdProducto" runat="server" Value='<%# Eval("Id") %>' />
+                                <asp:HiddenField ID="hfIdDetalle" runat="server"
+                                    Value='<%# ((List<dominio.ComboDetalle>)Eval("DetallesCombo"))
+                        .FirstOrDefault(d => d.IdProducto == (int)Eval("Id"))?.Id ?? 0 %>' />
 
 
-                        <%-- HiddenField para IdProducto --%>
-                        <asp:HiddenField ID="hfIdProducto" runat="server"
-                            Value='<%# Eval("Id") %>' />
+                                <%-- HiddenField para IdProducto --%>
+                                <asp:HiddenField ID="HiddenField1" runat="server"
+                                    Value='<%# Eval("Id") %>' />
 
-                        <%-- HiddenField para IdComboDetalle (si existe) --%>
-                        <asp:HiddenField ID="hfIdComboDetalle" runat="server"
-                            Value='<%# 
+                                <%-- HiddenField para IdComboDetalle (si existe) --%>
+                                <asp:HiddenField ID="hfIdComboDetalle" runat="server"
+                                    Value='<%# 
                 ((List<dominio.ComboDetalle>)Eval("DetallesCombo"))
                     .FirstOrDefault(d => d.IdProducto == (int)Eval("Id"))?.Id ?? 0 
             %>' />
 
-                        <tr>
-                            <td>
-                                <asp:CheckBox
-                                    ID="chkSeleccionado"
-                                    runat="server"
-                                    Checked='<%# ((List<dominio.ComboDetalle>)Eval("DetallesCombo"))
+                                <tr>
+<%--                                    <td>
+                                        <asp:CheckBox
+                                            ID="chkSeleccionado"
+                                            runat="server"
+                                            Checked='<%# ((List<dominio.ComboDetalle>)Eval("DetallesCombo"))
                                 .Any(d => d.IdProducto == (int)Eval("Id")) %>' />
-                            </td>
+                                    </td>--%>
 
-                            <td class="ps-4 fw-medium">
-                                <%# Eval("Nombre") %>
-                            </td>
+                                    <td class="fw-medium">
+                                        <%# Eval("Nombre") %>
+                                    </td>
 
-                            <%--<td>
-                                <%# Eval("Sector.Nombre") %>
-                            </td>--%>
+                                    <td>
+                                        <asp:TextBox
+                                            ID="txtCantidad"
+                                            runat="server"
+                                            CssClass="form-control form-control-sm"
+                                            TextMode="Number"
+                                            Min="0"
+                                            Max="99"
+                                            Text='<%# (
+                                ((List<dominio.ComboDetalle>)Eval("DetallesCombo"))
+                                    .FirstOrDefault(d => d.IdProducto == (int)Eval("Id"))
+                                ?.Cantidad ?? 0
+                            ).ToString() %>'
+                                            Width="70" />
+                                    </td>
 
-                            <td>
-                                <asp:TextBox
-                                    ID="txtCantidad"
-                                    runat="server"
-                                    CssClass="form-control form-control-sm"
-                                    TextMode="Number"
-                                    Min="0"
-                                    Max="99"
-                                    Text='<%# (
-            ((List<dominio.ComboDetalle>)Eval("DetallesCombo"))
-                .FirstOrDefault(d => d.IdProducto == (int)Eval("Id"))
-            ?.Cantidad ?? 0
-        ).ToString() %>'
-                                    Width="70" />
-                            </td>
-                        </tr>
-                    </ItemTemplate>
-                </asp:Repeater>
+                                    <td>
+                                        <%# Eval("Sector.Nombre") %>
+                                    </td>
 
-                <%--  --%>
+                                    <td>
+                                        <%# Eval("MinutosPreparacion") %>
+                                    </td>
+
+                                </tr>
+
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </tbody>
+                </table>
+
+
                 <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardar_Click" />
                 <a href="Combo.aspx" class="btn btn-outline-secondary">Cancelar</a>
             </div>
