@@ -54,8 +54,8 @@
                         <asp:Button ID="btnCatCombos" runat="server"
                             Text="Combos"
                             CssClass="btn btn-outline-primary rounded-pill"
-                            OnClick="btnCatCombos_Click"/>
-                        <asp:Button ID="btnCatHamburguesas" runat="server"
+                            OnClick="btnCatCombos_Click" />
+                        <%-- <asp:Button ID="btnCatHamburguesas" runat="server"
                             Text="Hamburguesas"
                             CssClass="btn btn-primary rounded-pill" 
                             OnClick="btnCatHamburguesas_Click"/>
@@ -66,13 +66,26 @@
                         <asp:Button ID="btnCatBebidas" runat="server"
                             Text="Bebidas"
                             CssClass="btn btn-outline-primary rounded-pill" 
-                            OnClick="btnCatBebidas_Click"/>
+                            OnClick="btnCatBebidas_Click"/>--%>
+
+                        <div class="d-flex flex-wrap gap-2">
+                            <asp:Repeater ID="repSectores" runat="server">
+                                <ItemTemplate>
+                                    <asp:Button ID="btnSector" runat="server"
+                                        Text='<%# Eval("Nombre") %>'
+                                        CssClass="btn btn-outline-primary rounded-pill"
+                                        CommandArgument='<%# Eval("Id") %>'
+                                        OnClick="btnSector_Click" />
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </div>
+
                     </div>
                 </div>
             </div>
 
 
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3" id="panelCombos" runat="server" visible="false">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3" id="panelCombos" runat="server" visible="true">
 
                 <%--  --%>
 
@@ -95,10 +108,10 @@
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>
-                
+
                 <%--  --%>
 
-                <%--                <div class="col">
+                <%-- <div class="col">
                     <div class="card h-100 product-card">
                         <div class="card-body text-center">
                             <h5 class="card-title mb-3">Classic Burger</h5>
@@ -135,6 +148,28 @@
                         </div>
                     </div>
                 </div>--%>
+            </div>
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3" id="panelProductosSectores" runat="server" visible="false">
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <asp:Repeater ID="repProductosCaja" runat="server">
+                            <ItemTemplate>
+                                <tr>
+                                    <td><%# Eval("Nombre") %></td>
+                                </tr>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </tbody>
+                </table>
+
             </div>
 
         </div>

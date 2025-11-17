@@ -33,31 +33,13 @@ namespace tpc_equipo_4a
         protected global::System.Web.UI.WebControls.Button btnCatCombos;
 
         /// <summary>
-        /// Control btnCatHamburguesas.
+        /// Control repSectores.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCatHamburguesas;
-
-        /// <summary>
-        /// Control btnCatPapas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCatPapas;
-
-        /// <summary>
-        /// Control btnCatBebidas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCatBebidas;
+        protected global::System.Web.UI.WebControls.Repeater repSectores;
 
         /// <summary>
         /// Control panelCombos.
@@ -76,6 +58,24 @@ namespace tpc_equipo_4a
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater repCombosCaja;
+
+        /// <summary>
+        /// Control panelProductosSectores.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl panelProductosSectores;
+
+        /// <summary>
+        /// Control repProductosCaja.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater repProductosCaja;
 
         /// <summary>
         /// Control btnRestar1.

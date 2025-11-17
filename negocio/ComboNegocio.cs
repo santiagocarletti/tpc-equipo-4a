@@ -103,7 +103,6 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
-
         public void guardar(Combo combo)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -160,7 +159,6 @@ namespace negocio
         //        datos.cerrarConexion();
         //    }
         //}
-
         public int AgregarYDevolverId(Combo combo)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -190,7 +188,5 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
-
-
     }
 }

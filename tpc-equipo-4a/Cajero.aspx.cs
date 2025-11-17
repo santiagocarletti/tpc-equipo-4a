@@ -1,4 +1,5 @@
-﻿using negocio;
+﻿using dominio;
+using negocio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,22 +15,25 @@ namespace tpc_equipo_4a
         public List<dominio.Combo> ListaCombos { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (!IsPostBack)
             {
                 ComboNegocio negocio = new ComboNegocio();
-                //ComboDetalleNegocio detalleNegocio = new ComboDetalleNegocio();
                 ListaCombos = negocio.listar();
-                //foreach (var combo in ListaCombos)
-                //{
-                //    combo.Detalles = detalleNegocio.DetallesPorCombo(combo.Id);
-                //}
+                ListaCombos = ListaCombos.Where(x => x.Activo).ToList();
 
                 Session.Add("listaCombos", ListaCombos);
                 repCombosCaja.DataSource = Session["listaCombos"];
                 repCombosCaja.DataBind();
 
                 Session["listaCombos"] = ListaCombos;
+
+                //BOTONES SECTORES
+                SectorNegocio sectorNeg = new SectorNegocio();
+                List<Sector> sectores = sectorNeg.listar();
+
+                repSectores.DataSource = sectores;
+                repSectores.DataBind();
+                //
             }
         }
 
@@ -42,23 +46,20 @@ namespace tpc_equipo_4a
         protected void btnCatCombos_Click(object sender, EventArgs e)
         {
             panelCombos.Visible = true;
-            repCombosCaja.DataSource = Session["listaCombos"];
-            repCombosCaja.DataBind();
+            panelProductosSectores.Visible = false;
         }
-
-        protected void btnCatHamburguesas_Click(object sender, EventArgs e)
+        public List<dominio.Producto> ListaProductos { get; set; }
+        protected void btnSector_Click(object sender, EventArgs e)
         {
-            panelCombos.Visible = false;
-        }
+            Button btn = (Button)sender;
+            int idSector = int.Parse(btn.CommandArgument);
 
-        protected void btnCatBebidas_Click(object sender, EventArgs e)
-        {
             panelCombos.Visible = false;
-        }
+            panelProductosSectores.Visible = true;
 
-        protected void btnCatPapas_Click(object sender, EventArgs e)
-        {
-            panelCombos.Visible = false;
+            ProductoNegocio negocio = new ProductoNegocio();
+            repProductosCaja.DataSource = negocio.listar(idSector);
+            repProductosCaja.DataBind();
         }
     }
 }
