@@ -70,8 +70,31 @@
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3">
 
+                <%--  --%>
 
-                <div class="col">
+                <asp:Repeater ID="repCombosCaja" runat="server">
+                    <ItemTemplate>
+                        <div class="col">
+                            <div class="card h-100 product-card">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title mb-3"><%# Eval("Nombre") %></h5>
+                                    <p class="text-secondary mb-2"><%# Eval("Descripcion") %></p>
+
+                                    <asp:Button ID="btnAgregar"
+                                        runat="server"
+                                        Text="Añadir"
+                                        CssClass="btn btn-primary btn-sm w-100"
+                                        CommandArgument='<%# Eval("Id") %>'
+                                        OnClick="btnAgregar_Click" />
+                                </div>
+                            </div>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
+
+                <%--  --%>
+
+                <%--                <div class="col">
                     <div class="card h-100 product-card">
                         <div class="card-body text-center">
                             <h5 class="card-title mb-3">Classic Burger</h5>
@@ -107,8 +130,7 @@
                                 CssClass="btn btn-primary btn-sm w-100" />
                         </div>
                     </div>
-                </div>
-
+                </div>--%>
             </div>
 
         </div>

@@ -3,11 +3,12 @@
 <asp:Content ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container py-4">
         <h2 class="mb-3">Gestionar Combos</h2>
-
         <div class="row g-3 align-items-center mb-3">
             <div class="col-12 col-md-5">
+
                 <div class="input-group">
                     <span class="input-group-text">🔎</span>
+
                     <asp:TextBox ID="txtBuscar" runat="server"
                         CssClass="form-control border-start-0"
                         Placeholder="Buscar combo"
