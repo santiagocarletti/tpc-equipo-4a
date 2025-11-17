@@ -53,22 +53,26 @@
                     <div class="d-flex flex-wrap gap-2">
                         <asp:Button ID="btnCatCombos" runat="server"
                             Text="Combos"
-                            CssClass="btn btn-outline-primary rounded-pill" />
+                            CssClass="btn btn-outline-primary rounded-pill"
+                            OnClick="btnCatCombos_Click"/>
                         <asp:Button ID="btnCatHamburguesas" runat="server"
                             Text="Hamburguesas"
-                            CssClass="btn btn-primary rounded-pill" />
+                            CssClass="btn btn-primary rounded-pill" 
+                            OnClick="btnCatHamburguesas_Click"/>
                         <asp:Button ID="btnCatPapas" runat="server"
                             Text="Papas"
-                            CssClass="btn btn-outline-primary rounded-pill" />
+                            CssClass="btn btn-outline-primary rounded-pill" 
+                            OnClick="btnCatPapas_Click"/>
                         <asp:Button ID="btnCatBebidas" runat="server"
                             Text="Bebidas"
-                            CssClass="btn btn-outline-primary rounded-pill" />
+                            CssClass="btn btn-outline-primary rounded-pill" 
+                            OnClick="btnCatBebidas_Click"/>
                     </div>
                 </div>
             </div>
 
 
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3" id="panelCombos" runat="server" visible="false">
 
                 <%--  --%>
 
@@ -91,7 +95,7 @@
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>
-
+                
                 <%--  --%>
 
                 <%--                <div class="col">
