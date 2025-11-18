@@ -94,7 +94,52 @@
                     <label for="txtMinutos" class="form-label">Minutos de preparación</label>
                     <asp:TextBox ID="txtMinutos" runat="server" CssClass="form-control" TextMode="Number" placeholder="Ej: 15"></asp:TextBox>
                 </div>
+                <%--  --%>
+                <div class="mb-3 mt-4">
+                    <h6>Ingredientes</h6>
 
+                    <asp:Repeater ID="repIngredientes" runat="server">
+                        <HeaderTemplate>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Ingrediente</th>
+                                        <th>Opcional</th>
+                                        <th>Sector</th>
+                                        <th>Minutos prep.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        </HeaderTemplate>
+
+                        <ItemTemplate>
+                            <tr>
+                                <td><%# Eval("NombreIngrediente") %></td>
+
+                                <td>
+                                    <asp:CheckBox ID="chkOpcional" runat="server"
+                                        Checked='<%# Eval("EsOpcional") %>' />
+                                </td>
+
+                                <td><%# Eval("NombreSector") %></td>
+
+                                <td>
+                                    <asp:TextBox ID="txtMin" runat="server"
+                                        Text='<%# Eval("MinutosPreparacion") %>'
+                                        CssClass="form-control" TextMode="Number"
+                                        Style="width: 80px;" />
+                                </td>
+                            </tr>
+                        </ItemTemplate>
+
+                        <FooterTemplate>
+                            </tbody>
+                            </table>
+                        </FooterTemplate>
+                    </asp:Repeater>
+                </div>
+
+                <%--  --%>
                 <div class="d-flex justify-content-between align-items-center mt-4">
                     <a href="Producto.aspx" class="btn btn-outline-secondary d-flex align-items-center">
                         <span class="material-symbols-outlined me-1">arrow_back</span> Cancelar

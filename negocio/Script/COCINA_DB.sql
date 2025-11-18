@@ -185,4 +185,40 @@ GO
 --DROP COLUMN IdUsuario;
 --GO
 
-----------------------------------------
+------------------------------------------------------------------------------
+--18/11/2025
+--TABLA NUEVA: PRODUCTOS INGREDIENTES
+CREATE TABLE ProductoIngredientes (
+    Id INT IDENTITY(1,1) NOT NULL,
+    IdProducto INT NOT NULL,                 -- FK --> Productos
+    NombreIngrediente VARCHAR(50) NOT NULL,
+    EsOpcional BIT NOT NULL DEFAULT 0,       -- 0 = No puede quitarse o agregarse
+    IdSector INT NOT NULL,
+    Activo BIT NOT NULL DEFAULT 0,
+    MinutosPreparacion INT NOT NULL DEFAULT 0,
+
+    CONSTRAINT PK_ProductoIngredientes PRIMARY KEY CLUSTERED (Id),
+
+    CONSTRAINT FK_ProductoIngredientes_Productos 
+        FOREIGN KEY (IdProducto) REFERENCES Productos(Id),
+
+    CONSTRAINT FK_ProductoIngredientes_Sectores 
+        FOREIGN KEY (IdSector) REFERENCES Sectores(Id)
+);
+GO
+
+--CARGA DE DATOS DE PRUEB: PRODUCTO CHEESEBURGER
+INSERT INTO Productos(Nombre, MinutosPreparacion, Activo, IdSector) VALUES('Cheeseburger', 0, 1, 2)
+
+--CARGA DE DATOS DE PRUEBA: INGREDIENTES PARA CHEESEBURGER
+INSERT INTO ProductoIngredientes (IdProducto, NombreIngrediente, EsOpcional, IdSector, Activo, MinutosPreparacion)
+VALUES 
+(10, 'Pan', 0, 4, 1, 3),
+(10, 'Carne de res', 1, 2, 1, 5),
+(10, 'Queso cheddar', 1, 2, 1, 2),
+(10, 'Lechuga', 1, 4, 1, 2),
+(10, 'Tomate', 1, 4, 1, 2),
+(10, 'Cebolla', 1, 4, 1, 2),
+(10, 'Pepinillos', 1, 4, 1, 2),
+(10, 'Ketchup', 1, 4, 1, 2),
+(10, 'Mayonesa', 1, 4, 1, 2);

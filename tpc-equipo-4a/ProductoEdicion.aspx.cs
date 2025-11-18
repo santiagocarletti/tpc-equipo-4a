@@ -35,10 +35,17 @@ namespace tpc_equipo_4a
                     txtMinutos.Text = prod.MinutosPreparacion.ToString();
 
                     ddlSector.SelectedValue = prod.Sector.Id.ToString();
+
+                    ProductoIngredienteNegocio ingNegocio = new ProductoIngredienteNegocio();
+
+                    //CARGAR REPEATER
+                    List<ProductoIngrediente> ingredientes = ingNegocio.IngredientesPorProducto(id);
+                    repIngredientes.DataSource = ingredientes;
+                    repIngredientes.DataBind();
+                    //
                 }
             }
         }
-
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             ProductoNegocio negocio = new ProductoNegocio();
