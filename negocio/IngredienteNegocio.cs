@@ -83,7 +83,7 @@ namespace negocio
                 if (ingrediente.Id == 0)
                 {
                     //Agregar nuevo
-                    datos.setearConsulta("INSERT INTO Ingredientes (Nombre, IdSector, MinutosPreparacion, Activo) VALUES (@nombre, @idSector, @minutos, @idSector, 0)");
+                    datos.setearConsulta("INSERT INTO Ingredientes (Nombre, IdSector, MinutosPreparacion, Activo) VALUES (@nombre, @idSector, @minutos, 0)");
                     datos.setearParametro("@id", ingrediente.Id);
                 }
                 else
@@ -99,6 +99,43 @@ namespace negocio
                 datos.setearParametro("@idSector", ingrediente.IdSector);
 
                 datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public Ingrediente obtenerPorId(int idIngrediente)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Ingrediente ing = new Ingrediente();
+
+            try
+            {
+                datos.setearConsulta(@"SELECT I.Id, I.Nombre, I.MinutosPreparacion, I.Activo, 
+                                      S.Id AS IdSector, S.Nombre AS Sector
+                               FROM Ingredientes I
+                               LEFT JOIN Sectores S ON I.IdSector = S.Id
+                               WHERE I.Id = @idIngrediente");
+
+                datos.setearParametro("@idIngrediente", idIngrediente);
+                datos.ejecutarLectura();
+
+                if (datos.Lectorbd.Read())
+                {
+                    ing.Id = Convert.ToInt32(datos.Lectorbd["Id"]);
+                    ing.Nombre = Convert.ToString(datos.Lectorbd["Nombre"]);
+                    ing.MinutosPreparacion = Convert.ToInt32(datos.Lectorbd["MinutosPreparacion"]);
+                    ing.Activo = Convert.ToBoolean(datos.Lectorbd["Activo"]);
+                    ing.IdSector = Convert.ToInt32(datos.Lectorbd["IdSector"]);
+                    ing.NombreSector = Convert.ToString(datos.Lectorbd["Sector"]);
+                }
+
+                return ing;
             }
             catch (Exception ex)
             {
