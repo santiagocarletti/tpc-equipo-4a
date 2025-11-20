@@ -109,5 +109,43 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        public Ingrediente obtenerPorId(int idIngrediente)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Ingrediente ing = new Ingrediente();
+
+            try
+            {
+                datos.setearConsulta(@"SELECT I.Id, I.Nombre, I.MinutosPreparacion, I.Activo, 
+                                      S.Id AS IdSector, S.Nombre AS Sector
+                               FROM Ingredientes I
+                               LEFT JOIN Sectores S ON I.IdSector = S.Id
+                               WHERE I.Id = @idIngrediente");
+
+                datos.setearParametro("@idIngrediente", idIngrediente);
+                datos.ejecutarLectura();
+
+                if (datos.Lectorbd.Read())
+                {
+                    ing.Id = Convert.ToInt32(datos.Lectorbd["Id"]);
+                    ing.Nombre = Convert.ToString(datos.Lectorbd["Nombre"]);
+                    ing.MinutosPreparacion = Convert.ToInt32(datos.Lectorbd["MinutosPreparacion"]);
+                    ing.Activo = Convert.ToBoolean(datos.Lectorbd["Activo"]);
+                    ing.IdSector = Convert.ToInt32(datos.Lectorbd["IdSector"]);
+                    ing.NombreSector = Convert.ToString(datos.Lectorbd["Sector"]);
+                }
+
+                return ing;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }
