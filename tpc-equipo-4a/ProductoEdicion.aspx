@@ -107,6 +107,7 @@
                                         <th>Opcional</th>
                                         <th>Sector</th>
                                         <th>Minutos prep.</th>
+                                        <th>Cantidad</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -114,21 +115,34 @@
 
                         <ItemTemplate>
                             <tr>
-                                <td><%# Eval("NombreIngrediente") %></td>
+                                <td><%# Eval("Ingrediente.Nombre") %></td>
 
                                 <td>
                                     <asp:CheckBox ID="chkOpcional" runat="server"
                                         Checked='<%# Eval("EsOpcional") %>' />
                                 </td>
 
-                                <td><%# Eval("NombreSector") %></td>
+                                <td><%# Eval("Ingrediente.NombreSector") %></td>
 
                                 <td>
                                     <asp:TextBox ID="txtMin" runat="server"
-                                        Text='<%# Eval("MinutosPreparacion") %>'
+                                        Text='<%# Eval("Ingrediente.MinutosPreparacion") %>'
                                         CssClass="form-control" TextMode="Number"
                                         Style="width: 80px;" />
                                 </td>
+
+                                <td>
+                                    <asp:TextBox
+                                        ID="txtCantidad"
+                                        runat="server"
+                                        CssClass="form-control form-control-sm"
+                                        TextMode="Number"
+                                        Min="0"
+                                        Max="99"
+                                        Text='<%# Eval("Cantidad") %>'
+                                        Width="70" />
+                                </td>
+
                             </tr>
                         </ItemTemplate>
 
@@ -138,7 +152,6 @@
                         </FooterTemplate>
                     </asp:Repeater>
                 </div>
-
                 <%--  --%>
                 <div class="d-flex justify-content-between align-items-center mt-4">
                     <a href="Producto.aspx" class="btn btn-outline-secondary d-flex align-items-center">

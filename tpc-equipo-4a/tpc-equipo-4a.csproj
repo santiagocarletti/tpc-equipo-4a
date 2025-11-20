@@ -69,6 +69,8 @@
   <ItemGroup>
     <Content Include="Armado.aspx" />
     <Content Include="Cajero.aspx" />
+    <Content Include="Ingrediente.aspx" />
+    <Content Include="IngredienteEdicion.aspx" />
     <Content Include="Orden.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Despacho.aspx" />
@@ -101,6 +103,20 @@
     </Compile>
     <Compile Include="Cajero.aspx.designer.cs">
       <DependentUpon>Cajero.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ingrediente.aspx.cs">
+      <DependentUpon>Ingrediente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ingrediente.aspx.designer.cs">
+      <DependentUpon>Ingrediente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="IngredienteEdicion.aspx.cs">
+      <DependentUpon>IngredienteEdicion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="IngredienteEdicion.aspx.designer.cs">
+      <DependentUpon>IngredienteEdicion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Orden.aspx.cs">
       <DependentUpon>Orden.aspx</DependentUpon>

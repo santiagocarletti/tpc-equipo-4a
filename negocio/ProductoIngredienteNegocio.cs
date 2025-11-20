@@ -16,7 +16,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT P.Id AS IdProducto, P.Nombre AS NombreProducto, PRIN.Id AS IdProdIng, PRIN.NombreIngrediente, PRIN.EsOpcional, PRIN.IdSector, PRIN.Activo, S.Nombre AS NombreSector, PRIN.MinutosPreparacion FROM ProductoIngredientes PRIN LEFT JOIN Productos P ON PRIN.IdProducto = P.Id LEFT JOIN Sectores S ON PRIN.IdSector = S.Id WHERE PRIN.IdProducto = @idProducto;");
+                datos.setearConsulta(@"SELECT PRIN.Id AS IdProductoIngrediente, PRIN.IdProducto, PRIN.IdIngrediente, PRIN.EsOpcional, PRIN.Cantidad, I.Nombre AS NombreIngrediente, I.MinutosPreparacion, I.Activo, S.Id AS IdSector, S.Nombre AS NombreSector FROM ProductoIngredientes PRIN LEFT JOIN Ingredientes I ON PRIN.IdIngrediente = I.Id LEFT JOIN Sectores S ON I.IdSector = S.Id WHERE PRIN.IdProducto = @idProducto;");
 
                 datos.setearParametro("@idProducto", idProducto);
 
@@ -24,22 +24,23 @@ namespace negocio
 
                 while (datos.Lectorbd.Read())
                 {
-                    int idProductoIngredienteBD = Convert.ToInt32(datos.Lectorbd["IdProdIng"]);
 
                     ProductoIngrediente aux = new ProductoIngrediente();
-                    aux.Id = Convert.ToInt32(datos.Lectorbd["IdProdIng"]);
+                    aux.Id = Convert.ToInt32(datos.Lectorbd["IdProductoIngrediente"]);
                     aux.IdProducto = Convert.ToInt32(datos.Lectorbd["IdProducto"]);
-                    aux.NombreIngrediente = Convert.ToString(datos.Lectorbd["NombreIngrediente"]);
+                    aux.IdIngrediente = Convert.ToInt32(datos.Lectorbd["IdIngrediente"]);
                     aux.EsOpcional = Convert.ToBoolean(datos.Lectorbd["EsOpcional"]);
-                    aux.IdSector = Convert.ToInt32(datos.Lectorbd["IdSector"]);
-                    aux.Activo = Convert.ToBoolean(datos.Lectorbd["Activo"]);
-                    aux.MinutosPreparacion = Convert.ToInt32(datos.Lectorbd["MinutosPreparacion"]);
-                    aux.NombreSector = Convert.ToString(datos.Lectorbd["NombreSector"]);
-                    Producto prodAux = new Producto();
-                    prodAux.Id = Convert.ToInt32(datos.Lectorbd["IdProducto"]);
-                    prodAux.Nombre = Convert.ToString(datos.Lectorbd["NombreProducto"]);
-                    
-                    aux.Producto = prodAux;
+                    aux.Cantidad = Convert.ToInt32(datos.Lectorbd["Cantidad"]);
+
+                    Ingrediente ing = new Ingrediente();
+                    ing.Id = aux.IdIngrediente;
+                    ing.Nombre = Convert.ToString(datos.Lectorbd["NombreIngrediente"]);
+                    ing.MinutosPreparacion = Convert.ToInt32(datos.Lectorbd["MinutosPreparacion"]);
+                    ing.Activo = Convert.ToBoolean(datos.Lectorbd["Activo"]);
+                    ing.IdSector = Convert.ToInt32(datos.Lectorbd["IdSector"]);
+                    ing.NombreSector = Convert.ToString(datos.Lectorbd["NombreSector"]);
+
+                    aux.Ingrediente = ing;
 
                     lista.Add(aux);
                 }

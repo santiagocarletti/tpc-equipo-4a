@@ -19,8 +19,6 @@ namespace negocio
             {
                 string consulta = @"SELECT P.Id, P.Nombre, P.MinutosPreparacion, P.Activo, S.Id AS IdSector, S.Nombre AS Sector FROM PRODUCTOS P LEFT JOIN Sectores S ON P.IdSector = S.Id";
 
-                //datos.setearConsulta("SELECT P.Id, P.Nombre, P.MinutosPreparacion, P.Activo, S.Nombre AS Sector FROM PRODUCTOS P LEFT JOIN Sectores S ON P.IdSector = S.Id");
-
                 if (idSector != -1)
                     consulta += " WHERE S.Id = @idSector";
 

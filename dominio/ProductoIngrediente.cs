@@ -10,13 +10,9 @@ namespace dominio
     {
         public int Id { get; set; }
         public int IdProducto { get; set; }
-        public string NombreIngrediente { get; set; }
+        public int IdIngrediente { get; set; }
+        public Ingrediente Ingrediente { get; set; }
         public bool EsOpcional { get; set; }
-        public int IdSector { get; set; }
-        public string NombreSector { get; set; }
-        public bool Activo { get; set; }
-        public int MinutosPreparacion { get; set; }
-        //Para listar Ingredientes por Producto
-        public Producto Producto { get; set; }
+        public int Cantidad { get; set; }
     }
 }

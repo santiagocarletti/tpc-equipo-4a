@@ -222,3 +222,47 @@ VALUES
 (10, 'Pepinillos', 1, 4, 1, 2),
 (10, 'Ketchup', 1, 4, 1, 2),
 (10, 'Mayonesa', 1, 4, 1, 2);
+
+--------------------------------------------------
+--19/11/2025
+
+--ProductoIngredientes pasa a tabla intermedia
+DROP TABLE ProductoIngredientes
+
+CREATE TABLE Ingredientes (
+  Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  Nombre VARCHAR(50) NOT NULL,
+  IdSector INT NOT NULL,
+  MinutosPreparacion INT NOT NULL DEFAULT 0,
+  Activo BIT NOT NULL DEFAULT 0,
+  CONSTRAINT FK_Ingredientes_Sectores FOREIGN KEY (IdSector) REFERENCES Sectores(Id)
+);
+GO
+
+CREATE TABLE ProductoIngredientes (
+  Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  IdProducto INT NOT NULL,
+  IdIngrediente INT NOT NULL,
+  EsOpcional BIT NOT NULL DEFAULT 0,
+  Cantidad INT NULL, 
+  CONSTRAINT FK_ProductoIngredientes_Productos FOREIGN KEY (IdProducto) REFERENCES Productos(Id),
+  CONSTRAINT FK_ProductoIngredientes_Ingredientes FOREIGN KEY (IdIngrediente) REFERENCES Ingredientes(Id)
+);
+GO
+
+--Datos de prueba para Cheeseburger
+INSERT INTO Ingredientes (Nombre, IdSector, MinutosPreparacion, Activo)
+VALUES 
+('Pan', 4, 3, 0),
+('Carne de res', 2, 5, 0),
+('Queso cheddar', 2, 2, 0),
+('Lechuga',4, 2, 0),
+('Tomate', 4, 2, 0),
+('Cebolla', 4, 2, 0),
+('Pepinillos', 4, 2, 0),
+('Ketchup', 4, 2, 0),
+('Mayonesa', 4, 2, 0);
+
+--Relacionar Ingredientes con Cheeseburger (En este caso IdProducto = 10)
+
+INSERT INTO ProductoIngredientes (IdProducto, IdIngrediente, EsOpcional, Cantidad) VALUES (10, 2, 1, 1)
