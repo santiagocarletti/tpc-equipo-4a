@@ -55,5 +55,31 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        public List<ProductoIngrediente> ListarTodosParaProducto(int idProducto)
+        {
+            IngredienteNegocio ingNegocio = new IngredienteNegocio();
+            List<Ingrediente> todos = ingNegocio.listar();
+
+            List<ProductoIngrediente> asociados = IngredientesPorProducto(idProducto);
+
+            List<ProductoIngrediente> resultado = new List<ProductoIngrediente>();
+
+            foreach (var ing in todos)
+            {
+                var prodIng = asociados.FirstOrDefault(a => a.IdIngrediente == ing.Id);
+
+                ProductoIngrediente aux = new ProductoIngrediente
+                {
+                    IdIngrediente = ing.Id,
+                    Ingrediente = ing,
+                    EsOpcional = prodIng != null ? prodIng.EsOpcional : false,
+                    Cantidad = prodIng != null ? prodIng.Cantidad : 0,
+                    IdProducto = idProducto
+                };
+
+                resultado.Add(aux);
+            }
+            return resultado;
+        }
     }
 }

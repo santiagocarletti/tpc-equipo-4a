@@ -39,7 +39,7 @@ namespace tpc_equipo_4a
                     ProductoIngredienteNegocio ingNegocio = new ProductoIngredienteNegocio();
 
                     //CARGAR REPEATER
-                    List<ProductoIngrediente> ingredientes = ingNegocio.IngredientesPorProducto(id);
+                    List<ProductoIngrediente> ingredientes = ingNegocio.ListarTodosParaProducto(id);
                     repIngredientes.DataSource = ingredientes;
                     repIngredientes.DataBind();
                     //
