@@ -100,9 +100,9 @@
                         <span class="material-symbols-outlined me-1">arrow_back</span> Cancelar
                     </a>
 
-<%--                    <asp:Button ID="btnGuardar" runat="server" Text="Guardar cambios"
+                    <asp:Button ID="btnGuardar" runat="server" Text="Guardar cambios"
                         CssClass="btn btn-primary d-flex align-items-center"
-                        OnClick="btnGuardar_Click" />--%>
+                        OnClick="btnGuardar_Click" />
                 </div>
             </div>
         </div>

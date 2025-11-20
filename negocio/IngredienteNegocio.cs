@@ -83,7 +83,7 @@ namespace negocio
                 if (ingrediente.Id == 0)
                 {
                     //Agregar nuevo
-                    datos.setearConsulta("INSERT INTO Ingredientes (Nombre, IdSector, MinutosPreparacion, Activo) VALUES (@nombre, @idSector, @minutos, @idSector, 0)");
+                    datos.setearConsulta("INSERT INTO Ingredientes (Nombre, IdSector, MinutosPreparacion, Activo) VALUES (@nombre, @idSector, @minutos, 0)");
                     datos.setearParametro("@id", ingrediente.Id);
                 }
                 else
@@ -146,6 +146,5 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
-
     }
 }

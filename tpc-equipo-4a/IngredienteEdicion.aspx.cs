@@ -38,5 +38,25 @@ namespace tpc_equipo_4a
                 }
             }
         }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            IngredienteNegocio negocio = new IngredienteNegocio();
+            dominio.Ingrediente ing = new dominio.Ingrediente();
+
+            //MODIFICACION
+            if (Session["IngredienteId"] != null)
+                ing.Id = (int)Session["IngredienteId"];
+
+            ing.Nombre = txtNombre.Text;
+            ing.MinutosPreparacion = int.Parse(txtMinutos.Text);
+
+            ing.IdSector = int.Parse(ddlSector.SelectedValue);
+
+            negocio.guardar(ing);
+
+            Session.Remove("IngredienteId");
+            Response.Redirect("Ingrediente.aspx");
+        }
     }
 }
