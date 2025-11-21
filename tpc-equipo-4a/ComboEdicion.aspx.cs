@@ -125,6 +125,10 @@ namespace tpc_equipo_4a
                         });
                     }
                 }
+                else if (idDetalle != 0)
+                {
+                    detNegocio.Eliminar(idDetalle);
+                }
             }
 
             Session.Remove("ComboId");
