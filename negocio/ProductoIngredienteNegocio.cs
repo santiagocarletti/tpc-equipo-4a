@@ -70,6 +70,7 @@ namespace negocio
 
                 ProductoIngrediente aux = new ProductoIngrediente
                 {
+                    Id = prodIng != null ? prodIng.Id : 0,
                     IdIngrediente = ing.Id,
                     Ingrediente = ing,
                     EsOpcional = prodIng != null ? prodIng.EsOpcional : false,
@@ -80,6 +81,45 @@ namespace negocio
                 resultado.Add(aux);
             }
             return resultado;
+        }
+        public void Agregar(ProductoIngrediente pi)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("INSERT INTO ProductoIngredientes (IdProducto, IdIngrediente, EsOpcional, Cantidad) VALUES (@idProducto, @idIngrediente, @esOpcional, @cantidad)");
+                datos.setearParametro("@idProducto", pi.IdProducto);
+                datos.setearParametro("@idIngrediente", pi.IdIngrediente);
+                datos.setearParametro("@esOpcional", pi.EsOpcional);
+                datos.setearParametro("@cantidad", pi.Cantidad);
+                datos.ejecutarAccion();
+            }
+            finally { datos.cerrarConexion(); }
+        }
+        public void Modificar(ProductoIngrediente pi)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("UPDATE ProductoIngredientes SET EsOpcional = @esOpcional, Cantidad = @cantidad WHERE Id = @id");
+                datos.setearParametro("@esOpcional", pi.EsOpcional);
+                datos.setearParametro("@cantidad", pi.Cantidad);
+                datos.setearParametro("@id", pi.Id);
+                datos.ejecutarAccion();
+            }
+            finally { datos.cerrarConexion(); }
+        }
+
+        public void Eliminar(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("DELETE FROM ProductoIngredientes WHERE Id = @id");
+                datos.setearParametro("@id", id);
+                datos.ejecutarAccion();
+            }
+            finally { datos.cerrarConexion(); }
         }
     }
 }

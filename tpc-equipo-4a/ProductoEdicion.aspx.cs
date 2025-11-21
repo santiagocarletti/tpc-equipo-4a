@@ -42,25 +42,85 @@ namespace tpc_equipo_4a
                     List<ProductoIngrediente> ingredientes = ingNegocio.ListarTodosParaProducto(id);
                     repIngredientes.DataSource = ingredientes;
                     repIngredientes.DataBind();
-                    //
                 }
             }
         }
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            ProductoNegocio negocio = new ProductoNegocio();
-            dominio.Producto prod = new dominio.Producto();
+            ProductoNegocio prodNeg = new ProductoNegocio();
+            ProductoIngredienteNegocio pinNeg = new ProductoIngredienteNegocio();
 
-            //MODIFICACION
-            if (Session["ProductoId"] != null)
-                prod.Id = (int)Session["ProductoId"];
+            if (Session["ProductoId"] == null)
+            {
+                Response.Redirect("Producto.aspx");
+                return;
+            }
+            int idProducto = (int)Session["ProductoId"];
 
-            prod.Nombre = txtNombre.Text;
-            prod.MinutosPreparacion = int.Parse(txtMinutos.Text);
-            prod.Sector = new dominio.Sector();
-            prod.Sector.Id = int.Parse(ddlSector.SelectedValue);
+            foreach (RepeaterItem item in repIngredientes.Items)
+            {
+                HiddenField hfProdIngId = (HiddenField)item.FindControl("hfIdProductoIngrediente");
+                HiddenField hfIngredId = (HiddenField)item.FindControl("hfIdIngrediente");
+                CheckBox chkOpcional = (CheckBox)item.FindControl("chkOpcional");
+                TextBox txtCantidad = (TextBox)item.FindControl("txtCantidad");
 
-            negocio.guardar(prod);
+                int idProdIng = 0;
+                int.TryParse(hfProdIngId?.Value ?? "0", out idProdIng);
+
+                int idIngred = 0;
+                int.TryParse(hfIngredId?.Value ?? "0", out idIngred);
+
+                int cantidad = 0;
+                int.TryParse(txtCantidad?.Text ?? "0", out cantidad);
+                if (cantidad < 0) cantidad = 0; 
+
+                bool esOpcional = chkOpcional != null && chkOpcional.Checked;
+
+                if (cantidad > 0)
+                {
+                    if (idProdIng == 0)
+                    {
+                        //AGREGAR
+                        pinNeg.Agregar(new ProductoIngrediente
+                        {
+                            IdProducto = idProducto,
+                            IdIngrediente = idIngred,
+                            Cantidad = cantidad,
+                            EsOpcional = esOpcional
+                        });
+                    }
+                    else
+                    {
+                        //MODFICAR
+                        pinNeg.Modificar(new ProductoIngrediente
+                        {
+                            Id = idProdIng,
+                            IdProducto = idProducto,
+                            IdIngrediente = idIngred,
+                            Cantidad = cantidad,
+                            EsOpcional = esOpcional
+                        });
+                    }
+                }
+                else
+                //Cantidad = 0
+                {
+                    if (idProdIng > 0)
+                    {
+                        //ELIMINAR
+                        pinNeg.Eliminar(idProdIng);
+                    }
+                }
+            }
+            //Datos base del Producto
+            dominio.Producto p = new dominio.Producto
+            {
+                Id = idProducto,
+                Nombre = txtNombre.Text.Trim(),
+                MinutosPreparacion = int.TryParse(txtMinutos.Text, out var m) ? m : 0,
+                Sector = new Sector { Id = int.TryParse(ddlSector.SelectedValue, out var s) ? s : -1 }
+            };
+            prodNeg.guardar(p); // si tu guardar actualiza
 
             Session.Remove("ProductoId");
             Response.Redirect("Producto.aspx");

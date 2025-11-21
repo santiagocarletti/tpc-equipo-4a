@@ -114,6 +114,15 @@
                         </HeaderTemplate>
 
                         <ItemTemplate>
+
+                            <%--  --%>
+                            <!-- Id fila ProductoIngrediente -->
+                            <asp:HiddenField ID="hfIdProductoIngrediente" runat="server" Value='<%# Eval("Id") %>' />
+
+                            <!-- Id del Ingrediente (Tabla Ingredientes) -->
+                            <asp:HiddenField ID="hfIdIngrediente" runat="server" Value='<%# Eval("IdIngrediente") %>' />
+                            <%--  --%>
+
                             <tr>
                                 <td><%# Eval("Ingrediente.Nombre") %></td>
 
