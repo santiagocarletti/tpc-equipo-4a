@@ -11,6 +11,8 @@ namespace dominio
         public int Id { get; set; }
         public string Descripcion { get; set; } // encargado, cajero, plancha, freidora, armado, despacho, etc.
         public int IdUsuario { get; set; }
+
+        public string PaginaInicio { get; set; }
         public override string ToString()
         {
             return Descripcion;
