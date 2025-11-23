@@ -2,6 +2,7 @@
 using negocio;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -37,25 +38,62 @@ namespace tpc_equipo_4a
                 }
             }
         }
-        
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            UsuarioNegocio negocio = new UsuarioNegocio();
-            dominio.Usuario usuario = new dominio.Usuario();
+            try
+            {
+                UsuarioNegocio negocio = new UsuarioNegocio();
+                dominio.Usuario usuario = new dominio.Usuario();
 
-            //MODIFICACION
-            if (Session["UsuarioId"] != null)
-                usuario.Id = (int)Session["UsuarioId"];
+                // MODIFICACIÓN
+                if (Session["UsuarioId"] != null)
+                    usuario.Id = (int)Session["UsuarioId"];
+                
+                usuario.NombreUsuario = txtNombreUsuario.Text;
+                usuario.Contraseña = txtContraseña.Text;
 
-            usuario.NombreUsuario = txtNombreUsuario.Text;
-            usuario.Contraseña = txtContraseña.Text;            
-            usuario.Rol = new dominio.RolUsuario();
-            usuario.Rol.Id = int.Parse(ddlRol.SelectedValue);
+                usuario.Rol = new dominio.RolUsuario();
+                usuario.Rol.Id = int.Parse(ddlRol.SelectedValue);
 
-            negocio.guardar(usuario);
+                // Validaciones de backend
+                Validaciones.ValidarNombre(usuario.NombreUsuario);
+                Validaciones.ValidarContraseña(usuario.Contraseña);
 
-            Session.Remove("UsuarioId");
-            Response.Redirect("Usuario.aspx");
+                // Verifica duplicados
+                negocio.ValidarDuplicado(usuario);
+
+                negocio.guardar(usuario);
+
+                Session.Remove("UsuarioId");
+                Response.Redirect("Usuario.aspx");
+            }
+            catch (Exception ex)
+            {
+                errorMsg.Visible = true;
+                errorText.InnerHtml = ex.Message;
+            }
         }
+
+
+
+        //protected void btnGuardar_Click(object sender, EventArgs e)
+        //{
+        //    UsuarioNegocio negocio = new UsuarioNegocio();
+        //    dominio.Usuario usuario = new dominio.Usuario();
+
+        //    //MODIFICACION
+        //    if (Session["UsuarioId"] != null)
+        //        usuario.Id = (int)Session["UsuarioId"];
+
+        //    usuario.NombreUsuario = txtNombreUsuario.Text;
+        //    usuario.Contraseña = txtContraseña.Text;            
+        //    usuario.Rol = new dominio.RolUsuario();
+        //    usuario.Rol.Id = int.Parse(ddlRol.SelectedValue);
+
+        //    negocio.guardar(usuario);
+
+        //    Session.Remove("UsuarioId");
+        //    Response.Redirect("Usuario.aspx");
+        //}
     }
 }

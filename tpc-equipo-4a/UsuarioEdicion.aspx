@@ -128,6 +128,12 @@
 <asp:Content ID="Content6" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container py-5 fade-in d-flex justify-content-center align-items-center" style="min-height: 80vh;">
         <div class="card w-100">
+            <div class="alert alert-danger d-flex align-items-center mb-0"
+                id="errorMsg" runat="server" visible="false" role="alert">
+                <span class="material-symbols-outlined me-2">error</span>
+                <span id="errorText" runat="server"></span>
+            </div>
+
             <div class="card-header">
                 <span class="material-symbols-outlined">person_add</span>
                 <h5>

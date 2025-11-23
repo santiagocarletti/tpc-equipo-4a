@@ -51,6 +51,7 @@
     <Compile Include="RolUsuarioNegocio.cs" />
     <Compile Include="SectorNegocio.cs" />
     <Compile Include="UsuarioNegocio.cs" />
+    <Compile Include="Validaciones.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\dominio\dominio.csproj">

@@ -117,7 +117,7 @@ namespace negocio
                 {
                     //Agregar nuevo
                     datos.setearConsulta("INSERT INTO Usuarios(NombreUsuario, Contraseña, Activo, IdRol) VALUES(@nombreUsuario,@contraseña,1, @idRol)");
-                    datos.setearParametro("@id", usuario.Id);
+                    
                 }
                 else
                 {
@@ -142,6 +142,19 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        public void ValidarDuplicado(Usuario usuario)
+        {
+            List<Usuario> lista = listar();
+
+            bool duplicado = lista.Any(u =>
+                u.NombreUsuario.ToUpper() == usuario.NombreUsuario.ToUpper()
+                && u.Id != usuario.Id
+            );
+
+            if (duplicado)
+                throw new Exception("Ya existe un usuario con ese nombre.");
+        }
+
     }
 
 }
