@@ -42,7 +42,7 @@ namespace tpc_equipo_4a
 
         protected void btnCambiarEstadoCombo_Click(object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
+            LinkButton btn = (LinkButton)sender;
             int idCombo = Convert.ToInt32(btn.CommandArgument);
 
             ComboNegocio comboNeg = new ComboNegocio();
@@ -65,7 +65,7 @@ namespace tpc_equipo_4a
 
         protected void btnEditar_Click(object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
+            LinkButton btn = (LinkButton)sender;
             int idCombo = Convert.ToInt32(btn.CommandArgument);
 
             Session["ComboId"] = idCombo;
