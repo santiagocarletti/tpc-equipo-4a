@@ -15,9 +15,8 @@ namespace tpc_equipo_4a
         public List<dominio.Combo> ListaCombos { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Provisorio, por si no pasa por Default donde está configurado el usuario
-            if (Session["UsuarioId"] == null)
-                Session["UsuarioId"] = 9;
+            var user = (dominio.Usuario)Session["Usuario"];
+            Seguridad.ValidarAcceso(user, this);
 
             if (!IsPostBack)
             {

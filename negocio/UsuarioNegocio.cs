@@ -117,7 +117,7 @@ namespace negocio
                 {
                     //Agregar nuevo
                     datos.setearConsulta("INSERT INTO Usuarios(NombreUsuario, Contraseña, Activo, IdRol) VALUES(@nombreUsuario,@contraseña,1, @idRol)");
-                    datos.setearParametro("@id", usuario.Id);
+                    
                 }
                 else
                 {
@@ -142,6 +142,61 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        public void ValidarDuplicado(Usuario usuario)
+        {
+            List<Usuario> lista = listar();
+
+            bool duplicado = lista.Any(u =>
+                u.NombreUsuario.ToUpper() == usuario.NombreUsuario.ToUpper()
+                && u.Id != usuario.Id
+            );
+
+            if (duplicado)
+                throw new Exception("Ya existe un usuario con ese nombre.");
+        }
+        public Usuario Login(string usuario, string contraseña)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta(@"SELECT U.Id, U.NombreUsuario, U.Contraseña, U.Activo, R.Id AS IdRol, R.Nombre AS RolNombre, R.PaginaInicio FROM Usuarios U INNER JOIN RolUsuarios R ON R.Id = U.IdRol WHERE U.NombreUsuario = @usuario AND U.Contraseña = @pass");
+                datos.setearParametro("@usuario", usuario);
+                datos.setearParametro("@pass", contraseña);
+
+                datos.ejecutarLectura();
+
+                if (datos.Lectorbd.Read())
+                {
+                    bool activo = (bool)datos.Lectorbd["Activo"];
+                    if (!activo) return null;
+
+                    Usuario nuevo = new Usuario();
+                    nuevo.Id = (int)datos.Lectorbd["Id"];
+                    nuevo.Contraseña = (string)datos.Lectorbd["Contraseña"];
+                    nuevo.Activo = activo;
+
+                    nuevo.Rol = new RolUsuario
+                    {
+                        Id = (int)datos.Lectorbd["IdRol"],
+                        Descripcion = (string)datos.Lectorbd["RolNombre"],
+                        PaginaInicio = (string)datos.Lectorbd["PaginaInicio"]
+                    };
+
+                    return nuevo;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 
 }

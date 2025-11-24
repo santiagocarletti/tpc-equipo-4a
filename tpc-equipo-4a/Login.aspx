@@ -140,10 +140,10 @@
                 </div>
 
                 <div class="d-grid mt-4">
-                    <%--<asp:Button ID="btnLogin" runat="server" 
+                    <asp:Button ID="btnLogin" runat="server" 
                         CssClass="btn btn-primary btn-lg" 
                         Text="Ingresar" 
-                        OnClick="btnLogin_Click" />--%>
+                        OnClick="btnLogin_Click" />
                 </div>
 
                 <asp:Label ID="lblError" runat="server" CssClass="error-message d-block text-center" Visible="false"></asp:Label>
@@ -152,10 +152,8 @@
                     © 2025 Equipo 4A sistema de gestión.
                 </p>
             </div>
-
             
             <div class="col-md-6 login-right"></div>
         </div>
     </div>
 </asp:Content>
-

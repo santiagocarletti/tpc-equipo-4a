@@ -74,8 +74,7 @@
 
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3" id="panelCombos" runat="server" visible="true">
-
-                <%--  --%>
+                            
 
                 <asp:Repeater ID="repCombosCaja" runat="server">
                     <ItemTemplate>
