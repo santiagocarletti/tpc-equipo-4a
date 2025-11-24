@@ -281,6 +281,7 @@
             <a href="Encargado.aspx" class="btn btn-outline-secondary d-flex align-items-center gap-1">
                 <span class="material-symbols-outlined">arrow_back</span> Volver
             </a>
+            <span class="text-muted small">Mostrando combos activos e inactivos.</span>
         </div>
 
     </main>
