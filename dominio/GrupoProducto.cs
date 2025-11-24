@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace dominio
 {
-    public class Sector
+    public class GrupoProducto
     {
         public int Id { get; set; }
-        public string Nombre { get; set; } //Plancha, Freidora..
-        public string Descripcion { get; set; }        
+        public string Nombre { get; set; }
     }
 }

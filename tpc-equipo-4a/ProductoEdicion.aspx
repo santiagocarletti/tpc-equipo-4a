@@ -91,6 +91,11 @@
                 </div>
 
                 <div class="mb-3">
+                    <label for="ddlGrupo" class="form-label">Grupo</label>
+                    <asp:DropDownList ID="ddlGrupo" runat="server" CssClass="form-select"></asp:DropDownList>
+                </div>
+
+                <div class="mb-3">
                     <label for="txtMinutos" class="form-label">Minutos de preparación</label>
                     <asp:TextBox ID="txtMinutos" runat="server" CssClass="form-control" TextMode="Number" placeholder="Ej: 15"></asp:TextBox>
                 </div>

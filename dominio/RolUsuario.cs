@@ -9,7 +9,7 @@ namespace dominio
     public class RolUsuario
     {
         public int Id { get; set; }
-        public string Descripcion { get; set; } // encargado, cajero, plancha, freidora, armado, despacho, etc.
+        public string Descripcion { get; set; } //Encargado, Cajero, etc.
         public int IdUsuario { get; set; }
 
         public string PaginaInicio { get; set; }

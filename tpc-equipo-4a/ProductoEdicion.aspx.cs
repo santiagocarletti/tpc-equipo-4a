@@ -25,6 +25,16 @@ namespace tpc_equipo_4a
                 ddlSector.DataValueField = "Id";
                 ddlSector.DataBind();
 
+                //Grupos de producto
+                GrupoProductoNegocio grupoNeg = new GrupoProductoNegocio();
+                List<GrupoProducto> grupos = grupoNeg.listar();
+                grupos.Insert(0, new GrupoProducto { Id = -1, Nombre = "" });
+
+                ddlGrupo.DataSource = grupos;
+                ddlGrupo.DataTextField = "Nombre";
+                ddlGrupo.DataValueField = "Id";
+                ddlGrupo.DataBind();
+
                 if (Session["ProductoId"] != null)
                 {
                     ProductoNegocio negocio = new ProductoNegocio();
@@ -42,6 +52,9 @@ namespace tpc_equipo_4a
                     List<ProductoIngrediente> ingredientes = ingNegocio.ListarTodosParaProducto(id);
                     repIngredientes.DataSource = ingredientes;
                     repIngredientes.DataBind();
+
+                    //Preseleccionar grupo
+                    ddlGrupo.SelectedValue = prod.IdGrupo.ToString();
                 }
             }
         }
@@ -50,12 +63,22 @@ namespace tpc_equipo_4a
             ProductoNegocio prodNeg = new ProductoNegocio();
             ProductoIngredienteNegocio pinNeg = new ProductoIngredienteNegocio();
 
-            if (Session["ProductoId"] == null)
+            int idProducto = Session["ProductoId"] != null
+                ? (int)Session["ProductoId"]
+                : 0;   //Producto nuevo
+
+            //Datos base del Producto
+            dominio.Producto p = new dominio.Producto
             {
-                Response.Redirect("Producto.aspx");
-                return;
-            }
-            int idProducto = (int)Session["ProductoId"];
+                Id = idProducto,
+                Nombre = txtNombre.Text.Trim(),
+                MinutosPreparacion = int.TryParse(txtMinutos.Text, out var m) ? m : 0,
+                Sector = new Sector { Id = int.TryParse(ddlSector.SelectedValue, out var s) ? s : -1 },
+                IdGrupo = int.Parse(ddlGrupo.SelectedValue),
+                //Activo = true
+            };
+            //Si es nuevo, guarda y obtengo Id
+            idProducto = prodNeg.guardar(p);
 
             foreach (RepeaterItem item in repIngredientes.Items)
             {
@@ -64,16 +87,9 @@ namespace tpc_equipo_4a
                 CheckBox chkOpcional = (CheckBox)item.FindControl("chkOpcional");
                 TextBox txtCantidad = (TextBox)item.FindControl("txtCantidad");
 
-                int idProdIng = 0;
-                int.TryParse(hfProdIngId?.Value ?? "0", out idProdIng);
-
-                int idIngred = 0;
-                int.TryParse(hfIngredId?.Value ?? "0", out idIngred);
-
-                int cantidad = 0;
-                int.TryParse(txtCantidad?.Text ?? "0", out cantidad);
-                if (cantidad < 0) cantidad = 0; 
-
+                int idProdIng = int.TryParse(hfProdIngId?.Value, out var x) ? x : 0;
+                int idIngred = int.TryParse(hfIngredId?.Value, out var y) ? y : 0;
+                int cantidad = int.TryParse(txtCantidad?.Text, out var z) ? z : 0;
                 bool esOpcional = chkOpcional != null && chkOpcional.Checked;
 
                 if (cantidad > 0)
@@ -112,15 +128,6 @@ namespace tpc_equipo_4a
                     }
                 }
             }
-            //Datos base del Producto
-            dominio.Producto p = new dominio.Producto
-            {
-                Id = idProducto,
-                Nombre = txtNombre.Text.Trim(),
-                MinutosPreparacion = int.TryParse(txtMinutos.Text, out var m) ? m : 0,
-                Sector = new Sector { Id = int.TryParse(ddlSector.SelectedValue, out var s) ? s : -1 }
-            };
-            prodNeg.guardar(p); // si tu guardar actualiza
 
             Session.Remove("ProductoId");
             Response.Redirect("Producto.aspx");

@@ -55,18 +55,6 @@
                             Text="Combos"
                             CssClass="btn btn-outline-primary rounded-pill"
                             OnClick="btnCatCombos_Click" />
-                        <%-- <asp:Button ID="btnCatHamburguesas" runat="server"
-                            Text="Hamburguesas"
-                            CssClass="btn btn-primary rounded-pill" 
-                            OnClick="btnCatHamburguesas_Click"/>
-                        <asp:Button ID="btnCatPapas" runat="server"
-                            Text="Papas"
-                            CssClass="btn btn-outline-primary rounded-pill" 
-                            OnClick="btnCatPapas_Click"/>
-                        <asp:Button ID="btnCatBebidas" runat="server"
-                            Text="Bebidas"
-                            CssClass="btn btn-outline-primary rounded-pill" 
-                            OnClick="btnCatBebidas_Click"/>--%>
 
                         <div class="d-flex flex-wrap gap-2">
                             <asp:Repeater ID="repSectores" runat="server">
@@ -108,45 +96,6 @@
                     </ItemTemplate>
                 </asp:Repeater>
 
-                <%--  --%>
-
-                <%-- <div class="col">
-                    <div class="card h-100 product-card">
-                        <div class="card-body text-center">
-                            <h5 class="card-title mb-3">Classic Burger</h5>
-
-                            <asp:Button ID="btnAgregar1" runat="server"
-                                Text="Añadir"
-                                CssClass="btn btn-primary btn-sm w-100" />
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col">
-                    <div class="card h-100 product-card">
-                        <div class="card-body text-center">
-                            <h5 class="card-title mb-3">Cheeseburger</h5>
-
-                            <asp:Button ID="btnAgregar2" runat="server"
-                                Text="Añadir"
-                                CssClass="btn btn-primary btn-sm w-100" />
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col">
-                    <div class="card h-100 product-card">
-                        <div class="card-body text-center">
-                            <h5 class="card-title mb-3">Bacon Burger</h5>
-
-                            <asp:Button ID="btnAgregar3" runat="server"
-                                Text="Añadir"
-                                CssClass="btn btn-primary btn-sm w-100" />
-                        </div>
-                    </div>
-                </div>--%>
             </div>
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-3" id="panelProductosSectores" runat="server" visible="false">
@@ -162,7 +111,18 @@
                         <asp:Repeater ID="repProductosCaja" runat="server">
                             <ItemTemplate>
                                 <tr>
-                                    <td><%# Eval("Nombre") %></td>
+                                    <td class="d-flex justify-content-between">
+
+                                        <%# Eval("Nombre") %>
+
+                                        <asp:Button ID="btnAgregarProd"
+                                            runat="server"
+                                            Text="Añadir"
+                                            CssClass="btn btn-sm btn-primary"
+                                            CommandArgument='<%# Eval("Id") %>'
+                                            OnClick="btnAgregarProd_Click" />
+
+                                    </td>
                                 </tr>
                             </ItemTemplate>
                         </asp:Repeater>
@@ -172,7 +132,6 @@
             </div>
 
         </div>
-
 
         <div class="col-lg-5">
             <div class="card sticky-top" style="top: 100px;">
@@ -193,162 +152,51 @@
                             <span class="fw-semibold">#A103</span>
                         </div>
 
+                        <asp:Repeater ID="repPedido" runat="server">
+                            <ItemTemplate>
+                                <div class="order-item p-3 mb-3">
 
-                        <div class="d-flex align-items-center mt-2 gap-2">
-                            <div class="btn-group btn-group-sm">
-                                <asp:Button ID="btnRestar1" runat="server"
-                                    Text="-"
-                                    CssClass="btn btn-outline-secondary" />
-                                <asp:Button ID="btnCantidad1" runat="server"
-                                    Text="2"
-                                    CssClass="btn btn-outline-secondary quantity-control"
-                                    Enabled="false" />
-                                <asp:Button ID="btnSumar1" runat="server"
-                                    Text="+"
-                                    CssClass="btn btn-outline-secondary" />
-                            </div>
-                            <asp:Button ID="btnEliminar1" runat="server"
-                                CssClass="btn btn-link text-danger p-0 ms-auto"></asp:Button>
-                            <span class="material-symbols-outlined">delete</span>
-                        </div>
+                                    <h6><%# Eval("Nombre") %></h6>
 
+                                    <div class="btn-group btn-group-sm">
+<%--                                        <asp:Button ID="btnRestar" runat="server" Text="-"
+                                            CommandArgument='<%# Eval("IdTemp") %>' OnClick="btnRestar_Click" />--%>
+                                        <span class="btn btn-outline-secondary quantity-control"><%# Eval("Cantidad") %></span>
+<%--                                        <asp:Button ID="btnSumar" runat="server" Text="+"
+                                            CommandArgument='<%# Eval("IdTemp") %>' OnClick="btnSumar_Click" />--%>
+                                    </div>
 
-                        <div class="mt-3">
-                            <p class="small fw-semibold mb-2">Modificaciones</p>
-                            <div class="d-flex flex-wrap gap-2">
-                                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill modification-btn">
-                                    Sin cebolla
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill modification-btn">
-                                    Sin sal
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill modification-btn">
-                                    Sin aderezos
-                                </button>
-                            </div>
-                        </div>
+                                </div>
+                            </ItemTemplate>
+                        </asp:Repeater>
 
-
-                        <div class="mt-3">
-                            <p class="small fw-semibold mb-2">Extras</p>
-                            <div class="d-flex flex-wrap gap-2">
-                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill modification-btn">
-                                    Extra queso
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill modification-btn">
-                                    Extra carne
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill modification-btn">
-                                    Extra Bacon
-                                </button>
-                            </div>
-                        </div>
-
-
-                        <div class="mt-3">
-                            <asp:TextBox ID="txtComentarios1" runat="server"
-                                TextMode="MultiLine"
-                                Rows="2"
-                                CssClass="form-control form-control-sm"
-                                placeholder="Comentarios adicionales"></asp:TextBox>
-                        </div>
                     </div>
 
-                    <!--Pedido 2-->
-                    <div class="order-item p-3 mb-3">
+                    <div class="card-footer bg-white">
 
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <h6 class="mb-0 fw-semibold">Bacon Burger</h6>
-                            <span class="fw-semibold">#A110</span>
-                        </div>
-
-
-
-                        <div class="d-flex align-items-center mt-2 gap-2">
-                            <div class="btn-group btn-group-sm">
-                                <asp:Button ID="btnRestar2" runat="server"
-                                    Text="-"
-                                    CssClass="btn btn-outline-secondary" />
-                                <asp:Button ID="btnCantidad2" runat="server"
-                                    Text="1"
-                                    CssClass="btn btn-outline-secondary quantity-control"
-                                    Enabled="false" />
-                                <asp:Button ID="btnSumar2" runat="server"
-                                    Text="+"
-                                    CssClass="btn btn-outline-secondary" />
-                            </div>
-                            <asp:Button ID="btnEliminar2" runat="server"
-                                CssClass="btn btn-link text-danger p-0 ms-auto"></asp:Button>
-                            <span class="material-symbols-outlined">delete</span>
-                        </div>
-
-
-                        <div class="mt-3">
-                            <p class="small fw-semibold mb-2">Modificaciones</p>
-                            <div class="d-flex flex-wrap gap-2">
-                                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill modification-btn">
-                                    Sin cebolla
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill modification-btn">
-                                    Sin sal
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill modification-btn">
-                                    Sin aderezos
-                                </button>
+                        <div class="d-grid gap-2">
+                            <asp:Button ID="btnConfirmarPedido" runat="server"
+                                Text="Confirmar Pedido"
+                                CssClass="btn btn-primary btn-lg"
+                                OnClick="btnConfirmarPedido_Click"/>
+                            <div class="row g-2">
+                                <div class="col">
+                                    <asp:Button ID="btnCancelar" runat="server"
+                                        Text="Cancelar"
+                                        CssClass="btn btn-outline-danger w-100" />
+                                </div>
+                                <div class="col">
+                                    <asp:Button ID="btnLimpiar" runat="server"
+                                        Text="Limpiar"
+                                        CssClass="btn btn-outline-secondary w-100" />
+                                </div>
                             </div>
                         </div>
 
-                        <div class="mt-3">
-                            <p class="small fw-semibold mb-2">Extras</p>
-                            <div class="d-flex flex-wrap gap-2">
-                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill modification-btn">
-                                    Extra queso
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill modification-btn">
-                                    Extra carne
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill modification-btn">
-                                    Extra bacon
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="mt-3">
-                            <asp:TextBox ID="txtComentarios2" runat="server"
-                                TextMode="MultiLine"
-                                Rows="2"
-                                CssClass="form-control form-control-sm"
-                                placeholder="Comentarios adicionales"></asp:TextBox>
-                        </div>
                     </div>
 
                 </div>
-
-
-                <div class="card-footer bg-white">
-
-                    <div class="d-grid gap-2">
-                        <asp:Button ID="btnConfirmarPedido" runat="server"
-                            Text="Confirmar Pedido"
-                            CssClass="btn btn-primary btn-lg" />
-                        <div class="row g-2">
-                            <div class="col">
-                                <asp:Button ID="btnCancelar" runat="server"
-                                    Text="Cancelar"
-                                    CssClass="btn btn-outline-danger w-100" />
-                            </div>
-                            <div class="col">
-                                <asp:Button ID="btnLimpiar" runat="server"
-                                    Text="Limpiar"
-                                    CssClass="btn btn-outline-secondary w-100" />
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
             </div>
-        </div>
 
-    </div>
+        </div>
 </asp:Content>

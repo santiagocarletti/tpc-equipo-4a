@@ -266,3 +266,21 @@ VALUES
 --Relacionar Ingredientes con Cheeseburger (En este caso IdProducto = 10)
 
 INSERT INTO ProductoIngredientes (IdProducto, IdIngrediente, EsOpcional, Cantidad) VALUES (10, 2, 1, 1)
+
+------------------------------------------------
+--23/11/2025
+
+CREATE TABLE GruposProducto (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL
+);
+
+INSERT INTO GruposProducto VALUES 
+('Principal'), 
+('Side'), 
+('Bebida'), 
+('Postre'); 
+
+ALTER TABLE Productos
+ADD IdGrupo INT NULL
+    CONSTRAINT FK_Productos_GruposProducto FOREIGN KEY (IdGrupo) REFERENCES GruposProducto(Id);

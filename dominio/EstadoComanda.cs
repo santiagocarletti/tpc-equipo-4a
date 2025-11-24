@@ -9,6 +9,6 @@ namespace dominio
     public class EstadoComanda
     {
         public int Id { get; set; }
-        public string Descripcion { get; set; } //"en preparación", "lista","llamar cliente", "entregada", etc.
+        public string Descripcion { get; set; }
     }
 }

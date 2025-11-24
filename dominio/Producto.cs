@@ -17,5 +17,7 @@ namespace dominio
 
         //Para uso en ComboEdicion
         public List<ComboDetalle> DetallesCombo { get; set; } = new List<ComboDetalle>();
+        public int IdGrupo { get; set; }
+        public GrupoProducto Grupo { get; set; }
     }
 }

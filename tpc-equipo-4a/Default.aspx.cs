@@ -1,9 +1,11 @@
-﻿using System;
+﻿using dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
 
 namespace tpc_equipo_4a
 {
@@ -11,18 +13,9 @@ namespace tpc_equipo_4a
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (!IsPostBack)
-            //{
-            //    string script = @"
-            //    window.open('Plancha.aspx', '_blank');
-            //    window.open('Freidora.aspx', '_blank');
-            //    window.open('Armado.aspx', '_blank');
-            //    window.open('Despacho.aspx', '_blank');
-            //    window.open('Cliente.aspx', '_blank');
-            //";
-            //    ClientScript.RegisterStartupScript(this.GetType(), "AbrirVentanas", script, true);
-            //}
-
+            //Para inicio de Comandas en Cajero. Cajero por defecto
+            if (Session["UsuarioId"] == null)
+                Session["UsuarioId"] = 9;
         }
     }
 }

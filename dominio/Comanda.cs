@@ -17,8 +17,5 @@ namespace dominio
         public Usuario Cajero { get; set; }
         public EstadoComanda Estado { get; set; }        
         public List<ComandaItem> Items { get; set; } = new List<ComandaItem>();
-
-        
-
     }
 }
