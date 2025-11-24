@@ -23,6 +23,5 @@ namespace dominio
 
         //modificaciones
         public List<ComandaItemModificador> Modificadores { get; set; } = new List<ComandaItemModificador>();
-
     }
 }

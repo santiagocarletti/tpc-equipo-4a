@@ -30,6 +30,7 @@
                             <th>Nombre</th>
                             <th>Cantidad</th>
                             <th>Sector</th>
+                            <th>Grupo</th>
                             <th>Minutos prep.</th>
                         </tr>
                     </thead>
@@ -87,6 +88,8 @@
                                     <td>
                                         <%# Eval("Sector.Nombre") %>
                                     </td>
+
+                                    <td><%# Eval("Grupo.Nombre") %></td>
 
                                     <td>
                                         <%# Eval("MinutosPreparacion") %>

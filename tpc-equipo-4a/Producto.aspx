@@ -168,6 +168,7 @@
                             <th>Sector</th>
                             <th>Minutos Prep.</th>
                             <th>Estado</th>
+                            <th>Grupo</th>
                             <th class="text-end pe-4">Acciones</th>
                         </tr>
                     </thead>
@@ -182,6 +183,7 @@
                                         <span class='badge rounded-pill <%# (bool)Eval("Activo") ? "bg-success" : "bg-secondary" %>'>
                                             <%# (bool)Eval("Activo") ? "Activo" : "Inactivo" %>
                                         </span>
+                                        <td><%# Eval("Grupo.Nombre") %></td>
                                     </td>
                                     <td class="text-end pe-3">
                                         <asp:LinkButton

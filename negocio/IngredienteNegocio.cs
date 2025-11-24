@@ -116,11 +116,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta(@"SELECT I.Id, I.Nombre, I.MinutosPreparacion, I.Activo, 
-                                      S.Id AS IdSector, S.Nombre AS Sector
-                               FROM Ingredientes I
-                               LEFT JOIN Sectores S ON I.IdSector = S.Id
-                               WHERE I.Id = @idIngrediente");
+                datos.setearConsulta(@"SELECT I.Id, I.Nombre, I.MinutosPreparacion, I.Activo, S.Id AS IdSector, S.Nombre AS Sector FROM Ingredientes I LEFT JOIN Sectores S ON I.IdSector = S.Id WHERE I.Id = @idIngrediente");
 
                 datos.setearParametro("@idIngrediente", idIngrediente);
                 datos.ejecutarLectura();

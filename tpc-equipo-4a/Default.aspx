@@ -43,7 +43,6 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-        
     <div class="text-center mb-5">
         <h1 class="display-4 fw-bold">Bienvenido al Sistema de Gestión</h1>
         <p class="col-lg-8 mx-auto fs-5 text-muted">

@@ -34,8 +34,7 @@ namespace negocio
                     aux.Cantidad = Convert.ToInt32(datos.Lectorbd["CantidadProducto"]);
                     Producto prodAux = new Producto();
                     prodAux.Nombre = Convert.ToString(datos.Lectorbd["NombreProducto"]);
-                    //prodAux.Nombre = Convert.ToString(datos.Lectorbd["NombreProducto"]);
-
+                    
                     aux.Producto = prodAux;
 
                     lista.Add(aux);

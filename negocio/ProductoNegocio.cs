@@ -17,8 +17,8 @@ namespace negocio
 
             try
             {
-                string consulta = @"SELECT P.Id, P.Nombre, P.MinutosPreparacion, P.Activo, S.Id AS IdSector, S.Nombre AS Sector FROM PRODUCTOS P LEFT JOIN Sectores S ON P.IdSector = S.Id";
-
+                string consulta = @"SELECT P.Id, P.Nombre, P.MinutosPreparacion, P.Activo, S.Id AS IdSector, S.Nombre AS Sector, P.IdGrupo, G.Nombre AS Grupo FROM PRODUCTOS P LEFT JOIN Sectores S ON P.IdSector = S.Id LEFT JOIN GruposProducto G ON P.IdGrupo = G.Id";
+                                  
                 if (idSector != -1)
                     consulta += " WHERE S.Id = @idSector";
 
@@ -40,6 +40,11 @@ namespace negocio
                     aux.Activo = Convert.ToBoolean(datos.Lectorbd["Activo"]);
                     aux.Sector = new Sector();
                     aux.Sector.Nombre = Convert.ToString(datos.Lectorbd["Sector"]);
+
+                    aux.Grupo = new GrupoProducto();
+                    aux.Grupo.Id = Convert.ToInt32(datos.Lectorbd["IdGrupo"]);
+                    aux.Grupo.Nombre = Convert.ToString(datos.Lectorbd["Grupo"]);
+                    aux.IdGrupo = aux.Grupo.Id;
 
                     lista.Add(aux);
                 }
@@ -88,7 +93,7 @@ namespace negocio
 
             try
             {
-                datos.setearConsulta("SELECT P.Id, P.Nombre, P.MinutosPreparacion, P.Activo, S.Id AS IdSector, S.Nombre AS Sector FROM Productos P LEFT JOIN Sectores S ON P.IdSector = S.Id WHERE P.Id = @idProducto");
+                datos.setearConsulta("SELECT P.Id, P.Nombre, P.MinutosPreparacion, P.Activo, S.Id AS IdSector, S.Nombre AS Sector, P.IdGrupo FROM Productos P LEFT JOIN Sectores S ON P.IdSector = S.Id WHERE P.Id = @idProducto");
                 datos.setearParametro("@idProducto", idProducto);
                 datos.ejecutarLectura();
 
@@ -98,6 +103,7 @@ namespace negocio
                     prod.Nombre = Convert.ToString(datos.Lectorbd["Nombre"]);
                     prod.MinutosPreparacion = Convert.ToInt32(datos.Lectorbd["MinutosPreparacion"]);
                     prod.Activo = Convert.ToBoolean(datos.Lectorbd["Activo"]);
+                    prod.IdGrupo = Convert.ToInt32(datos.Lectorbd["IdGrupo"]);
 
                     prod.Sector = new Sector();
                     prod.Sector.Id = Convert.ToInt32(datos.Lectorbd["IdSector"]);
@@ -115,7 +121,7 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
-        public void guardar(Producto producto)
+        public int guardar(Producto producto)
         {
             AccesoDatos datos = new AccesoDatos();
             try
@@ -123,22 +129,36 @@ namespace negocio
                 if (producto.Id == 0)
                 {
                     //Agregar nuevo
-                    datos.setearConsulta("INSERT INTO Productos(Nombre, MinutosPreparacion, Activo, IdSector) VALUES(@nombre, @minutos, 1, @idSector)");
-                    datos.setearParametro("@id", producto.Id);
+                    datos.setearConsulta(@"INSERT INTO Productos (Nombre, MinutosPreparacion, Activo, IdSector, IdGrupo) OUTPUT INSERTED.Id VALUES (@nombre, @minutos, 0, @idSector, @idGrupo)");
+
+                    datos.setearParametro("@nombre", producto.Nombre);
+                    datos.setearParametro("@minutos", producto.MinutosPreparacion);
+                    datos.setearParametro("@activo", producto.Activo);
+                    datos.setearParametro("@idSector", producto.Sector.Id);
+                    datos.setearParametro("@idGrupo", producto.IdGrupo);
+
+                    datos.ejecutarLectura();
+
+                    if (datos.Lectorbd.Read())
+                        return Convert.ToInt32(datos.Lectorbd[0]); //Id nuevo
+
+                    return 0;
                 }
                 else
                 {
                     //Modificar
-                    datos.setearConsulta("UPDATE Productos SET Nombre = @nombre, MinutosPreparacion = @minutos, IdSector = @idSector WHERE Id = @id");
-                    datos.setearParametro("@id", producto.Id);
+                    datos.setearConsulta(@"UPDATE Productos SET Nombre = @nombre, MinutosPreparacion = @minutos, Activo = @activo, IdSector = @idSector, IdGrupo = @idGrupo WHERE Id = @id");
                 }
 
+                datos.setearParametro("@id", producto.Id);
                 datos.setearParametro("@nombre", producto.Nombre);
                 datos.setearParametro("@minutos", producto.MinutosPreparacion);
                 datos.setearParametro("@activo", producto.Activo);
                 datos.setearParametro("@idSector", producto.Sector.Id);
+                datos.setearParametro("@idGrupo", producto.IdGrupo);
 
                 datos.ejecutarAccion();
+                return producto.Id;
             }
             catch (Exception ex)
             {
