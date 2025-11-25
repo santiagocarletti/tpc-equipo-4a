@@ -15,8 +15,8 @@ namespace tpc_equipo_4a
         public List<dominio.Combo> ListaCombos { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            var user = (dominio.Usuario)Session["Usuario"];
-            Seguridad.ValidarAcceso(user, this);
+            //var user = (dominio.Usuario)Session["Usuario"];
+            //Seguridad.ValidarAcceso(user, this);
 
             if (!IsPostBack)
             {

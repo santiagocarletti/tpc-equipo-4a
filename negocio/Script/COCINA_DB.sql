@@ -176,15 +176,14 @@ GO
 --BLOQUE PENDIENTE
 
 --Eliminar FK de RolUsuarios
---ALTER TABLE RolUsuarios
---DROP CONSTRAINT FK_RolUsuarios_Usuarios;
---GO
+ALTER TABLE RolUsuarios
+DROP CONSTRAINT FK_RolUsuarios_Usuarios;
+GO
 
 --Eliminación de columna
---ALTER TABLE RolUsuarios
---DROP COLUMN IdUsuario;
---GO
-
+ALTER TABLE RolUsuarios
+DROP COLUMN IdUsuario;
+GO
 ------------------------------------------------------------------------------
 --18/11/2025
 --TABLA NUEVA: PRODUCTOS INGREDIENTES
@@ -284,3 +283,15 @@ INSERT INTO GruposProducto VALUES
 ALTER TABLE Productos
 ADD IdGrupo INT NULL
     CONSTRAINT FK_Productos_GruposProducto FOREIGN KEY (IdGrupo) REFERENCES GruposProducto(Id);
+---------------------------------------
+--25/11/2025
+--Eliminar FK de RolUsuarios
+ALTER TABLE RolUsuarios
+DROP CONSTRAINT FK_RolUsuarios_Usuarios;
+GO
+
+--Eliminación de columna
+ALTER TABLE RolUsuarios
+DROP COLUMN IdUsuario;
+GO
+---------------------------------------

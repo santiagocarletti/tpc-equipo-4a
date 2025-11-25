@@ -35,6 +35,8 @@ namespace tpc_equipo_4a
                 ddlGrupo.DataValueField = "Id";
                 ddlGrupo.DataBind();
 
+                ProductoIngredienteNegocio ingNegocio = new ProductoIngredienteNegocio();
+
                 if (Session["ProductoId"] != null)
                 {
                     ProductoNegocio negocio = new ProductoNegocio();
@@ -46,7 +48,7 @@ namespace tpc_equipo_4a
 
                     ddlSector.SelectedValue = prod.Sector.Id.ToString();
 
-                    ProductoIngredienteNegocio ingNegocio = new ProductoIngredienteNegocio();
+                    //ProductoIngredienteNegocio ingNegocio = new ProductoIngredienteNegocio();
 
                     //CARGAR REPEATER
                     List<ProductoIngrediente> ingredientes = ingNegocio.ListarTodosParaProducto(id);
@@ -55,6 +57,12 @@ namespace tpc_equipo_4a
 
                     //Preseleccionar grupo
                     ddlGrupo.SelectedValue = prod.IdGrupo.ToString();
+                }
+                else
+                {
+                    List<ProductoIngrediente> ingredientes = ingNegocio.ListarTodosParaProducto(0);
+                    repIngredientes.DataSource = ingredientes;
+                    repIngredientes.DataBind();
                 }
             }
         }
