@@ -18,29 +18,27 @@ namespace negocio
 
             try
             {
-                datos.limpiarParametros();
-                datos.setearConsulta(@" SELECT c.Id AS IdComanda, c.NumeroComanda AS NumeroComanda, c.FechaCreacion,
-                CASE 
-                WHEN ci.IdCombo IS NOT NULL THEN co.Nombre
-                ELSE p.Nombre
-                END  AS NombreItem,
-                SUM(ci.Cantidad) AS Cantidad
-                FROM Comandas c
-                JOIN ComandaItems ci   ON ci.IdComanda = c.Id
-                LEFT JOIN Combos    co ON co.Id = ci.IdCombo
-                LEFT JOIN Productos p  ON p.Id = ci.IdProducto
-                WHERE c.IdEstadoComanda = 3
-                AND ((ci.IdProducto IS NOT NULL AND p.IdSector = 2)
-                OR
-                (ci.IdCombo IS NOT NULL AND EXISTS(
-                SELECT 1
-                FROM ComboDetalles cd
-                JOIN Productos p2 ON p2.Id = cd.IdProducto
-                WHERE cd.IdCombo = ci.IdCombo
-                AND p2.IdSector = 2)))
-                GROUP BY c.Id, c.NumeroComanda, c.FechaCreacion,
-                CASE WHEN ci.IdCombo IS NOT NULL THEN co.Nombre ELSE p.Nombre END
-                ORDER BY c.FechaCreacion, c.Id; ");
+                datos.setearConsulta(@"
+            SELECT 
+                c.Id AS IdComanda,
+                c.NumeroComanda,
+                c.FechaCreacion,
+
+                ci.IdCombo,
+                co.Nombre AS NombreCombo,
+                ci.Cantidad AS CantidadCombo,
+
+                ci.IdProducto,
+                p.Nombre AS NombreProducto,
+
+                p.IdSector AS SectorProducto
+            FROM Comandas c
+            JOIN ComandaItems ci   ON ci.IdComanda = c.Id
+            LEFT JOIN Combos    co ON co.Id = ci.IdCombo
+            LEFT JOIN Productos p  ON p.Id = ci.IdProducto
+            WHERE c.IdEstadoComanda = 3
+            ORDER BY c.FechaCreacion ASC, c.Id ASC
+        ");
 
                 datos.ejecutarLectura();
 
@@ -63,13 +61,44 @@ namespace negocio
                         lista.Add(ped);
                     }
 
-                    string item = datos.Lectorbd["NombreItem"].ToString();
-                    int cant = Convert.ToInt32(datos.Lectorbd["Cantidad"]);
+                    int? idCombo = datos.Lectorbd["IdCombo"] as int?;
+                    int? idProducto = datos.Lectorbd["IdProducto"] as int?;
+                    int sector = datos.Lectorbd["SectorProducto"] as int? ?? 0;
 
-                    if (!string.IsNullOrEmpty(ped.ProductosTexto))
-                        ped.ProductosTexto += "<br />";
+                    // Si es COMBO
+                    if (idCombo != null)
+                    {
+                        string nombreCombo = datos.Lectorbd["NombreCombo"].ToString();
+                        int cantidadCombo = (int)datos.Lectorbd["CantidadCombo"];
 
-                    ped.ProductosTexto += $"{cant}x {item}";
+                        // Si aún no se agregó ese combo a la tarjeta → agregar "1x Cheeseburger"
+                        string lineaCombo = $"{cantidadCombo}x {nombreCombo}";
+
+                        if (!ped.ProductosTexto.Contains(lineaCombo))
+                        {
+                            if (!string.IsNullOrEmpty(ped.ProductosTexto))
+                                ped.ProductosTexto += "<br/>";
+
+                            ped.ProductosTexto += $"<b>{lineaCombo}</b>";
+                        }
+
+                        // Ahora listar SOLO productos del sector Plancha pertenecientes al combo
+                        if (sector == 2)
+                        {
+                            string nombreProd = datos.Lectorbd["NombreProducto"].ToString();
+
+                            ped.ProductosTexto += $"<br/> - {nombreProd}";
+                        }
+                    }
+                    else if (idProducto != null && sector == 2)
+                    {
+                        // PRODUCTO SUELTO DEL SECTOR
+                        if (!string.IsNullOrEmpty(ped.ProductosTexto))
+                            ped.ProductosTexto += "<br/>";
+
+                        string nombreProd = datos.Lectorbd["NombreProducto"].ToString();
+                        ped.ProductosTexto += $"1x {nombreProd}";
+                    }
                 }
             }
             finally
@@ -82,6 +111,7 @@ namespace negocio
 
             return lista;
         }
+
 
         private string FormatearTiempo(DateTime fecha)
         {
