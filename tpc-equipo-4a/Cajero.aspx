@@ -3,10 +3,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Cajero - Toma de Pedidos
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet" />
 
     <style>
         body {
@@ -17,106 +20,181 @@
 
         .main-content {
             padding-top: 2rem;
-            padding-bottom: 3rem;
+            padding-bottom: 4rem !important;
+        }
+        
+        .logout-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 2000;
         }
 
-        h1.h2 {
-            font-weight: 700;
-            color: #1565c0;
-        }
-
-        .card {
-            border: none;
-            border-radius: 1rem;
-            box-shadow: 0 0.75rem 1.25rem rgba(0, 0, 0, 0.08);
-        }
-
-        .card-header {
-            background-color: #ffffff;
-            border-bottom: 1px solid #CFD8DC;
-        }
-
-        .card-footer {
-            background-color: #ffffff;
-            border-top: 1px solid #CFD8DC;
-        }
-
-        .btn-primary {
-            background-color: #2196F3;
-            border-color: #2196F3;
+        .logout-btn .btn {
+            background: #b71c1c;
+            color: white;
             font-weight: 600;
-            color: #fff;
-            border-radius: 0.6rem;
-            box-shadow: 0 4px 10px rgba(33, 150, 243, 0.3);
-            transition: all 0.25s ease-in-out;
+            border-radius: 12px;
+            padding: 10px 18px;
+            box-shadow: 0 4px 10px rgba(0,0,0,.2);
         }
 
-            .btn-primary:hover {
-                background-color: #1976D2;
-                border-color: #1976D2;
-                transform: translateY(-2px);
-                box-shadow: 0 6px 14px rgba(25, 118, 210, 0.35);
-            }
-
-        .btn-outline-primary {
-            border-color: #2196F3;
-            color: #2196F3;
-            border-radius: 999px;
-            font-weight: 500;
+        .logout-btn .btn:hover {
+            background: #9a0007;
+            transform: translateY(-2px);
+        }
+       
+        .notificacion-badge {
+            position: fixed;
+            top: 110px;          
+            right: 25px;
+            z-index: 1500;
         }
 
-            .btn-outline-primary:hover {
-                background-color: #E3F2FD;
-                color: #0D47A1;
-            }
-
-        .btn-outline-secondary {
-            border-radius: 0.6rem;
-        }
-
-        .product-card {
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border-radius: 0.9rem;
-        }
-
-            .product-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.10);
-            }
-
-        .quantity-control {
+        .btn-notificacion {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
             width: 60px;
+            height: 60px;
+            font-size: 1.6rem;
+            box-shadow: 0 6px 14px rgba(220, 53, 69, 0.4);
+            transition: all .3s ease;
         }
 
-        .order-item {
-            background-color: #f8f9fa;
-            border-radius: 0.9rem;
+        .btn-notificacion:hover {
+            background-color: #c82333;
+            transform: scale(1.1);
         }
 
-        .modification-btn {
-            font-size: 0.875rem;
+        .badge-count {
+            position: absolute;
+            top: -4px;
+            right: -6px;
+            background-color: #fff;
+            color: #dc3545;
+            border: 2px solid #dc3545;
+            border-radius: 50%;
+            width: 23px;
+            height: 23px;
+            font-size: .75rem;
+            font-weight: 700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .notificaciones-panel {
+            position: fixed;
+            top: 180px;
+            right: 25px;
+            width: 350px;
+            max-height: 500px;
+            overflow-y: auto;
+            z-index: 1400;
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.22);
         }
 
-        .fade-in {
-            animation: fadeIn 0.4s ease-in-out;
+        .reporte-item:hover {
+            background: #f5f5f5;
+        }
+        
+        .combo-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,.45);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .combo-box {
+            background: #fff;
+            padding: 25px;
+            border-radius: 14px;
+            width: 480px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 6px 22px rgba(0,0,0,.25);
         }
     </style>
+
 </asp:Content>
 
+
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    
+    <div class="notificacion-badge">
+        <asp:Button ID="btnToggleNotificaciones" runat="server"
+            CssClass="btn btn-notificacion"
+            Text="🔔"
+            OnClick="btnToggleNotificaciones_Click" />
+        <asp:Label ID="lblContadorReportes" runat="server"
+            CssClass="badge-count"
+            Text="0"
+            Visible="false"></asp:Label>
+    </div>
+        
+    <div id="panelNotificaciones" runat="server" class="notificaciones-panel" visible="false">
+        <div class="p-3 border-bottom bg-danger text-white rounded-top">
+            <h6 class="m-0 fw-bold">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                Ingredientes Faltantes
+            </h6>
+        </div>
+
+        <asp:Repeater ID="repReportes" runat="server" OnItemCommand="repReportes_ItemCommand">
+    <ItemTemplate>
+        <div class='reporte-item <%# (string)Eval("Estado") == "Pendiente" ? "reporte-nuevo" : "" %>'>
+            <div class="d-flex justify-content-between align-items-start">
+                <div class="flex-grow-1">
+                    <h6 class="mb-1 fw-bold text-danger">
+                        <i class="bi bi-egg-fill me-1"></i>
+                        <%# Eval("NombreIngrediente") %>
+                    </h6>
+                    <small class="text-muted">
+                        <i class="bi bi-geo-alt-fill"></i> <%# Eval("SectorOrigen") %>
+                    </small>
+                    <br />
+                    <small class="text-muted">
+                        <i class="bi bi-person-fill"></i> <%# Eval("UsuarioReporta") %>
+                    </small>
+                    <br />
+                    <small class="text-muted">
+                        <i class="bi bi-clock-fill"></i> <%# Eval("TiempoTranscurrido") %>
+                    </small>
+                </div>
+
+                <div class="ms-2">
+                    <asp:Button ID="btnResolver" runat="server"
+                        CommandName="Resolver"
+                        CommandArgument='<%# Container.ItemIndex %>'
+                        CssClass='<%# (string)Eval("Estado") == "Pendiente" ? "btn btn-sm btn-success btn-resolver" : "d-none" %>'
+                        Text="Resolver"
+                        Visible='<%# (string)Eval("Estado") == "Pendiente" %>' />
+                    <span class='<%# (string)Eval("Estado") == "Resuelto" ? "badge bg-success" : "d-none" %>'>
+                        Resuelto
+                    </span>
+                </div>
+            </div>
+        </div>
+    </ItemTemplate>
+</asp:Repeater>
+
+
+        <div id="divSinReportes" runat="server" class="p-4 text-center text-muted" visible="false">
+            <i class="bi bi-check-circle" style="font-size: 3rem;"></i>
+            <p class="mt-2 mb-0">No hay reportes pendientes</p>
+        </div>
+    </div>
+    
     <main class="container main-content fade-in">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="h2 fw-bold d-flex align-items-center gap-2">
@@ -220,6 +298,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-5">
                 <div class="card sticky-top" style="top: 100px;">
 
@@ -228,21 +307,20 @@
                     </div>
                     <div class="card-body" style="max-height: 500px; overflow-y: auto;">
 
-                    <asp:Repeater ID="repPedido" runat="server">
-                        <ItemTemplate>
-                            <div class="mb-2">
-                                <div class="d-flex justify-content-between">
-                                    <span class='<%# (bool)Eval("EsCombo") ? "fw-semibold text-dark" : (bool)Eval("EsHijo") ? "ms-3" : "" %>'>
-                                        <%# Eval("Nombre") %>
-                                    </span>
+                        <asp:Repeater ID="repPedido" runat="server">
+                            <ItemTemplate>
+                                <div class="mb-2">
+                                    <div class="d-flex justify-content-between">
+                                        <span class='<%# (bool)Eval("EsCombo") ? "fw-semibold text-dark" : (bool)Eval("EsHijo") ? "ms-3" : "" %>'>
+                                            <%# Eval("Nombre") %>
+                                        </span>
 
-                                    <span class="text-secondary small">
-                                        x<%# Eval("Cantidad") %>
-                                    </span>
+                                        <span class="text-secondary small">x<%# Eval("Cantidad") %>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                        </ItemTemplate>
-                    </asp:Repeater>
+                            </ItemTemplate>
+                        </asp:Repeater>
 
                     </div>
                     <div class="card-footer bg-white">
@@ -271,7 +349,7 @@
         </div>
     </main>
 
-    <!-- PANEL OVERLAY PARA CONFIGURAR COMBO -->
+    
     <div id="panelCombo" class="combo-overlay" style="display: none;">
         <div class="combo-box">
 
@@ -312,37 +390,6 @@
         </div>
     </div>
 
-    <style>
-        /* OVERLAY */
-        .combo-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,.45);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        /* CAJA CENTRAL */
-        .combo-box {
-            background: #fff;
-            padding: 25px;
-            border-radius: 12px;
-            width: 480px;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 6px 20px rgba(0,0,0,.2);
-        }
-
-        .grupo-bloque {
-            margin-bottom: 20px;
-        }
-    </style>
-
     <script>
         function mostrarPanelCombo() {
             document.getElementById('panelCombo').style.display = 'flex';
@@ -351,5 +398,13 @@
             document.getElementById('panelCombo').style.display = 'none';
         }
     </script>
+        
+    <div class="logout-btn">
+        <asp:Button ID="btnLogout" runat="server"
+            Text="Cerrar sesión"
+            CssClass="btn"
+            OnClick="btnLogout_Click" />
+    </div>
+
 
 </asp:Content>

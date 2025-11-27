@@ -49,7 +49,9 @@
     <Compile Include="EstadoComanda.cs" />
     <Compile Include="GrupoProducto.cs" />
     <Compile Include="Ingrediente.cs" />
+    <Compile Include="PedidoPlancha.cs" />
     <Compile Include="ProductoIngrediente.cs" />
+    <Compile Include="ReporteIngrediente.cs" />
     <Compile Include="RolUsuario.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Sector.cs" />

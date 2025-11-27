@@ -12,16 +12,92 @@ namespace tpc_equipo_4a
 {
     public partial class Cajero : System.Web.UI.Page
     {
+        
+        protected void btnToggleNotificaciones_Click(object sender, EventArgs e)
+        {            
+            panelNotificaciones.Visible = !panelNotificaciones.Visible;
+        }
+        protected void repReportes_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "Resolver")
+            {
+                try
+                {
+                    int index = int.Parse(e.CommandArgument.ToString());
+
+                    List<ReporteIngrediente> reportes =
+                        (List<ReporteIngrediente>)Application["ReportesIngredientes"];
+
+                    if (reportes != null && index >= 0 && index < reportes.Count)
+                    {
+                        reportes[index].Estado = "Resuelto";                       
+                        Application["ReportesIngredientes"] = reportes;
+                        
+                        CargarReportes();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Error al resolver reporte: " + ex.Message);
+                }
+            }
+        }
+
+
+        private void CargarReportes()
+        {
+            try
+            {
+                List<ReporteIngrediente> reportes = new List<ReporteIngrediente>();
+
+                if (Application["ReportesIngredientes"] != null)
+                {
+                    reportes = (List<ReporteIngrediente>)Application["ReportesIngredientes"];
+                }
+                                
+
+                reportes = reportes
+                    .OrderBy(r => r.Estado == "Resuelto" ? 1 : 0)
+                    .ThenByDescending(r => r.FechaHoraReporte)
+                    .ToList();
+                
+                int reportesPendientes = reportes.Count(r => r.Estado == "Pendiente");
+                                
+                lblContadorReportes.Text = reportesPendientes.ToString();
+                lblContadorReportes.Visible = reportesPendientes > 0;
+                                
+                if (reportes.Count > 0)
+                {
+                    repReportes.DataSource = reportes;
+                    repReportes.DataBind();
+                    divSinReportes.Visible = false;
+                }
+                else
+                {
+                    repReportes.DataSource = null;
+                    repReportes.DataBind();
+                    divSinReportes.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error al cargar reportes: " + ex.Message);
+                lblContadorReportes.Visible = false;
+            }
+        }        
+
         private string GenerarIdentificador()
         {
             return Guid.NewGuid().ToString("N");
         }
+
         private class GrupoOpcionesCombo
         {
             public int IdGrupo { get; set; }
             public string NombreGrupo { get; set; }
             public List<dominio.Producto> Productos { get; set; }
         }
+
         private void CargarConfiguracionCombo(int idCombo)
         {
             ComboDetalleNegocio detNeg = new ComboDetalleNegocio();
@@ -61,6 +137,7 @@ namespace tpc_equipo_4a
             repGruposCombo.DataSource = grupos;
             repGruposCombo.DataBind();
         }
+
         protected void repGruposCombo_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType != ListItemType.Item &&
@@ -80,14 +157,21 @@ namespace tpc_equipo_4a
             if (rbl.Items.Count > 0)
                 rbl.SelectedIndex = 0;
         }
+
         public List<dominio.Combo> ListaCombos { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            //var user = (dominio.Usuario)Session["Usuario"];
-            //Seguridad.ValidarAcceso(user, this);
+            // Verificar que el usuario esté logueado
+            if (Session["Usuario"] == null)
+            {
+                Response.Redirect("Login.aspx");
+                return;
+            }
 
             if (!IsPostBack)
             {
+                CargarReportes();
                 ComboNegocio negocio = new ComboNegocio();
                 ListaCombos = negocio.listar();
                 ListaCombos = ListaCombos.Where(x => x.Activo).ToList();
@@ -97,14 +181,15 @@ namespace tpc_equipo_4a
                 repCombosCaja.DataBind();
 
                 Session["listaCombos"] = ListaCombos;
-
-                //BOTONES SECTORES
+                               
                 SectorNegocio sectorNeg = new SectorNegocio();
                 List<Sector> sectores = sectorNeg.listar();
 
                 repSectores.DataSource = sectores;
                 repSectores.DataBind();
             }
+
+            
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
@@ -126,6 +211,7 @@ namespace tpc_equipo_4a
                 true
             );
         }
+
         private void CargarPedidoActual()
         {
             ProductoNegocio prodNeg = new ProductoNegocio();
@@ -138,11 +224,11 @@ namespace tpc_equipo_4a
                 string nombre = "";
                 bool esCombo = item.ComboId > 0 && item.ProductoId == 0;
                 bool esProductoHijo = item.ProductoId > 0 && item.ComboId > 0;
-                
+
                 if (esCombo)
                 {
                     var combo = comboNeg.obtenerPorId(item.ComboId);
-                    //Combo padre Sin prefijo -
+                    
                     nombre = combo.Nombre;
                 }
                 else if (item.ProductoId > 0)
@@ -173,12 +259,15 @@ namespace tpc_equipo_4a
             repPedido.DataSource = vista;
             repPedido.DataBind();
         }
+
         protected void btnCatCombos_Click(object sender, EventArgs e)
         {
             panelCombos.Visible = true;
             panelProductosSectores.Visible = false;
         }
+
         public List<dominio.Producto> ListaProductos { get; set; }
+
         protected void btnSector_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
@@ -191,6 +280,7 @@ namespace tpc_equipo_4a
             repProductosCaja.DataSource = negocio.listar(idSector);
             repProductosCaja.DataBind();
         }
+
         private List<ComandaItem> Carrito
         {
             get
@@ -200,6 +290,7 @@ namespace tpc_equipo_4a
                 return (List<ComandaItem>)Session["Carrito"];
             }
         }
+
         protected void btnAgregarProd_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
@@ -213,12 +304,13 @@ namespace tpc_equipo_4a
                 ProductoId = idProducto,
                 Cantidad = 1,
                 Comentario = "",
-                IdentificadorUnico = GenerarIdentificador(), 
+                IdentificadorUnico = GenerarIdentificador(),
                 ComboId = 0
             });
 
             CargarPedidoActual();
         }
+
         protected void btnConfirmarPedido_Click(object sender, EventArgs e)
         {
             if (Carrito.Count == 0)
@@ -227,8 +319,8 @@ namespace tpc_equipo_4a
             ComandaNegocio comNeg = new ComandaNegocio();
             ComandaItemNegocio itemNeg = new ComandaItemNegocio();
 
-            int idUsuario = (int)Session["UsuarioId"];   //Manejo provisorio en PageLoad
-            int idEstadoInicial = 1;                     //Manejo provisorio en AgregarYDevolverId
+            int idUsuario = (int)Session["UsuarioId"];   
+            int idEstadoInicial = 1;                     
             string numComanda = GenerarNumeroComanda();
 
             //Crear Comanda
@@ -255,10 +347,12 @@ namespace tpc_equipo_4a
 
             Response.Redirect("Cajero.aspx");
         }
+
         private string GenerarNumeroComanda()
         {
             return DateTime.Now.ToString("HHmmss");
         }
+
         protected void btnConfirmarCombo_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(hfIdComboSeleccionado.Value))
@@ -307,6 +401,12 @@ namespace tpc_equipo_4a
                 "ocultarPanelCombo();",
                 true
             );
+        }
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.Abandon();
+            Response.Redirect("Login.aspx", false);
         }
     }
 }

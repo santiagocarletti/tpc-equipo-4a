@@ -60,9 +60,9 @@ namespace tpc_equipo_4a
 
                 negocio.ValidarDuplicado(usuario);
                 negocio.guardar(usuario);
-                int? idActual = (usuario.Id == 0) ? (int?)null : usuario.Id;
-                if (negocio.ExisteContraseñaDuplicada(usuario.Contraseña, idActual))
-                    throw new Exception("La contraseña ingresada ya está siendo utilizada por otro usuario.");
+                //int? idActual = (usuario.Id == 0) ? (int?)null : usuario.Id;
+                //if (negocio.ExisteContraseñaDuplicada(usuario.Contraseña, idActual))
+                //    throw new Exception("La contraseña ingresada ya está siendo utilizada por otro usuario.");
                 Session.Remove("UsuarioId");
                 Response.Redirect("Usuario.aspx");
             }

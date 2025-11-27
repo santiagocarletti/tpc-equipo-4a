@@ -49,6 +49,7 @@
     <Compile Include="ComboNegocio.cs" />
     <Compile Include="GrupoProductoNegocio.cs" />
     <Compile Include="IngredienteNegocio.cs" />
+    <Compile Include="PlanchaNegocio.cs" />
     <Compile Include="ProductoIngredienteNegocio.cs" />
     <Compile Include="ProductoNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
