@@ -49,6 +49,7 @@
     <Compile Include="EstadoComanda.cs" />
     <Compile Include="GrupoProducto.cs" />
     <Compile Include="Ingrediente.cs" />
+    <Compile Include="PedidoFreidora.cs" />
     <Compile Include="PedidoPlancha.cs" />
     <Compile Include="ProductoIngrediente.cs" />
     <Compile Include="ReporteIngrediente.cs" />

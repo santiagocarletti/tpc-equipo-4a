@@ -47,6 +47,7 @@
     <Compile Include="ComandaNegocio.cs" />
     <Compile Include="ComboDetalleNegocio.cs" />
     <Compile Include="ComboNegocio.cs" />
+    <Compile Include="FreidoraNegocio.cs" />
     <Compile Include="GrupoProductoNegocio.cs" />
     <Compile Include="IngredienteNegocio.cs" />
     <Compile Include="PlanchaNegocio.cs" />
