@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Edición de Producto - Burger Joint" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ProductoEdicion.aspx.cs" Inherits="tpc_equipo_4a.ProductoEdicion" %>
+﻿<%@ Page Title="Edición de Producto - Equipo 4A" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ProductoEdicion.aspx.cs" Inherits="tpc_equipo_4a.ProductoEdicion" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -66,12 +66,31 @@
                 background-color: #bbdefb;
                 color: #0d47a1;
             }
+
+        .alert {
+            border-radius: 0.5rem;
+            margin-bottom: 0;
+        }
+
+        .alert-danger {
+            background-color: #ffebee;
+            border-color: #ef5350;
+            color: #c62828;
+        }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container py-5">
-        <div class="card mx-auto" style="max-width: 600px;">
+        <div class="card mx-auto" style="max-width: 800px;">
+
+
+            <div class="alert alert-danger d-flex align-items-center"
+                id="errorMsg" runat="server" visible="false" role="alert">
+                <span class="material-symbols-outlined me-2">error</span>
+                <span id="errorText" runat="server"></span>
+            </div>
+
             <div class="card-header">
                 <h5>
                     <span class="material-symbols-outlined">restaurant_menu</span>
@@ -82,7 +101,8 @@
             <div class="card-body bg-white">
                 <div class="mb-3">
                     <label for="txtNombre" class="form-label">Nombre del producto</label>
-                    <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" placeholder="Ej: Hamburguesa Doble"></asp:TextBox>
+                    <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control"
+                        placeholder="Ej: Hamburguesa Doble"></asp:TextBox>
                 </div>
 
                 <div class="mb-3">
@@ -97,15 +117,18 @@
 
                 <div class="mb-3">
                     <label for="txtMinutos" class="form-label">Minutos de preparación</label>
-                    <asp:TextBox ID="txtMinutos" runat="server" CssClass="form-control" TextMode="Number" placeholder="Ej: 15"></asp:TextBox>
+                    <asp:TextBox ID="txtMinutos" runat="server" CssClass="form-control"
+                        TextMode="Number" placeholder="Ej: 15 (dejar vacío para 0)"></asp:TextBox>
+                    <small class="text-muted">Si no ingresa valor, se guardará como 0 minutos</small>
                 </div>
-                <%--  --%>
+
                 <div class="mb-3 mt-4">
-                    <h6>Ingredientes</h6>
+                    <h6>Ingredientes del Producto (Opcional)</h6>
+                    <small>Los ingredientes son opcionales. Puede dejar todos en 0 para productos sin ingredientes (ej: bebidas).</small>
 
                     <asp:Repeater ID="repIngredientes" runat="server">
                         <HeaderTemplate>
-                            <table class="table table-striped">
+                            <table class="table table-striped table-hover mt-2">
                                 <thead>
                                     <tr>
                                         <th>Ingrediente</th>
@@ -119,14 +142,11 @@
                         </HeaderTemplate>
 
                         <ItemTemplate>
-
-                            <%--  --%>
                             <!-- Id fila ProductoIngrediente -->
                             <asp:HiddenField ID="hfIdProductoIngrediente" runat="server" Value='<%# Eval("Id") %>' />
 
                             <!-- Id del Ingrediente (Tabla Ingredientes) -->
                             <asp:HiddenField ID="hfIdIngrediente" runat="server" Value='<%# Eval("IdIngrediente") %>' />
-                            <%--  --%>
 
                             <tr>
                                 <td><%# Eval("Ingrediente.Nombre") %></td>
@@ -138,12 +158,7 @@
 
                                 <td><%# Eval("Ingrediente.NombreSector") %></td>
 
-                                <td>
-                                    <asp:TextBox ID="txtMin" runat="server"
-                                        Text='<%# Eval("Ingrediente.MinutosPreparacion") %>'
-                                        CssClass="form-control" TextMode="Number"
-                                        Style="width: 80px;" />
-                                </td>
+                                <td><%# Eval("Ingrediente.MinutosPreparacion") %></td>
 
                                 <td>
                                     <asp:TextBox
@@ -156,7 +171,6 @@
                                         Text='<%# Eval("Cantidad") %>'
                                         Width="70" />
                                 </td>
-
                             </tr>
                         </ItemTemplate>
 
@@ -166,7 +180,7 @@
                         </FooterTemplate>
                     </asp:Repeater>
                 </div>
-                <%--  --%>
+
                 <div class="d-flex justify-content-between align-items-center mt-4">
                     <a href="Producto.aspx" class="btn btn-outline-secondary d-flex align-items-center">
                         <span class="material-symbols-outlined me-1">arrow_back</span> Cancelar
@@ -180,4 +194,3 @@
         </div>
     </div>
 </asp:Content>
-

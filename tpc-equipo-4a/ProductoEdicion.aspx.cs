@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using dominio;
 using negocio;
@@ -15,130 +13,214 @@ namespace tpc_equipo_4a
         {
             if (!IsPostBack)
             {
+                try
+                {
+                    CargarDropdowns();
+                    CargarIngredientes();
+
+                    // Si es edición, cargar datos del producto
+                    if (Session["ProductoId"] != null)
+                    {
+                        lblTitulo.Text = "Editar Producto";
+
+                        ProductoNegocio negocio = new ProductoNegocio();
+                        int id = (int)Session["ProductoId"];
+                        dominio.Producto prod = negocio.obtenerPorId(id);
+
+                        if (prod != null)
+                        {
+                            txtNombre.Text = prod.Nombre;
+                            txtMinutos.Text = prod.MinutosPreparacion.ToString();
+                            ddlSector.SelectedValue = prod.Sector.Id.ToString();
+                            ddlGrupo.SelectedValue = prod.IdGrupo.ToString();
+                        }
+                    }
+                    else
+                    {
+                        lblTitulo.Text = "Nuevo Producto";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MostrarError("Error al cargar la página: " + ex.Message);
+                }
+            }
+        }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                Validaciones.ValidarTexto(txtNombre, "Nombre del producto");
+                Validaciones.ValidarNombre(txtNombre.Text.Trim());
+                Validaciones.ValidarDropDown(ddlSector, "Sector");
+                Validaciones.ValidarDropDown(ddlGrupo, "Grupo");
+                int minutosPreparacion = Validaciones.ValidarMinutosPreparacion(txtMinutos);
+
+                List<int> cantidades = new List<int>();
+                foreach (RepeaterItem item in repIngredientes.Items)
+                {
+                    TextBox txtCant = (TextBox)item.FindControl("txtCantidad");
+                    if (txtCant != null)
+                    {
+                        Validaciones.ValidarCantidad(txtCant.Text, "Cantidad");
+
+                        int cant = 0;
+                        int.TryParse(txtCant.Text, out cant);
+                        cantidades.Add(cant);
+                    }
+                }
+
+                foreach (RepeaterItem item in repIngredientes.Items)
+                {
+                    TextBox txtCant = (TextBox)item.FindControl("txtCantidad");
+                    if (txtCant != null && !string.IsNullOrWhiteSpace(txtCant.Text))
+                    {
+                        Validaciones.ValidarCantidad(txtCant.Text, "Cantidad");
+                    }
+                }
+
+
+                ProductoNegocio prodNeg = new ProductoNegocio();
+                List<dominio.Producto> productos = prodNeg.listar();
+
+                int? idActual = null;
+                if (Session["ProductoId"] != null)
+                    idActual = (int)Session["ProductoId"];
+
+                List<string> nombresExistentes = productos
+                    .Where(p => !idActual.HasValue || p.Id != idActual.Value)
+                    .Select(p => p.Nombre)
+                    .ToList();
+
+                Validaciones.ValidarNombreUnico(
+                    txtNombre.Text.Trim(),
+                    nombresExistentes,
+                    idActual,
+                    "producto"
+                );
+
+
+                ProductoIngredienteNegocio pinNeg = new ProductoIngredienteNegocio();
+                int idProducto = idActual ?? 0; // Si es nuevo = 0
+
+                dominio.Producto producto = new dominio.Producto
+                {
+                    Id = idProducto,
+                    Nombre = txtNombre.Text.Trim(),
+                    MinutosPreparacion = minutosPreparacion,
+                    Sector = new Sector { Id = int.Parse(ddlSector.SelectedValue) },
+                    IdGrupo = int.Parse(ddlGrupo.SelectedValue),
+                    Activo = true
+                };
+
+                idProducto = prodNeg.guardar(producto);
+
+                foreach (RepeaterItem item in repIngredientes.Items)
+                {
+                    HiddenField hfProdIngId = (HiddenField)item.FindControl("hfIdProductoIngrediente");
+                    HiddenField hfIngredId = (HiddenField)item.FindControl("hfIdIngrediente");
+                    CheckBox chkOpcional = (CheckBox)item.FindControl("chkOpcional");
+                    TextBox txtCantidad = (TextBox)item.FindControl("txtCantidad");
+
+                    int idProdIng = int.TryParse(hfProdIngId?.Value, out var x) ? x : 0;
+                    int idIngred = int.TryParse(hfIngredId?.Value, out var y) ? y : 0;
+                    int cantidad = int.TryParse(txtCantidad?.Text, out var z) ? z : 0;
+                    bool esOpcional = chkOpcional != null && chkOpcional.Checked;
+
+                    if (cantidad > 0)
+                    {
+                        if (idProdIng == 0)
+                        {
+                            pinNeg.Agregar(new ProductoIngrediente
+                            {
+                                IdProducto = idProducto,
+                                IdIngrediente = idIngred,
+                                Cantidad = cantidad,
+                                EsOpcional = esOpcional
+                            });
+                        }
+                        else
+                        {
+                            pinNeg.Modificar(new ProductoIngrediente
+                            {
+                                Id = idProdIng,
+                                IdProducto = idProducto,
+                                IdIngrediente = idIngred,
+                                Cantidad = cantidad,
+                                EsOpcional = esOpcional
+                            });
+                        }
+                    }
+                    else
+                    
+                    {
+                        if (idProdIng > 0)
+                        {
+                            pinNeg.Eliminar(idProdIng);
+                        }
+                    }
+                }
+
+                Session.Remove("ProductoId");
+                Response.Redirect("Producto.aspx");
+            }
+            catch (Exception ex)
+            {
+                MostrarError(ex.Message);
+            }
+        }
+
+        private void CargarDropdowns()
+        {
+            try
+            {
+                
                 SectorNegocio secNegocio = new SectorNegocio();
                 List<Sector> sectores = secNegocio.listar();
-
-                sectores.Insert(0, new Sector { Id = -1, Nombre = ""});
 
                 ddlSector.DataSource = sectores;
                 ddlSector.DataTextField = "Nombre";
                 ddlSector.DataValueField = "Id";
                 ddlSector.DataBind();
-
-                //Grupos de producto
+                ddlSector.Items.Insert(0, new ListItem("-- Seleccione Sector --", "-1"));
+                
                 GrupoProductoNegocio grupoNeg = new GrupoProductoNegocio();
                 List<GrupoProducto> grupos = grupoNeg.listar();
-                grupos.Insert(0, new GrupoProducto { Id = -1, Nombre = "" });
 
                 ddlGrupo.DataSource = grupos;
                 ddlGrupo.DataTextField = "Nombre";
                 ddlGrupo.DataValueField = "Id";
                 ddlGrupo.DataBind();
-
-                ProductoIngredienteNegocio ingNegocio = new ProductoIngredienteNegocio();
-
-                if (Session["ProductoId"] != null)
-                {
-                    ProductoNegocio negocio = new ProductoNegocio();
-                    int id = (int)Session["ProductoId"];
-                    dominio.Producto prod = negocio.obtenerPorId(id);
-
-                    txtNombre.Text = prod.Nombre;
-                    txtMinutos.Text = prod.MinutosPreparacion.ToString();
-
-                    ddlSector.SelectedValue = prod.Sector.Id.ToString();
-
-                    //ProductoIngredienteNegocio ingNegocio = new ProductoIngredienteNegocio();
-
-                    //CARGAR REPEATER
-                    List<ProductoIngrediente> ingredientes = ingNegocio.ListarTodosParaProducto(id);
-                    repIngredientes.DataSource = ingredientes;
-                    repIngredientes.DataBind();
-
-                    //Preseleccionar grupo
-                    ddlGrupo.SelectedValue = prod.IdGrupo.ToString();
-                }
-                else
-                {
-                    List<ProductoIngrediente> ingredientes = ingNegocio.ListarTodosParaProducto(0);
-                    repIngredientes.DataSource = ingredientes;
-                    repIngredientes.DataBind();
-                }
+                ddlGrupo.Items.Insert(0, new ListItem("-- Seleccione Grupo --", "-1"));
+            }
+            catch (Exception ex)
+            {
+                MostrarError("Error al cargar dropdowns: " + ex.Message);
             }
         }
-        protected void btnGuardar_Click(object sender, EventArgs e)
+
+        private void CargarIngredientes()
         {
-            ProductoNegocio prodNeg = new ProductoNegocio();
-            ProductoIngredienteNegocio pinNeg = new ProductoIngredienteNegocio();
-
-            int idProducto = Session["ProductoId"] != null
-                ? (int)Session["ProductoId"]
-                : 0;   //Producto nuevo
-
-            //Datos base del Producto
-            dominio.Producto p = new dominio.Producto
+            try
             {
-                Id = idProducto,
-                Nombre = txtNombre.Text.Trim(),
-                MinutosPreparacion = int.TryParse(txtMinutos.Text, out var m) ? m : 0,
-                Sector = new Sector { Id = int.TryParse(ddlSector.SelectedValue, out var s) ? s : -1 },
-                IdGrupo = int.Parse(ddlGrupo.SelectedValue),
-                //Activo = true
-            };
-            //Si es nuevo, guarda y obtengo Id
-            idProducto = prodNeg.guardar(p);
+                ProductoIngredienteNegocio ingNegocio = new ProductoIngredienteNegocio();
+                int idProducto = Session["ProductoId"] != null ? (int)Session["ProductoId"] : 0;
 
-            foreach (RepeaterItem item in repIngredientes.Items)
-            {
-                HiddenField hfProdIngId = (HiddenField)item.FindControl("hfIdProductoIngrediente");
-                HiddenField hfIngredId = (HiddenField)item.FindControl("hfIdIngrediente");
-                CheckBox chkOpcional = (CheckBox)item.FindControl("chkOpcional");
-                TextBox txtCantidad = (TextBox)item.FindControl("txtCantidad");
-
-                int idProdIng = int.TryParse(hfProdIngId?.Value, out var x) ? x : 0;
-                int idIngred = int.TryParse(hfIngredId?.Value, out var y) ? y : 0;
-                int cantidad = int.TryParse(txtCantidad?.Text, out var z) ? z : 0;
-                bool esOpcional = chkOpcional != null && chkOpcional.Checked;
-
-                if (cantidad > 0)
-                {
-                    if (idProdIng == 0)
-                    {
-                        //AGREGAR
-                        pinNeg.Agregar(new ProductoIngrediente
-                        {
-                            IdProducto = idProducto,
-                            IdIngrediente = idIngred,
-                            Cantidad = cantidad,
-                            EsOpcional = esOpcional
-                        });
-                    }
-                    else
-                    {
-                        //MODFICAR
-                        pinNeg.Modificar(new ProductoIngrediente
-                        {
-                            Id = idProdIng,
-                            IdProducto = idProducto,
-                            IdIngrediente = idIngred,
-                            Cantidad = cantidad,
-                            EsOpcional = esOpcional
-                        });
-                    }
-                }
-                else
-                //Cantidad = 0
-                {
-                    if (idProdIng > 0)
-                    {
-                        //ELIMINAR
-                        pinNeg.Eliminar(idProdIng);
-                    }
-                }
+                List<ProductoIngrediente> ingredientes = ingNegocio.ListarTodosParaProducto(idProducto);
+                repIngredientes.DataSource = ingredientes;
+                repIngredientes.DataBind();
             }
-
-            Session.Remove("ProductoId");
-            Response.Redirect("Producto.aspx");
+            catch (Exception ex)
+            {
+                MostrarError("Error al cargar ingredientes: " + ex.Message);
+            }
+        }
+        private void MostrarError(string mensaje)
+        {
+            errorText.InnerText = mensaje;
+            errorMsg.Visible = true;
         }
     }
 }
