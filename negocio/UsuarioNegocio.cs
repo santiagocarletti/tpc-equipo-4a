@@ -68,7 +68,7 @@ namespace negocio
             {
                 datos.cerrarConexion();
             }
-        }        
+        }
         public Usuario obtenerPorId(int idUsuario)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -117,7 +117,7 @@ namespace negocio
                 {
                     //Agregar nuevo
                     datos.setearConsulta("INSERT INTO Usuarios(NombreUsuario, Contraseña, Activo, IdRol) VALUES(@nombreUsuario,@contraseña,1, @idRol)");
-                    
+
                 }
                 else
                 {
@@ -196,7 +196,42 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+        public bool ExisteContraseñaDuplicada(string contraseña, int? idActual = null)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string query = "SELECT COUNT(*) FROM Usuarios WHERE Contraseña = @pass";
 
+                // Si estamos editando un usuario, excluimos su propio ID
+                if (idActual.HasValue)
+                    query += " AND Id <> @idActual";
+
+                datos.setearConsulta(query);
+                datos.setearParametro("@pass", contraseña);
+
+                if (idActual.HasValue)
+                    datos.setearParametro("@idActual", idActual.Value);
+
+                datos.ejecutarLectura();
+
+                if (datos.Lectorbd.Read())
+                {
+                    int count = Convert.ToInt32(datos.Lectorbd[0]);
+                    return count > 0; // Devuelve true si existe duplicado
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 
 }
