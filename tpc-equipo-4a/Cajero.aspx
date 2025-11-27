@@ -227,39 +227,23 @@
                         <h4 class="mb-0 fw-semibold">Pedido Actual</h4>
                     </div>
                     <div class="card-body" style="max-height: 500px; overflow-y: auto;">
-                        <asp:Repeater ID="repPedido" runat="server">
-                            <ItemTemplate>
-                                <div class="order-item p-3 mb-3">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <h6 class="mb-0 fw-semibold"><%# Eval("Nombre") %></h6>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div class="btn-group btn-group-sm">
 
-                                            <%-- Botón Restar
-                                            <asp:Button ID="btnRestar" runat="server"
-                                                Text="-"
-                                                CssClass="btn btn-outline-secondary"
-                                                CommandArgument='<%# Eval("IdTemp") %>'
-                                                OnClick="btnRestar_Click" />
-                                            --%>
+                    <asp:Repeater ID="repPedido" runat="server">
+                        <ItemTemplate>
+                            <div class="mb-2">
+                                <div class="d-flex justify-content-between">
+                                    <span class='<%# (bool)Eval("EsCombo") ? "fw-semibold text-dark" : (bool)Eval("EsHijo") ? "ms-3" : "" %>'>
+                                        <%# Eval("Nombre") %>
+                                    </span>
 
-                                            <span class="btn btn-outline-secondary quantity-control">
-                                                <%# Eval("Cantidad") %>
-                                            </span>
-
-                                            <%-- Botón Sumar
-                                            <asp:Button ID="btnSumar" runat="server"
-                                                Text="+"
-                                                CssClass="btn btn-outline-secondary"
-                                                CommandArgument='<%# Eval("IdTemp") %>'
-                                                OnClick="btnSumar_Click" />
-                                            --%>
-                                        </div>
-                                    </div>
+                                    <span class="text-secondary small">
+                                        x<%# Eval("Cantidad") %>
+                                    </span>
                                 </div>
-                            </ItemTemplate>
-                        </asp:Repeater>
+                            </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
+
                     </div>
                     <div class="card-footer bg-white">
                         <div class="d-grid gap-2">
@@ -286,5 +270,86 @@
             </div>
         </div>
     </main>
+
+    <!-- PANEL OVERLAY PARA CONFIGURAR COMBO -->
+    <div id="panelCombo" class="combo-overlay" style="display: none;">
+        <div class="combo-box">
+
+            <h5 class="mb-3">Configurar Combo</h5>
+
+            <asp:HiddenField ID="hfIdComboSeleccionado" runat="server" />
+
+            <asp:Repeater
+                ID="repGruposCombo"
+                runat="server"
+                OnItemDataBound="repGruposCombo_ItemDataBound">
+
+                <ItemTemplate>
+                    <div class="grupo-bloque">
+                        <h6 class="fw-semibold"><%# Eval("NombreGrupo") %></h6>
+
+                        <asp:RadioButtonList ID="rblOpciones"
+                            runat="server"
+                            RepeatDirection="Vertical"
+                            CssClass="rbl-opciones">
+                        </asp:RadioButtonList>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
+
+            <div class="d-flex justify-content-end mt-3 gap-2">
+                <asp:Button ID="btnCancelarCombo" runat="server"
+                    Text="Cancelar"
+                    CssClass="btn btn-outline-secondary"
+                    OnClientClick="ocultarPanelCombo(); return false;" />
+
+                <asp:Button ID="btnConfirmarCombo" runat="server"
+                    Text="Añadir"
+                    CssClass="btn btn-primary"
+                    OnClick="btnConfirmarCombo_Click" />
+            </div>
+
+        </div>
+    </div>
+
+    <style>
+        /* OVERLAY */
+        .combo-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,.45);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        /* CAJA CENTRAL */
+        .combo-box {
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            width: 480px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 6px 20px rgba(0,0,0,.2);
+        }
+
+        .grupo-bloque {
+            margin-bottom: 20px;
+        }
+    </style>
+
+    <script>
+        function mostrarPanelCombo() {
+            document.getElementById('panelCombo').style.display = 'flex';
+        }
+        function ocultarPanelCombo() {
+            document.getElementById('panelCombo').style.display = 'none';
+        }
+    </script>
 
 </asp:Content>

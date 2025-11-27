@@ -12,6 +12,74 @@ namespace tpc_equipo_4a
 {
     public partial class Cajero : System.Web.UI.Page
     {
+        private string GenerarIdentificador()
+        {
+            return Guid.NewGuid().ToString("N");
+        }
+        private class GrupoOpcionesCombo
+        {
+            public int IdGrupo { get; set; }
+            public string NombreGrupo { get; set; }
+            public List<dominio.Producto> Productos { get; set; }
+        }
+        private void CargarConfiguracionCombo(int idCombo)
+        {
+            ComboDetalleNegocio detNeg = new ComboDetalleNegocio();
+            List<ComboDetalle> detalles = detNeg.DetallesPorCombo(idCombo);
+
+            List<GrupoOpcionesCombo> grupos = new List<GrupoOpcionesCombo>();
+
+            foreach (var det in detalles)
+            {
+                if (det.Producto == null)
+                    continue;
+
+                int idGrupo = det.Producto.IdGrupo;
+                if (idGrupo <= 0)
+                    continue;
+
+                var grupoExistente = grupos.FirstOrDefault(g => g.IdGrupo == idGrupo);
+
+                //Crea grupo si no existía
+                if (grupoExistente == null)
+                {
+                    grupoExistente = new GrupoOpcionesCombo
+                    {
+                        IdGrupo = idGrupo,
+                        NombreGrupo = det.Producto.Grupo != null ?
+                                      det.Producto.Grupo.Nombre :
+                                      "Grupo " + idGrupo,
+                        Productos = new List<dominio.Producto>()
+                    };
+
+                    grupos.Add(grupoExistente);
+                }
+
+                grupoExistente.Productos.Add(det.Producto);
+            }
+
+            repGruposCombo.DataSource = grupos;
+            repGruposCombo.DataBind();
+        }
+        protected void repGruposCombo_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType != ListItemType.Item &&
+                e.Item.ItemType != ListItemType.AlternatingItem)
+                return;
+
+            GrupoOpcionesCombo grupo = (GrupoOpcionesCombo)e.Item.DataItem;
+
+            RadioButtonList rbl = (RadioButtonList)e.Item.FindControl("rblOpciones");
+
+            //Carga productos del grupo
+            rbl.DataTextField = "Nombre";
+            rbl.DataValueField = "Id";
+            rbl.DataSource = grupo.Productos;
+            rbl.DataBind();
+
+            if (rbl.Items.Count > 0)
+                rbl.SelectedIndex = 0;
+        }
         public List<dominio.Combo> ListaCombos { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -36,7 +104,6 @@ namespace tpc_equipo_4a
 
                 repSectores.DataSource = sectores;
                 repSectores.DataBind();
-                //
             }
         }
 
@@ -45,52 +112,65 @@ namespace tpc_equipo_4a
             Button btn = (Button)sender;
             int idCombo = int.Parse(btn.CommandArgument);
 
-            //Combo
-            var item = Carrito.FirstOrDefault(x => x.ComboId == idCombo);
+            //Guarda temporalmente el Id del Combo
+            hfIdComboSeleccionado.Value = idCombo.ToString();
 
-            if (item == null)
-            {
-                Carrito.Add(new ComandaItem
-                {
-                    ComboId = idCombo,
-                    Cantidad = 1,
-                    Comentario = ""
-                });
-            }
-            else
-            {
-                item.Cantidad++;
-            }
+            //Carga Grupos y Productos al Overlay
+            CargarConfiguracionCombo(idCombo);
 
-            CargarPedidoActual();
+            ScriptManager.RegisterStartupScript(
+                this,
+                GetType(),
+                "MostrarPanelCombo",
+                "mostrarPanelCombo();",
+                true
+            );
         }
         private void CargarPedidoActual()
         {
-            //Vincular combo/producto para obtener nombre
-            var mostrar = new List<dynamic>();
-
             ProductoNegocio prodNeg = new ProductoNegocio();
             ComboNegocio comboNeg = new ComboNegocio();
+
+            var vista = new List<dynamic>();
 
             foreach (var item in Carrito)
             {
                 string nombre = "";
-
-                if (item.ComboId > 0)
-                    nombre = comboNeg.obtenerPorId(item.ComboId).Nombre;
-
-                if (item.ProductoId > 0)
-                    nombre = prodNeg.obtenerPorId(item.ProductoId).Nombre;
-
-                mostrar.Add(new
+                bool esCombo = item.ComboId > 0 && item.ProductoId == 0;
+                bool esProductoHijo = item.ProductoId > 0 && item.ComboId > 0;
+                
+                if (esCombo)
                 {
-                    IdTemp = item.GetHashCode(), //Id virtual para manejar botones
+                    var combo = comboNeg.obtenerPorId(item.ComboId);
+                    //Combo padre Sin prefijo -
+                    nombre = combo.Nombre;
+                }
+                else if (item.ProductoId > 0)
+                {
+                    var prod = prodNeg.obtenerPorId(item.ProductoId);
+
+                    if (esProductoHijo)
+                    {
+                        //Producto del Combo
+                        nombre = "— " + prod.Nombre;
+                    }
+                    else
+                    {
+                        //Producto suelto
+                        nombre = "— " + prod.Nombre;
+                    }
+                }
+                vista.Add(new
+                {
                     Nombre = nombre,
-                    Cantidad = item.Cantidad
+                    Cantidad = item.Cantidad,
+                    EsCombo = esCombo,
+                    EsHijo = esProductoHijo,
+                    Clave = item.IdentificadorUnico
                 });
             }
 
-            repPedido.DataSource = mostrar;
+            repPedido.DataSource = vista;
             repPedido.DataBind();
         }
         protected void btnCatCombos_Click(object sender, EventArgs e)
@@ -125,36 +205,20 @@ namespace tpc_equipo_4a
             Button btn = (Button)sender;
             int idProducto = int.Parse(btn.CommandArgument);
 
-            // Producto
+            //Producto
             var item = Carrito.FirstOrDefault(x => x.ProductoId == idProducto);
 
-            if (item == null)
+            Carrito.Add(new ComandaItem
             {
-                Carrito.Add(new ComandaItem
-                {
-                    ProductoId = idProducto,
-                    Cantidad = 1,
-                    Comentario = ""
-                });
-            }
-            else
-            {
-                item.Cantidad++;
-            }
+                ProductoId = idProducto,
+                Cantidad = 1,
+                Comentario = "",
+                IdentificadorUnico = GenerarIdentificador(), 
+                ComboId = 0
+            });
 
             CargarPedidoActual();
         }
-        private void MostrarPedidoActual()
-        {
-            if (Session["PedidoActual"] == null)
-                return;
-
-            var lista = (List<ComandaItem>)Session["PedidoActual"];
-
-            //repPedidoActual.DataSource = lista;
-            //repPedidoActual.DataBind();
-        }
-
         protected void btnConfirmarPedido_Click(object sender, EventArgs e)
         {
             if (Carrito.Count == 0)
@@ -194,6 +258,55 @@ namespace tpc_equipo_4a
         private string GenerarNumeroComanda()
         {
             return DateTime.Now.ToString("HHmmss");
+        }
+        protected void btnConfirmarCombo_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(hfIdComboSeleccionado.Value))
+                return;
+
+            int idCombo = int.Parse(hfIdComboSeleccionado.Value);
+
+            string clave = GenerarIdentificador();
+
+            //Combo como item principal
+            Carrito.Add(new ComandaItem
+            {
+                ComboId = idCombo,
+                Cantidad = 1,
+                Comentario = "",
+                IdentificadorUnico = clave
+            });
+
+            //Un producto seleccionado por grupo
+            foreach (RepeaterItem item in repGruposCombo.Items)
+            {
+                var rbl = (RadioButtonList)item.FindControl("rblOpciones");
+                if (rbl != null && !string.IsNullOrEmpty(rbl.SelectedValue))
+                {
+                    int idProducto = int.Parse(rbl.SelectedValue);
+
+                    Carrito.Add(new ComandaItem
+                    {
+                        ProductoId = idProducto,
+                        Cantidad = 1,
+                        Comentario = "",
+                        ComboId = idCombo,
+                        IdentificadorUnico = clave
+                    });
+                }
+            }
+
+            //Actualizar vista del carrito
+            CargarPedidoActual();
+
+            //Ocultar overlay
+            ScriptManager.RegisterStartupScript(
+                this,
+                GetType(),
+                "OcultarPanelCombo",
+                "ocultarPanelCombo();",
+                true
+            );
         }
     }
 }

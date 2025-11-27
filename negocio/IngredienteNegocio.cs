@@ -64,7 +64,6 @@ namespace negocio
                 datosProd.ejecutarAccion();
                 datosProd.cerrarConexion();
 
-
                 //DESACTIVAR PRODUCTOS QUE CONTENGAN EL INGREDIENTE ?
             }
             catch (Exception ex)

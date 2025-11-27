@@ -34,7 +34,6 @@ namespace tpc_equipo_4a
 
                     detalles = detNegocio.DetallesPorCombo(idCombo);
                 }
-                //
                 //Asociación temporal para vistas
                 foreach (var p in productos)
                     p.DetallesCombo = detalles;

@@ -73,27 +73,5 @@ namespace tpc_equipo_4a
                 errorText.InnerHtml = ex.Message;
             }
         }
-
-
-
-        //protected void btnGuardar_Click(object sender, EventArgs e)
-        //{
-        //    UsuarioNegocio negocio = new UsuarioNegocio();
-        //    dominio.Usuario usuario = new dominio.Usuario();
-
-        //    //MODIFICACION
-        //    if (Session["UsuarioId"] != null)
-        //        usuario.Id = (int)Session["UsuarioId"];
-
-        //    usuario.NombreUsuario = txtNombreUsuario.Text;
-        //    usuario.Contraseña = txtContraseña.Text;            
-        //    usuario.Rol = new dominio.RolUsuario();
-        //    usuario.Rol.Id = int.Parse(ddlRol.SelectedValue);
-
-        //    negocio.guardar(usuario);
-
-        //    Session.Remove("UsuarioId");
-        //    Response.Redirect("Usuario.aspx");
-        //}
     }
 }
