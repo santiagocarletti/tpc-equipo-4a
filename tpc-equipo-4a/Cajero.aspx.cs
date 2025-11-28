@@ -12,9 +12,9 @@ namespace tpc_equipo_4a
 {
     public partial class Cajero : System.Web.UI.Page
     {
-        
+
         protected void btnToggleNotificaciones_Click(object sender, EventArgs e)
-        {            
+        {
             panelNotificaciones.Visible = !panelNotificaciones.Visible;
         }
         protected void repReportes_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -30,9 +30,9 @@ namespace tpc_equipo_4a
 
                     if (reportes != null && index >= 0 && index < reportes.Count)
                     {
-                        reportes[index].Estado = "Resuelto";                       
+                        reportes[index].Estado = "Resuelto";
                         Application["ReportesIngredientes"] = reportes;
-                        
+
                         CargarReportes();
                     }
                 }
@@ -54,18 +54,18 @@ namespace tpc_equipo_4a
                 {
                     reportes = (List<ReporteIngrediente>)Application["ReportesIngredientes"];
                 }
-                                
+
 
                 reportes = reportes
                     .OrderBy(r => r.Estado == "Resuelto" ? 1 : 0)
                     .ThenByDescending(r => r.FechaHoraReporte)
                     .ToList();
-                
+
                 int reportesPendientes = reportes.Count(r => r.Estado == "Pendiente");
-                                
+
                 lblContadorReportes.Text = reportesPendientes.ToString();
                 lblContadorReportes.Visible = reportesPendientes > 0;
-                                
+
                 if (reportes.Count > 0)
                 {
                     repReportes.DataSource = reportes;
@@ -84,7 +84,7 @@ namespace tpc_equipo_4a
                 System.Diagnostics.Debug.WriteLine("Error al cargar reportes: " + ex.Message);
                 lblContadorReportes.Visible = false;
             }
-        }        
+        }
 
         private string GenerarIdentificador()
         {
@@ -181,7 +181,7 @@ namespace tpc_equipo_4a
                 repCombosCaja.DataBind();
 
                 Session["listaCombos"] = ListaCombos;
-                               
+
                 SectorNegocio sectorNeg = new SectorNegocio();
                 List<Sector> sectores = sectorNeg.listar();
 
@@ -189,7 +189,7 @@ namespace tpc_equipo_4a
                 repSectores.DataBind();
             }
 
-            
+
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
@@ -217,6 +217,8 @@ namespace tpc_equipo_4a
             ProductoNegocio prodNeg = new ProductoNegocio();
             ComboNegocio comboNeg = new ComboNegocio();
 
+            bool limpiezaActiva = (bool)(Session["LimpiezaActiva"] ?? false);
+
             var vista = new List<dynamic>();
 
             foreach (var item in Carrito)
@@ -228,7 +230,7 @@ namespace tpc_equipo_4a
                 if (esCombo)
                 {
                     var combo = comboNeg.obtenerPorId(item.ComboId);
-                    
+
                     nombre = combo.Nombre;
                 }
                 else if (item.ProductoId > 0)
@@ -252,7 +254,8 @@ namespace tpc_equipo_4a
                     Cantidad = item.Cantidad,
                     EsCombo = esCombo,
                     EsHijo = esProductoHijo,
-                    Clave = item.IdentificadorUnico
+                    Clave = item.IdentificadorUnico,
+                    MostrarX = limpiezaActiva && esCombo
                 });
             }
 
@@ -319,8 +322,8 @@ namespace tpc_equipo_4a
             ComandaNegocio comNeg = new ComandaNegocio();
             ComandaItemNegocio itemNeg = new ComandaItemNegocio();
 
-            int idUsuario = (int)Session["UsuarioId"];   
-            int idEstadoInicial = 1;                     
+            int idUsuario = (int)Session["UsuarioId"];
+            int idEstadoInicial = 1;
             string numComanda = GenerarNumeroComanda();
 
             //Crear Comanda
@@ -402,6 +405,45 @@ namespace tpc_equipo_4a
                 true
             );
         }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Session["Carrito"] = null;
+            CargarPedidoActual();
+        }
+
+        protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            bool limpiezaActiva = (bool)(Session["LimpiezaActiva"] ?? false);
+            Session["LimpiezaActiva"] = !limpiezaActiva;
+            CargarPedidoActual();
+        }
+
+        protected void repPedido_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "Eliminar")
+            {
+                string clave = e.CommandArgument.ToString();
+
+                Carrito.RemoveAll(ci => ci.IdentificadorUnico == clave);
+
+                CargarPedidoActual();
+            }
+        }
+
+        private bool MostrarXs
+        {
+            get
+            {
+                return ViewState["MostrarXs"] != null && (bool)ViewState["MostrarXs"];
+            }
+            set
+            {
+                ViewState["MostrarXs"] = value;
+            }
+        }
+
+
         protected void btnLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();

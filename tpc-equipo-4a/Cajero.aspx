@@ -22,7 +22,7 @@
             padding-top: 2rem;
             padding-bottom: 4rem !important;
         }
-        
+
         .logout-btn {
             position: fixed;
             bottom: 20px;
@@ -30,23 +30,23 @@
             z-index: 2000;
         }
 
-        .logout-btn .btn {
-            background: #b71c1c;
-            color: white;
-            font-weight: 600;
-            border-radius: 12px;
-            padding: 10px 18px;
-            box-shadow: 0 4px 10px rgba(0,0,0,.2);
-        }
+            .logout-btn .btn {
+                background: #b71c1c;
+                color: white;
+                font-weight: 600;
+                border-radius: 12px;
+                padding: 10px 18px;
+                box-shadow: 0 4px 10px rgba(0,0,0,.2);
+            }
 
-        .logout-btn .btn:hover {
-            background: #9a0007;
-            transform: translateY(-2px);
-        }
-       
+                .logout-btn .btn:hover {
+                    background: #9a0007;
+                    transform: translateY(-2px);
+                }
+
         .notificacion-badge {
             position: fixed;
-            top: 110px;          
+            top: 110px;
             right: 25px;
             z-index: 1500;
         }
@@ -63,10 +63,10 @@
             transition: all .3s ease;
         }
 
-        .btn-notificacion:hover {
-            background-color: #c82333;
-            transform: scale(1.1);
-        }
+            .btn-notificacion:hover {
+                background-color: #c82333;
+                transform: scale(1.1);
+            }
 
         .badge-count {
             position: absolute;
@@ -84,7 +84,7 @@
             justify-content: center;
             align-items: center;
         }
-        
+
         .notificaciones-panel {
             position: fixed;
             top: 180px;
@@ -101,7 +101,7 @@
         .reporte-item:hover {
             background: #f5f5f5;
         }
-        
+
         .combo-overlay {
             position: fixed;
             top: 0;
@@ -130,7 +130,7 @@
 
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
+
     <div class="notificacion-badge">
         <asp:Button ID="btnToggleNotificaciones" runat="server"
             CssClass="btn btn-notificacion"
@@ -141,7 +141,7 @@
             Text="0"
             Visible="false"></asp:Label>
     </div>
-        
+
     <div id="panelNotificaciones" runat="server" class="notificaciones-panel" visible="false">
         <div class="p-3 border-bottom bg-danger text-white rounded-top">
             <h6 class="m-0 fw-bold">
@@ -151,42 +151,41 @@
         </div>
 
         <asp:Repeater ID="repReportes" runat="server" OnItemCommand="repReportes_ItemCommand">
-    <ItemTemplate>
-        <div class='reporte-item <%# (string)Eval("Estado") == "Pendiente" ? "reporte-nuevo" : "" %>'>
-            <div class="d-flex justify-content-between align-items-start">
-                <div class="flex-grow-1">
-                    <h6 class="mb-1 fw-bold text-danger">
-                        <i class="bi bi-egg-fill me-1"></i>
-                        <%# Eval("NombreIngrediente") %>
-                    </h6>
-                    <small class="text-muted">
-                        <i class="bi bi-geo-alt-fill"></i> <%# Eval("SectorOrigen") %>
-                    </small>
-                    <br />
-                    <small class="text-muted">
-                        <i class="bi bi-person-fill"></i> <%# Eval("UsuarioReporta") %>
-                    </small>
-                    <br />
-                    <small class="text-muted">
-                        <i class="bi bi-clock-fill"></i> <%# Eval("TiempoTranscurrido") %>
-                    </small>
-                </div>
+            <ItemTemplate>
+                <div class='reporte-item <%# (string)Eval("Estado") == "Pendiente" ? "reporte-nuevo" : "" %>'>
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1 fw-bold text-danger">
+                                <i class="bi bi-egg-fill me-1"></i>
+                                <%# Eval("NombreIngrediente") %>
+                            </h6>
+                            <small class="text-muted">
+                                <i class="bi bi-geo-alt-fill"></i><%# Eval("SectorOrigen") %>
+                            </small>
+                            <br />
+                            <small class="text-muted">
+                                <i class="bi bi-person-fill"></i><%# Eval("UsuarioReporta") %>
+                            </small>
+                            <br />
+                            <small class="text-muted">
+                                <i class="bi bi-clock-fill"></i><%# Eval("TiempoTranscurrido") %>
+                            </small>
+                        </div>
 
-                <div class="ms-2">
-                    <asp:Button ID="btnResolver" runat="server"
-                        CommandName="Resolver"
-                        CommandArgument='<%# Container.ItemIndex %>'
-                        CssClass='<%# (string)Eval("Estado") == "Pendiente" ? "btn btn-sm btn-success btn-resolver" : "d-none" %>'
-                        Text="Resolver"
-                        Visible='<%# (string)Eval("Estado") == "Pendiente" %>' />
-                    <span class='<%# (string)Eval("Estado") == "Resuelto" ? "badge bg-success" : "d-none" %>'>
-                        Resuelto
-                    </span>
+                        <div class="ms-2">
+                            <asp:Button ID="btnResolver" runat="server"
+                                CommandName="Resolver"
+                                CommandArgument='<%# Container.ItemIndex %>'
+                                CssClass='<%# (string)Eval("Estado") == "Pendiente" ? "btn btn-sm btn-success btn-resolver" : "d-none" %>'
+                                Text="Resolver"
+                                Visible='<%# (string)Eval("Estado") == "Pendiente" %>' />
+                            <span class='<%# (string)Eval("Estado") == "Resuelto" ? "badge bg-success" : "d-none" %>'>Resuelto
+                            </span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </ItemTemplate>
-</asp:Repeater>
+            </ItemTemplate>
+        </asp:Repeater>
 
 
         <div id="divSinReportes" runat="server" class="p-4 text-center text-muted" visible="false">
@@ -194,7 +193,7 @@
             <p class="mt-2 mb-0">No hay reportes pendientes</p>
         </div>
     </div>
-    
+
     <main class="container main-content fade-in">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="h2 fw-bold d-flex align-items-center gap-2">
@@ -307,16 +306,24 @@
                     </div>
                     <div class="card-body" style="max-height: 500px; overflow-y: auto;">
 
-                        <asp:Repeater ID="repPedido" runat="server">
+                        <asp:Repeater ID="repPedido" runat="server" OnItemCommand="repPedido_ItemCommand">
                             <ItemTemplate>
                                 <div class="mb-2">
-                                    <div class="d-flex justify-content-between">
+                                    <div class="d-flex justify-content-between align-items-center">
                                         <span class='<%# (bool)Eval("EsCombo") ? "fw-semibold text-dark" : (bool)Eval("EsHijo") ? "ms-3" : "" %>'>
                                             <%# Eval("Nombre") %>
                                         </span>
 
-                                        <span class="text-secondary small">x<%# Eval("Cantidad") %>
-                                        </span>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="text-secondary small">x<%# Eval("Cantidad") %></span>
+
+                                            <asp:Button ID="btnQuitar" runat="server"
+                                                Text="✕"
+                                                CommandName="Eliminar"
+                                                CommandArgument='<%# Eval("Clave") %>'
+                                                CssClass="btn btn-sm btn-outline-danger"
+                                                Visible='<%# Eval("MostrarX") %>' />
+                                        </div>
                                     </div>
                                 </div>
                             </ItemTemplate>
@@ -334,12 +341,14 @@
                                 <div class="col">
                                     <asp:Button ID="btnCancelar" runat="server"
                                         Text="Cancelar"
-                                        CssClass="btn btn-outline-danger w-100" />
+                                        CssClass="btn btn-outline-danger w-100"
+                                        OnClick="btnCancelar_Click" />
                                 </div>
                                 <div class="col">
                                     <asp:Button ID="btnLimpiar" runat="server"
                                         Text="Limpiar"
-                                        CssClass="btn btn-outline-secondary w-100" />
+                                        CssClass="btn btn-outline-secondary w-100"
+                                        OnClick="btnLimpiar_Click" />
                                 </div>
                             </div>
                         </div>
@@ -349,7 +358,7 @@
         </div>
     </main>
 
-    
+
     <div id="panelCombo" class="combo-overlay" style="display: none;">
         <div class="combo-box">
 
@@ -398,7 +407,7 @@
             document.getElementById('panelCombo').style.display = 'none';
         }
     </script>
-        
+
     <div class="logout-btn">
         <asp:Button ID="btnLogout" runat="server"
             Text="Cerrar sesión"
