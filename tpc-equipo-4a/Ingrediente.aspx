@@ -136,13 +136,6 @@
                     <span class="input-group-text bg-white border-end-0">
                         <span class="material-symbols-outlined text-primary" style="font-size: 1.25rem;">search</span>
                     </span>
-<%--                    <asp:TextBox
-                        ID="txtBuscar"
-                        runat="server"
-                        CssClass="form-control border-start-0"
-                        Placeholder="Buscar ingrediente."
-                        AutoPostBack="true"
-                        OnTextChanged="txtBuscar_TextChanged" />--%>
                 </div>
 
                 <div class="d-flex flex-wrap gap-2">

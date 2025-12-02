@@ -62,7 +62,6 @@ namespace tpc_equipo_4a
             repCombos.DataSource = comboNeg.listar();
             repCombos.DataBind();
         }
-
         protected void btnEditar_Click(object sender, EventArgs e)
         {
             LinkButton btn = (LinkButton)sender;
@@ -71,25 +70,10 @@ namespace tpc_equipo_4a
             Session["ComboId"] = idCombo;
             Response.Redirect("ComboEdicion.aspx");
         }
-
         protected void btnNuevoCombo_Click(object sender, EventArgs e)
         {
             Session.Remove("ComboId");
             Response.Redirect("ComboEdicion.aspx");
         }
-        //BOTON Y FUNCIONALIDAD DESACTIVADOS HASTA COMPLETAR O ELIMINAR
-        //protected void btnDuplicar_Click(object sender, EventArgs e)
-        //{
-        //    Button btn = (Button)sender;
-        //    int idCombo = Convert.ToInt32(btn.CommandArgument);
-
-        //    ComboNegocio negocio = new ComboNegocio();
-        //    negocio.duplicarCombo(idCombo);
-
-        //    repCombos.DataSource = negocio.listar();
-        //    repCombos.DataBind();
-        //}
-
-
     }
 }

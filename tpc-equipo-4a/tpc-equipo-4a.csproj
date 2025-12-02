@@ -99,7 +99,6 @@
     </Compile>
     <Compile Include="Cajero.aspx.cs">
       <DependentUpon>Cajero.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Cajero.aspx.designer.cs">
       <DependentUpon>Cajero.aspx</DependentUpon>

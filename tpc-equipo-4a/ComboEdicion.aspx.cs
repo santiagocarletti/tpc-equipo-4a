@@ -33,7 +33,7 @@ namespace tpc_equipo_4a
                         detalles = detNegocio.DetallesPorCombo(idCombo);
                     }
 
-                    // asociar detalles a cada producto
+                    //Asociar detalles a cada producto
                     foreach (var p in productos)
                         p.DetallesCombo = detalles;
 
@@ -46,7 +46,6 @@ namespace tpc_equipo_4a
                 }
             }
         }
-
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             try

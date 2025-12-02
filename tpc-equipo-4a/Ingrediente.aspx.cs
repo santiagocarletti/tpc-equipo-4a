@@ -22,18 +22,8 @@ namespace tpc_equipo_4a
                 Session.Add("listaIngredientes", ListaIngredientes);
                 repIngredientes.DataSource = Session["listaIngredientes"];
                 repIngredientes.DataBind();
-
-                //SectorNegocio secNegocio = new SectorNegocio();
-                //List<Sector> sectores = secNegocio.listar();
-
-                //sectores = sectores.Skip(1).Take(sectores.Count - 2).ToList();
-                //sectores.Insert(0, new Sector { Id = -1, Nombre = "Todos" });
-
-                //repSectores.DataSource = sectores;
-                //repSectores.DataBind();
             }
         }
-
         protected void btnNuevoIngrediente_Click(object sender, EventArgs e)
         {
             Session.Remove("IngredienteId");
@@ -44,7 +34,6 @@ namespace tpc_equipo_4a
         {
 
         }
-
         protected void btnEditar_Click(object sender, EventArgs e)
         {
             LinkButton btn = (LinkButton)sender;

@@ -43,6 +43,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesoDatos.cs" />
+    <Compile Include="Cocina.aspx.cs">
+      <DependentUpon>Cocina.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Cocina.aspx.designer.cs">
+      <DependentUpon>Cocina.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ComandaItemModificadorNegocio.cs" />
     <Compile Include="ComandaItemNegocio.cs" />
     <Compile Include="ComandaNegocio.cs" />
     <Compile Include="ComboDetalleNegocio.cs" />
@@ -67,6 +75,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Cocina.aspx" />
     <Content Include="Script\COCINA_DB.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

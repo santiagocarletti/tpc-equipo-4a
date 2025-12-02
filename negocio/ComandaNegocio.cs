@@ -11,7 +11,7 @@ namespace negocio
     {
         public int AgregarYDevolverId(Comanda c)
         {
-            int estadoInicial = 3;
+            int estadoInicial = 5;
             //En preparación
 
             AccesoDatos datos = new AccesoDatos();
@@ -21,7 +21,6 @@ namespace negocio
 
                 datos.setearParametro("@num", c.NumeroComanda);
                 datos.setearParametro("@fecha", c.FechaCreacion);
-                //datos.setearParametro("@estado", c.EstadoId);
                 datos.setearParametro("@estado", estadoInicial);
                 datos.setearParametro("@usuario", c.UsuarioId);
 

@@ -16,7 +16,6 @@ namespace negocio
 
             try
             {
-                //datos.setearConsulta("SELECT CD.Id AS IdComboDetalle, CD.IdCombo, P.Nombre AS NombreProducto, CD.IdProducto, CD.Cantidad AS CantidadProducto FROM ComboDetalles CD LEFT JOIN Productos P ON CD.IdProducto = P.Id WHERE CD.IdCombo = @idCombo");
                 datos.setearConsulta(@"SELECT CD.Id AS IdComboDetalle, CD.IdCombo, CD.IdProducto, CD.Cantidad AS CantidadProducto, P.Nombre AS NombreProducto, P.IdGrupo, G.Nombre AS NombreGrupo FROM ComboDetalles CD INNER JOIN Productos P ON CD.IdProducto = P.Id LEFT JOIN GruposProducto G ON P.IdGrupo = G.Id WHERE CD.IdCombo = @idCombo");
 
                 datos.setearParametro("@idCombo", idCombo);

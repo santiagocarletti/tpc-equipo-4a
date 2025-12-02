@@ -13,7 +13,6 @@ namespace tpc_equipo_4a
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (Session["Usuario"] != null)
             {
                 var user = (dominio.Usuario)Session["Usuario"];
@@ -35,10 +34,8 @@ namespace tpc_equipo_4a
                 return;
             }
 
-
             Session["Usuario"] = usuario;
             Response.Redirect(usuario.Rol.PaginaInicio, false);
         }
-
     }
 }

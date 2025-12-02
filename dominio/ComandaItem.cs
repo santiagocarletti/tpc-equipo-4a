@@ -25,5 +25,14 @@ namespace dominio
         public List<ComandaItemModificador> Modificadores { get; set; } = new List<ComandaItemModificador>();
         //Para carrito
         public string IdentificadorUnico { get; set; }
+        //Para edición en Caja
+        public List<int> IngredientesSeleccionados { get; set; } = new List<int>();
+        //Para agrupar hijos con su combo
+        public string IdentificadorPadre { get; set; }
+        //Para ComandaItemModificadores
+        public List<string> ModificadoresTexto { get; set; } = new List<string>();
+        //Para persistir en el editor de Caja, las modificaciones antes de guardar en BD
+        public Dictionary<int, int> CantidadesIngredientes { get; set; } = new Dictionary<int, int>();
+
     }
 }

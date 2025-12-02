@@ -109,7 +109,6 @@ namespace negocio
             }
             finally { datos.cerrarConexion(); }
         }
-
         public void Eliminar(int id)
         {
             AccesoDatos datos = new AccesoDatos();

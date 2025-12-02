@@ -46,12 +46,10 @@ namespace tpc_equipo_4a
                 }
             }
         }
-
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-
                 Validaciones.ValidarTexto(txtNombre, "Nombre del producto");
                 Validaciones.ValidarNombre(txtNombre.Text.Trim());
                 Validaciones.ValidarDropDown(ddlSector, "Sector");
@@ -81,7 +79,6 @@ namespace tpc_equipo_4a
                     }
                 }
 
-
                 ProductoNegocio prodNeg = new ProductoNegocio();
                 List<dominio.Producto> productos = prodNeg.listar();
 
@@ -103,7 +100,8 @@ namespace tpc_equipo_4a
 
 
                 ProductoIngredienteNegocio pinNeg = new ProductoIngredienteNegocio();
-                int idProducto = idActual ?? 0; // Si es nuevo = 0
+                int idProducto = idActual ?? 0;
+                //Si es nuevo = 0
 
                 dominio.Producto producto = new dominio.Producto
                 {
@@ -171,12 +169,10 @@ namespace tpc_equipo_4a
                 MostrarError(ex.Message);
             }
         }
-
         private void CargarDropdowns()
         {
             try
-            {
-                
+            {                
                 SectorNegocio secNegocio = new SectorNegocio();
                 List<Sector> sectores = secNegocio.listar();
 
@@ -200,7 +196,6 @@ namespace tpc_equipo_4a
                 MostrarError("Error al cargar dropdowns: " + ex.Message);
             }
         }
-
         private void CargarIngredientes()
         {
             try

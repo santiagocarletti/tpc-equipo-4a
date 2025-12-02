@@ -43,18 +43,16 @@ namespace tpc_equipo_4a
                 }
             }
         }
-
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-
                 Validaciones.ValidarTexto(txtNombre, "Nombre del ingrediente");
                 Validaciones.ValidarNombre(txtNombre.Text.Trim());
                 Validaciones.ValidarDropDown(ddlSector, "Sector");
                 int minutosPreparacion = Validaciones.ValidarMinutosPreparacion(txtMinutos);
 
-                // 5. Validar que el nombre no se repita
+                //Validar que el nombre no se repita
                 IngredienteNegocio negocio = new IngredienteNegocio();
                 List<dominio.Ingrediente> ingredientes = negocio.listar();
 
@@ -98,7 +96,6 @@ namespace tpc_equipo_4a
                 MostrarError(ex.Message);
             }
         }
-
         private void CargarDropdownSector()
         {
             try
@@ -111,7 +108,7 @@ namespace tpc_equipo_4a
                 ddlSector.DataValueField = "Id";
                 ddlSector.DataBind();
 
-                // Agregar opción por defecto al inicio
+                //Agregar opción por defecto al inicio
                 ddlSector.Items.Insert(0, new ListItem("-- Seleccione Sector --", "-1"));
             }
             catch (Exception ex)
@@ -119,7 +116,6 @@ namespace tpc_equipo_4a
                 MostrarError("Error al cargar sectores: " + ex.Message);
             }
         }
-
         private void MostrarError(string mensaje)
         {
             errorText.InnerText = mensaje;

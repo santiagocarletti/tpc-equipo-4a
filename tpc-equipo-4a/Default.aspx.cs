@@ -15,7 +15,7 @@ namespace tpc_equipo_4a
         {
             //Para inicio de Comandas en Cajero. Cajero por defecto
             if (Session["UsuarioId"] == null)
-                Session["UsuarioId"] = 9;
+                Session["UsuarioId"] = 14;
         }
     }
 }

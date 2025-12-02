@@ -28,7 +28,6 @@ namespace tpc_equipo_4a
                 return;
             }
 
-
             var usuario = Session["Usuario"] as dominio.Usuario;
 
             if (usuario == null)

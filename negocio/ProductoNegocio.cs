@@ -83,7 +83,6 @@ namespace negocio
             }
             finally
             {
-                //datos.cerrarConexion();
             }
         }
         public Producto obtenerPorId(int idProducto)
