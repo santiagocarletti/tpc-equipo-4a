@@ -20,7 +20,7 @@ namespace negocio
         }
         public AccesoDatos()
         {
-            conexionbd = new SqlConnection("server=.\\SQLEXPRESS; database=COCINA_DB_V0445; integrated security=true");
+            conexionbd = new SqlConnection("server=.\\SQLEXPRESS; database=COCINA_DB_V515; integrated security=true");
             comando = new SqlCommand();
         }
         public void setearConsulta(string consulta)
